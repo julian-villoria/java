@@ -1,13 +1,13 @@
 # Enunciado
 La inscripción es por tipo de torneo en un rango de fechas determinadas.
 
-#Torneo
+# Torneo
 
 Los tipos de torneos pueden ser eliminatorios o por puntaje. 
 
 Los torneos pueden ser por país, por continente o a nivel mundial.
 
-##Torneo por puntaje
+## Torneo por puntaje
 Se puede inscribir cualquiera.
 
 Los torneos por puntaje van a tener una determinada cantidad de partidas en un rango  de tiempo establecido. Los tres mejores van a ser los jugadores con la mayor cantidad de puntos finalizado el periodo de competencia.
@@ -20,7 +20,7 @@ Los torneos eliminatorios van a tener un periodo de clasificación en el que los
 
 Los jugadores están divididos por zonas o grupos (de cantidad ilimitada de participantes o por cupo) y clasifican los primeros 2 de cada grupo. Para luego enfrentarse desde octavos hasta una final. 
 
-##Jugadores
+## Jugadores
 
 Se dividen por tipo (amateur y profesional).
 
@@ -31,7 +31,7 @@ El jugador, realizará una partida de práctica que le indicará el nivel en el 
 
 
 
-##Caso de uso complejo (Nivel resumen)    Denuncia
+## Caso de uso complejo (Nivel resumen)    Denuncia
 los componen el caso de uso Reportar Jugador y el caso de Revisar Denuncia
 
 CUU Reportar Jugador: Un jugador puede reportar a otro en cualquier momento desde la inscripción hasta el final de la competencia.
@@ -40,10 +40,10 @@ CUU Revisar denuncia: Los administradores reciben una denuncia a un jugador con 
 
 CUR Evaluar denuncia del Jugador 
 
-##Caso de uso complejo (Nivel resumen)    Todo el torneo
+## Caso de uso complejo (Nivel resumen)    Todo el torneo
 
 
-##Niveles de usuario
+## Niveles de usuario
 Administrador (Todos los permisos)
 Jugador(Sólo abmc de jugador e inscripción)
 Encargado de lista (Solo ver puntajes y publicarlos)
