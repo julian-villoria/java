@@ -28,8 +28,11 @@ Un jugador no puede jugar más de una partida en una misma fecha y hora (a la ve
 
 El jugador, realizará una partida de práctica que le indicará el nivel en el que podrá anotarse al torneo.
 
+El jugador, realizará una partida de práctica que le indicará el nivel en el que podrá anotarse al torneo.
 
+Al finalizar cada torneo, vamos a sumar los puntajes de cada participante en las fechas que se realizó dicho torneo y almacenar el puntaje total en la tabla nivel por juego. 
 
+Cuando el jugador reuna la cantidad de puntos necesaria en un juego, se subirá de nivel.
 
 ## Caso de uso complejo (Nivel resumen)    Denuncia
 los componen el caso de uso Reportar Jugador y el caso de Revisar Denuncia
