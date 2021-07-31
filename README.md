@@ -44,8 +44,11 @@ CUR Evaluar denuncia del Jugador
 
 
 ## Niveles de usuario
+
 Administrador (Todos los permisos)
+
 Jugador(Sólo abmc de jugador e inscripción)
+
 Encargado de lista (Solo ver puntajes y publicarlos)
 
 
