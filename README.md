@@ -56,7 +56,8 @@ Encargado de lista (Solo ver puntajes y publicarlos)
 
 
 # DER1
-![image](https://user-images.githubusercontent.com/64239565/127723218-47d72a7a-904f-450e-817a-229d1bc5613e.png)
+![image](https://user-images.githubusercontent.com/64239565/127723889-43718bb7-a79c-4c42-9814-039742540046.png)
+
 
 
 
