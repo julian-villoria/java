@@ -38,11 +38,6 @@ public class ServletPeriodoInscripcion extends HttpServlet {
 		LinkedList<PeriodoInscripcion> data = new LinkedList<PeriodoInscripcion>(); 
 		data = dip.list();
 		request.setAttribute("data", data);
-		/*int id = Integer.parseInt(request.getParameter("id"));
-		if(id == 0) {
-			System.out.println("testing id");
-		}
-		*/
 		getServletContext().getRequestDispatcher("/jsp/PeriodoInscripcion.jsp").forward(request, response);
 	}
 

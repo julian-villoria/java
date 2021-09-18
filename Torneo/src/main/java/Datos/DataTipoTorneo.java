@@ -5,17 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.LinkedList;
 
-import Entidades.PeriodoInscripcion;
+import Entidades.TipoTorneo;
 
-public class DataPeriodoInscripcion {
-	
+public class DataTipoTorneo {
+
 	// Listar 
-	public LinkedList<PeriodoInscripcion> list(){
+	public LinkedList<TipoTorneo> list(){
 		
-		LinkedList<PeriodoInscripcion> periodos= new LinkedList<PeriodoInscripcion>();
+		LinkedList<TipoTorneo> tipos= new LinkedList<TipoTorneo>();
 		Statement stmt = null;
 		ResultSet rs = null;
 		Connection conn = null;
@@ -26,17 +25,15 @@ public class DataPeriodoInscripcion {
 			
 			// Ejecutar querys
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM PeriodoInscripcion");
+			rs = stmt.executeQuery("SELECT * FROM tipo_torneo");
 			
 			while(rs.next()) /*Empieza apuntando en -1*/ {
 				
-				PeriodoInscripcion pi = new PeriodoInscripcion();
+				TipoTorneo tt = new TipoTorneo();
 				
-				pi.setId(rs.getInt("id"));
-				pi.setFechaDesde(rs.getObject("fecha_desde", LocalDate.class));
-				pi.setFechaHasta(rs.getObject("fecha_hasta", LocalDate.class));
-				
-				periodos.add(pi);
+				tt.setId(rs.getInt("id"));
+				tt.setDenominacion(rs.getString("denominacion"));
+				tipos.add(tt);
 			}
 			
 		//cerrar conexion
@@ -56,13 +53,13 @@ public class DataPeriodoInscripcion {
 			}
 		}
 		
-		return periodos;
+		return tipos;
 	}
 	
 	//Búsqueda
-	public PeriodoInscripcion search(int id) {
+	public TipoTorneo search(String denominacion) {
 		
-		PeriodoInscripcion pi = null;
+		TipoTorneo tt = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -71,11 +68,11 @@ public class DataPeriodoInscripcion {
 			// conexion
 			conn = ConectionFactory.getConnection();
 			
-			stmt = conn.prepareStatement("SELECT * FROM PeriodoInscripcion WHERE id=?");
+			stmt = conn.prepareStatement("SELECT * FROM tipo_torneo WHERE denominacion=?");
 			//setear parametros
-			stmt.setInt(1,id);
+			stmt.setString(1, denominacion);
 			
-			pi = new PeriodoInscripcion();
+			tt = new TipoTorneo();
 			
 			//resultados
 			rs = stmt.executeQuery();
@@ -83,9 +80,8 @@ public class DataPeriodoInscripcion {
 			//mapear
 			if(rs.next()) {
 				
-				pi.setId(rs.getInt("id"));
-				pi.setFechaDesde(rs.getObject("fecha_desde", LocalDate.class));
-				pi.setFechaHasta(rs.getObject("fecha_hasta", LocalDate.class));
+				tt.setId(rs.getInt("id"));
+				tt.setDenominacion(rs.getString("denominacion"));
 			}
 			
 			//cerrar conexion
@@ -105,17 +101,17 @@ public class DataPeriodoInscripcion {
 				e.printStackTrace();
 			}
 		}
-		return pi;
+		return tt;
 	}
 	
 	//cargar
-	public void create(LocalDate fechaDesde, LocalDate fechaHasta) {
+	public void create(int id, String denominacion) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		PeriodoInscripcion piNuevo = new PeriodoInscripcion();
-		piNuevo.setFechaDesde(fechaDesde);
-		piNuevo.setFechaHasta(fechaHasta);
+		TipoTorneo ttNuevo = new TipoTorneo();
+		ttNuevo.setId(id);
+		ttNuevo.setDenominacion(denominacion);
 		
 		try {
 			// crear conexion
@@ -123,20 +119,11 @@ public class DataPeriodoInscripcion {
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"INSERT INTO periodoinscripcion(fecha_desde, fecha_hasta) VALUES(?,?);", PreparedStatement.RETURN_GENERATED_KEYS);
+			"INSERT INTO tipo_torneo(id, denominacion) VALUES(?,?);");
 			
-			pstmt.setObject(1, piNuevo.getFechaDesde());
-			pstmt.setObject(2, piNuevo.getFechaHasta());
-			
-			
+			pstmt.setInt(1, ttNuevo.getId());
+			pstmt.setString(2, ttNuevo.getDenominacion());
 			pstmt.executeUpdate();
-			
-			//set id autoincremental
-			ResultSet keyResultSet=null;	
-			keyResultSet=pstmt.getGeneratedKeys();
-            if(keyResultSet!=null && keyResultSet.next()){
-            	piNuevo.setId(keyResultSet.getInt(1));
-            }
 			
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
@@ -165,11 +152,10 @@ public class DataPeriodoInscripcion {
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"DELETE FROM PeriodoInscripcion WHERE id = ?;" 
+			"DELETE FROM tipo_torneo WHERE id = ?;" 
 					);
 			
 			pstmt.setInt(1, id);
-			
 			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}
@@ -189,14 +175,13 @@ public class DataPeriodoInscripcion {
 	}
 	
 	//actualizar
-	public void update(int id, LocalDate fechaDesde, LocalDate fechaHasta) {
+	public void update(int id, String denominacion) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;
-		PeriodoInscripcion piNuevo = new PeriodoInscripcion();
-		piNuevo.setId(id);
-		piNuevo.setFechaDesde(fechaDesde);
-		piNuevo.setFechaHasta(fechaHasta);
+		TipoTorneo ttNuevo = new TipoTorneo();
+		ttNuevo.setId(id);
+		ttNuevo.setDenominacion(denominacion);
 		
 		try {
 			// crear conexion
@@ -204,12 +189,11 @@ public class DataPeriodoInscripcion {
 			
 			//query
 			pstmt = conn.prepareStatement(
-					"Update PeriodoInscripcion SET fecha_desde=?, fecha_hasta=? WHERE id=?;" 
+					"Update PeriodoInscripcion SET denominacion=? WHERE id=?;" 
 					);
 			
-			pstmt.setObject(1, piNuevo.getFechaDesde());
-			pstmt.setObject(2, piNuevo.getFechaHasta());
-			pstmt.setInt(3, piNuevo.getId());
+			pstmt.setObject(1, ttNuevo.getDenominacion());
+			pstmt.setInt(2, ttNuevo.getId());
 			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}
@@ -228,4 +212,5 @@ public class DataPeriodoInscripcion {
 		}
 		
 	}
+	
 }
