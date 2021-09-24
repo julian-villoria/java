@@ -8,6 +8,7 @@ public class Torneo {
 	private int intentos;
 	private int cupo;
 	private String ganador;
+	private float montoInsc;
 	private Juego juego;
 	private TipoTorneo tipoTorneo;
 	
@@ -53,6 +54,11 @@ public class Torneo {
 	public void setTipoTorneo(TipoTorneo tipoTorneo) {
 		this.tipoTorneo = tipoTorneo;
 	}
-	
+	public float getMontoInsc() {
+		return montoInsc;
+	}
+	public void setMontoInsc(float montoInsc) {
+		this.montoInsc = montoInsc;
+	}
 	
 }

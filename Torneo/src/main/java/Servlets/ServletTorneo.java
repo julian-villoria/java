@@ -41,14 +41,14 @@ public class ServletTorneo extends HttpServlet {
 		DataTorneo dt = new DataTorneo(); 
 		DataJuego dj = new DataJuego();
 		DataTipoTorneo dtt = new DataTipoTorneo();
-		LinkedList<Torneo> data = new LinkedList<Torneo>(); 
+		LinkedList<Torneo> dataTorneo = new LinkedList<Torneo>(); 
 		LinkedList<Juego> dataJuego = new LinkedList<Juego>();
 		LinkedList<TipoTorneo> dataTipoTorneo = new LinkedList<TipoTorneo>();
-		data = dt.list();
+		dataTorneo = dt.list();
 		dataJuego = dj.list();
 		dataTipoTorneo = dtt.list();
-		request.setAttribute("data", data);
-		request.setAttribute("juego", dataJuego);
+		request.setAttribute("Torneo", dataTorneo);
+		request.setAttribute("Juego", dataJuego);
 		request.setAttribute("TipoTorneo", dataTipoTorneo);
 		getServletContext().getRequestDispatcher("/jsp/Torneo.jsp").forward(request, response);
 	}
@@ -64,7 +64,8 @@ public class ServletTorneo extends HttpServlet {
 				&& request.getParameter("fechaFinNuevo") != null
 				&& request.getParameter("intentosNuevo") != null
 				&& request.getParameter("cupoNuevo") != null
-				&& request.getParameter("ganadorNuevo") != null) {
+				&& request.getParameter("ganadorNuevo") != null
+				&& request.getParameter("montoNuevo") != null) {
 			DataTorneo dt = new DataTorneo(); 
 			DataJuego dj = new DataJuego();
 			DataTipoTorneo dtt = new DataTipoTorneo();
@@ -80,7 +81,8 @@ public class ServletTorneo extends HttpServlet {
 			int intentos = Integer.parseInt(request.getParameter("intentosNuevo"));
 			int cupo = Integer.parseInt(request.getParameter("cupoNuevo"));
 			String ganador = request.getParameter("ganadorNuevo");
-			dt.create(j, tt, fechaInicioDate, fechaFinDate, intentos, cupo, ganador);
+			float montoInsc = Integer.parseInt(request.getParameter("montoNuevo"));
+			dt.create(j, tt, fechaInicioDate, fechaFinDate, intentos, cupo, ganador, montoInsc);
 			doGet(request, response);
 		}
 		if  (	request.getParameter("juegoActualizar") != null
@@ -89,7 +91,8 @@ public class ServletTorneo extends HttpServlet {
 				&& request.getParameter("fechaFinActualizar") != null
 				&& request.getParameter("intentosActualizar") != null
 				&& request.getParameter("cupoActualizar") != null
-				&& request.getParameter("ganadorActualizar") != null){
+				&& request.getParameter("ganadorActualizar") != null
+				&& request.getParameter("montoActualizar") != null){
 			DataTorneo dt = new DataTorneo(); 
 			DataJuego dj = new DataJuego();
 			DataTipoTorneo dtt = new DataTipoTorneo();
@@ -105,7 +108,8 @@ public class ServletTorneo extends HttpServlet {
 			int intentos = Integer.parseInt(request.getParameter("intentosActualizar"));
 			int cupo = Integer.parseInt(request.getParameter("cupoActualizar"));
 			String ganador = request.getParameter("ganadorActualizar");
-			dt.update(j, tt, fechaInicioDate, fechaFinDate, intentos, cupo, ganador);
+			float montoInsc = Integer.parseInt(request.getParameter("montoActualizar"));
+			dt.update(j, tt, fechaInicioDate, fechaFinDate, intentos, cupo, ganador, montoInsc);
 			doGet(request, response);
 		}
 		if(		request.getParameter("juegoEliminar") != null

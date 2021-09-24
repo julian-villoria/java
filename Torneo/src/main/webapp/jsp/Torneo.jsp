@@ -12,8 +12,8 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<% LinkedList<Torneo> data = (LinkedList<Torneo>)request.getAttribute("data"); %>
-<% LinkedList<Juego> dataJuego = (LinkedList<Juego>)request.getAttribute("juego"); %>
+<% LinkedList<Torneo> dataTorneo = (LinkedList<Torneo>)request.getAttribute("Torneo"); %>
+<% LinkedList<Juego> dataJuego = (LinkedList<Juego>)request.getAttribute("Juego"); %>
 <% LinkedList<TipoTorneo> dataTipo = (LinkedList<TipoTorneo>)request.getAttribute("TipoTorneo"); %>
 </head>
 <body>
@@ -31,11 +31,12 @@
                             <th scope="col">Cantidad de Intentos</th>
                         	<th scope="col">Cupo Inicial</th>
                         	<th scope="col">Ganador</th>
+                        	<th scope="col">Monto Inscripción</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% if (!data.isEmpty()) { %>
-                            <% for(Torneo t : data) { %>
+                        <% if (!dataTorneo.isEmpty()) { %>
+                            <% for(Torneo t : dataTorneo) { %>
                                 <tr>
                                     <td>
                                         <%= t.getJuego().getDenominacion() %>
@@ -57,6 +58,9 @@
                                     </td>
                                     <td>
                                         <%= t.getGanador() %>
+                                    </td>
+                                    <td>
+                                        <%= t.getMontoInsc() %>
                                     </td>
                                 </tr>
                             <% } %>
@@ -133,6 +137,10 @@
 			    <label for="ganadorNuevo">Ganador</label>
 			    <input type="text" class="form-control" id="ganadorNuevo" name="ganadorNuevo">
 			  </div>
+			  <div class="form-group">
+			    <label for="montoNuevo">Monto de Inscripción</label>
+			    <input type="text" class="form-control" id="montoNuevo" name="montoNuevo">
+			  </div>
 	      </div>
 	      <div class="modal-footer">
 	      	<button type="submit" class="btn btn-primary">Agregar</button>
@@ -192,8 +200,12 @@
 			    <input type="number" class="form-control" id="cupoActualizar" name="cupoActualizar">
 			  </div>
 			  <div class="form-group">
-			    <label for="GanadorActualizar">Ganador</label>
+			    <label for="ganadorActualizar">Ganador</label>
 			    <input type="text" class="form-control" id="ganadorActualizar" name="ganadorActualizar">
+			  </div>
+			  <div class="form-group">
+			    <label for="montoActualizar">Ganador</label>
+			    <input type="text" class="form-control" id="montoActualizar" name="montoActualizar">
 			  </div>
 			<div class="modal-footer">
 		      	<button type="submit" class="btn btn-primary">Actualizar</button>

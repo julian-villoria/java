@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import Entidades.Torneo;
 import Entidades.TipoTorneo;
 import Entidades.Juego;
+import Entidades.Jugador;
 
 public class DataTorneo {
 
@@ -28,7 +29,7 @@ public class DataTorneo {
 			
 			// Ejecutar querys
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT tt.id, tt.denominacion, j.id, j.denominacion, fecha_inicio, fecha_fin, intentos, cupo, ganador "
+			rs = stmt.executeQuery("SELECT tt.id, tt.denominacion, j.id, j.denominacion, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc "
 					+ "FROM torneos t INNER JOIN tipo_torneo tt ON t.id_tipo = tt.id INNER JOIN juegos j ON t.id_juego = j.id");
 			
 			while(rs.next()) /*Empieza apuntando en -1*/ {
@@ -46,6 +47,7 @@ public class DataTorneo {
 				t.setIntentos(rs.getInt("intentos"));
 				t.setCupo(rs.getInt("cupo"));
 				t.setGanador(rs.getString("ganador"));
+				t.setMontoInsc(rs.getFloat("monto_insc"));
 				t.setJuego(j);
 				t.setTipoTorneo(tt);
 				torneos.add(t);
@@ -135,7 +137,7 @@ public class DataTorneo {
 	}
 	
 	//cargar
-	public void create(Juego j, TipoTorneo tt, LocalDate fechaInicio, LocalDate fechaFin, int intentos, int cupo, String ganador) {
+	public void create(Juego j, TipoTorneo tt, LocalDate fechaInicio, LocalDate fechaFin, int intentos, int cupo, String ganador, float montoInsc) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -154,7 +156,7 @@ public class DataTorneo {
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"INSERT INTO torneos(id_juego, id_tipo, fecha_inicio, fecha_fin, intentos, cupo, ganador) VALUES(?,?,?,?,?,?,?)");
+			"INSERT INTO torneos(id_juego, id_tipo, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc) VALUES(?,?,?,?,?,?,?,?)");
 			
 			pstmt.setInt(1, tNuevo.getJuego().getId());
 			pstmt.setInt(2, tNuevo.getTipoTorneo().getId());
@@ -163,6 +165,7 @@ public class DataTorneo {
 			pstmt.setInt(5, tNuevo.getIntentos());
 			pstmt.setInt(6, tNuevo.getCupo());
 			pstmt.setString(7, tNuevo.getGanador());
+			pstmt.setDouble(7, montoInsc);
 			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}
@@ -217,7 +220,7 @@ public class DataTorneo {
 	}
 	
 	//actualizar
-	public void update(Juego j, TipoTorneo tt, LocalDate fechaInicio, LocalDate fechaFin, int intentos, int cupo, String ganador) {
+	public void update(Juego j, TipoTorneo tt, LocalDate fechaInicio, LocalDate fechaFin, int intentos, int cupo, String ganador, float montoInsc) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;
@@ -229,6 +232,7 @@ public class DataTorneo {
 		tNuevo.setIntentos(intentos);
 		tNuevo.setCupo(cupo);
 		tNuevo.setGanador(ganador);
+		tNuevo.setMontoInsc(montoInsc);
 		
 		try {
 			// crear conexion
@@ -237,7 +241,7 @@ public class DataTorneo {
 			//query
 			pstmt = conn.prepareStatement(
 			"Update torneos "
-			+ "SET fecha_fin=?, intentos=? , cupo=?, ganador=?"
+			+ "SET fecha_fin=?, intentos=? , cupo=?, ganador=?, monto_insc = ?"
 			+ "WHERE id_juego=? AND id_tipo=? AND fecha_inicio=?" 
 					);
 			
@@ -248,7 +252,8 @@ public class DataTorneo {
 			pstmt.setInt(2, tNuevo.getIntentos());
 			pstmt.setInt(3, tNuevo.getCupo());
 			pstmt.setString(4, tNuevo.getGanador());
-			pstmt.executeUpdate();
+			pstmt.setDouble(5, tNuevo.getMontoInsc());
+			pstmt.executeQuery();
 			
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
@@ -264,6 +269,67 @@ public class DataTorneo {
 				e.printStackTrace();
 			}
 		}
+		
+	}
+	
+	public Torneo getTorneoJugadorActual(Jugador jug) {
+		
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		Torneo t = new Torneo();
+		Juego j = new Juego();
+		TipoTorneo tt = new TipoTorneo();
+		
+		try {
+			// crear conexion
+			conn = ConectionFactory.getConnection();
+			
+			//query
+			pstmt = conn.prepareStatement(
+					"SELECT jue.id, jue.denominacion, tt.id, tt.denominacion, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc " +
+					"FROM inscripciones i " +
+					"INNER JOIN torneos t ON i.id_juego = t.id_juego AND i.id_tipo = t.id_tipo AND t.fecha_inicio = i.fecha_inicio_torneo "+
+					"INNER JOIN juegos jue ON jue.id = t.id_juego "+
+					"INNER JOIN tipo_torneo tt ON tt.id = t.id_tipo "+
+					"INNER JOIN jugadores j ON j.id = i.id_jugador " +
+					"WHERE (j.id = ?) AND (curdate() BETWEEN fecha_inicio AND fecha_fin)"
+					);
+			
+			pstmt.setInt(1, jug.getId());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				j.setId(rs.getInt("jue.id"));
+				j.setDenominacion(rs.getString("jue.denominacion"));
+				tt.setId(rs.getInt("tt.id"));
+				tt.setDenominacion(rs.getString("tt.denominacion"));
+				t.setFechaInicio(rs.getObject("fecha_inicio", LocalDate.class));
+				t.setFechaFin(rs.getObject("fecha_fin", LocalDate.class));
+				t.setIntentos(rs.getInt("intentos"));
+				t.setCupo(rs.getInt("cupo"));
+				t.setGanador(rs.getString("ganador"));
+				t.setMontoInsc(rs.getFloat("monto_insc"));
+				t.setJuego(j);
+				t.setTipoTorneo(tt);
+			}
+			
+			if(pstmt!=null) {pstmt.close();}
+			conn.close();
+			
+			
+		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+		}finally {
+			try {
+				if(pstmt!=null) {pstmt.close();}
+				conn.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return t;
 		
 	}
 	
