@@ -73,6 +73,65 @@ public class DataTorneo {
 		return torneos;
 	}
 	
+public LinkedList<Torneo> proximos(){
+		
+		LinkedList<Torneo> torneos= new LinkedList<Torneo>();
+		Statement stmt = null;
+		ResultSet rs = null;
+		Connection conn = null;
+		
+		try {
+			
+			conn = ConectionFactory.getConnection();
+			
+			// Ejecutar querys
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT tt.id, tt.denominacion, j.id, j.denominacion, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc "
+					+ "FROM torneos t "
+					+ "INNER JOIN tipo_torneo tt ON t.id_tipo = tt.id INNER JOIN juegos j ON t.id_juego = j.id "
+					+ "WHERE (t.fecha_inicio >= curdate() and ganador = 'Sin ganador') ");
+			
+			while(rs.next()) /*Empieza apuntando en -1*/ {
+				
+				Torneo t = new Torneo();
+				Juego j = new Juego();
+				TipoTorneo tt = new TipoTorneo();
+				
+				j.setId(rs.getInt("j.id"));
+				j.setDenominacion(rs.getString("j.denominacion"));
+				tt.setId(rs.getInt("tt.id"));
+				tt.setDenominacion(rs.getString("tt.denominacion"));
+				t.setFechaInicio(rs.getObject("fecha_inicio", LocalDate.class));
+				t.setFechaFin(rs.getObject("fecha_fin", LocalDate.class));
+				t.setIntentos(rs.getInt("intentos"));
+				t.setCupo(rs.getInt("cupo"));
+				t.setGanador(rs.getString("ganador"));
+				t.setMontoInsc(rs.getFloat("monto_insc"));
+				t.setJuego(j);
+				t.setTipoTorneo(tt);
+				torneos.add(t);
+			}
+			
+		//cerrar conexion
+		if(rs!=null) {rs.close();}
+		if(stmt!=null) {stmt.close();}
+		conn.close();
+		
+		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				conn.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return torneos;
+	}
+	
 	//Búsqueda
 	public Torneo search(int idJuego, int idTipo, LocalDate fechaInicio) {
 		
@@ -165,7 +224,7 @@ public class DataTorneo {
 			pstmt.setInt(5, tNuevo.getIntentos());
 			pstmt.setInt(6, tNuevo.getCupo());
 			pstmt.setString(7, tNuevo.getGanador());
-			pstmt.setDouble(7, montoInsc);
+			pstmt.setDouble(8, montoInsc);
 			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}

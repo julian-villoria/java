@@ -32,7 +32,12 @@ public class ServletLogin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		HttpSession session = request.getSession(true);
+		if( session.getAttribute("jugador") == null ) {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}else {
+			response.getWriter().append("<h1>Ya estás logueado</h1>");
+		}
 	}
 
 	/**

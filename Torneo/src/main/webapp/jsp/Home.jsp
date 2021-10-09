@@ -29,14 +29,6 @@
             </div>
         </nav>
         <!-- Header-->
-        <% Jugador j = (Jugador)session.getAttribute("jugador"); %> 
-        <% if(j != null){ %>
-        	<h1> <%= j.getId() %> </h1>
-        	<h1> <%= j.getUsuario() %> </h1>
-        	<h1> <%= j.getContraseña() %> </h1>
-        	<h1> <%= j.getNombre() %> </h1>
-        	<h1> <%= j.getApellido() %> </h1>
-        <% } %>
         <header class="py-5">
             <div class="container px-lg-5">
                 <div class="p-4 p-lg-5 bg-light rounded-3 text-center">

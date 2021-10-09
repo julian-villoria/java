@@ -52,6 +52,7 @@ public class ServletPartida extends HttpServlet {
 		Juego juego = new Juego();
 		t = dt.getTorneoJugadorActual(jugador);
 		juego = t.getJuego();
+		System.out.println(t.getJuego().getDenominacion());
 		int puntos = Integer.parseInt(request.getParameter("puntos"));
 		LocalDateTime fechaHora = LocalDateTime.now();
 		dp.create(fechaHora, jugador, juego, puntos);
