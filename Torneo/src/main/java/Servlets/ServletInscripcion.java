@@ -57,7 +57,7 @@ public class ServletInscripcion extends HttpServlet {
 		int index = Integer.parseInt(request.getParameter("Inscribirse"));
 		HttpSession session = request.getSession(true);
 		Jugador j = (Jugador) session.getAttribute("jugador");
-		DataTorneo dt = new DataTorneo(); 
+		DataTorneo dt = new DataTorneo();
 		LinkedList<Torneo> torneos = dt.proximos(); 
 		DataInscripcion di = new DataInscripcion();
 		Torneo t = torneos.get(index);

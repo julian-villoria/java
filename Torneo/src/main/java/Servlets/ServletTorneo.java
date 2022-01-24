@@ -41,12 +41,9 @@ public class ServletTorneo extends HttpServlet {
 		DataTorneo dt = new DataTorneo(); 
 		DataJuego dj = new DataJuego();
 		DataTipoTorneo dtt = new DataTipoTorneo();
-		LinkedList<Torneo> dataTorneo = new LinkedList<Torneo>(); 
-		LinkedList<Juego> dataJuego = new LinkedList<Juego>();
-		LinkedList<TipoTorneo> dataTipoTorneo = new LinkedList<TipoTorneo>();
-		dataTorneo = dt.list();
-		dataJuego = dj.list();
-		dataTipoTorneo = dtt.list();
+		LinkedList<Torneo> dataTorneo = dt.list();
+		LinkedList<Juego> dataJuego = dj.list();
+		LinkedList<TipoTorneo> dataTipoTorneo = dtt.list();
 		request.setAttribute("Torneo", dataTorneo);
 		request.setAttribute("Juego", dataJuego);
 		request.setAttribute("TipoTorneo", dataTipoTorneo);
