@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Datos.DataJugador;
 import Entidades.Jugador;
 import Negocio.Login;
 
@@ -45,12 +44,12 @@ public class ServletLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(true);
 		Login l = new Login();
 		Jugador j = new Jugador();
 		String usuario = request.getParameter("usuario"); 
 		String contraseña = request.getParameter("contraseña");
 		j = l.validate(usuario, contraseña);
-		HttpSession session = request.getSession(true);
 		session.setAttribute("jugador", j);
 		response.sendRedirect("ServletHome");
 	}

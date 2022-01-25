@@ -1,0 +1,1 @@
+alter table tipo_torneo AUTO_INCREMENT=1;

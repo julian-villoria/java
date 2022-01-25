@@ -26,7 +26,7 @@ public class DataPeriodoInscripcion {
 			
 			// Ejecutar querys
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM PeriodoInscripcion");
+			rs = stmt.executeQuery("SELECT * FROM Periodo_Inscripcion");
 			
 			while(rs.next()) /*Empieza apuntando en -1*/ {
 				
@@ -71,7 +71,7 @@ public class DataPeriodoInscripcion {
 			// conexion
 			conn = ConectionFactory.getConnection();
 			
-			stmt = conn.prepareStatement("SELECT * FROM PeriodoInscripcion WHERE id=?");
+			stmt = conn.prepareStatement("SELECT * FROM Periodo_Inscripcion WHERE id=?");
 			//setear parametros
 			stmt.setInt(1,id);
 			
@@ -123,7 +123,7 @@ public class DataPeriodoInscripcion {
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"INSERT INTO periodoinscripcion(fecha_desde, fecha_hasta) VALUES(?,?);", PreparedStatement.RETURN_GENERATED_KEYS);
+			"INSERT INTO periodo_inscripcion(fecha_desde, fecha_hasta) VALUES(?,?);", PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setObject(1, piNuevo.getFechaDesde());
 			pstmt.setObject(2, piNuevo.getFechaHasta());
@@ -165,7 +165,7 @@ public class DataPeriodoInscripcion {
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"DELETE FROM PeriodoInscripcion WHERE id = ?;" 
+			"DELETE FROM Periodo_Inscripcion WHERE id = ?;" 
 					);
 			
 			pstmt.setInt(1, id);
@@ -204,7 +204,7 @@ public class DataPeriodoInscripcion {
 			
 			//query
 			pstmt = conn.prepareStatement(
-					"Update PeriodoInscripcion SET fecha_desde=?, fecha_hasta=? WHERE id=?;" 
+					"Update Periodo_Inscripcion SET fecha_desde=?, fecha_hasta=? WHERE id=?;" 
 					);
 			
 			pstmt.setObject(1, piNuevo.getFechaDesde());

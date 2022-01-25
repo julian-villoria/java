@@ -8,10 +8,9 @@ public abstract class ConectionFactory {
 	
 		 Class.forName("com.mysql.cj.jdbc.Driver");  
         // System.out.println("Driver successfully registered !");  
-         return DriverManager.getConnection("jdbc:mysql://localhost/factura?" +
-	                                   "user=jose&password=pepe");
+         return DriverManager.getConnection("jdbc:mysql://localhost/torneo?" +
+	                                   "user=root&password=");
 
-}
+	}
 	
 }
-
