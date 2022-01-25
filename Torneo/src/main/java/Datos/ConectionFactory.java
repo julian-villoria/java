@@ -10,7 +10,7 @@ public abstract class ConectionFactory {
         // System.out.println("Driver successfully registered !");  
          return DriverManager.getConnection("jdbc:mysql://localhost/torneo?" +
 	                                   "user=root&password=");
-// probando cambios 12314235
+// probando cambios 1234213532145afsadgsdag
 	}
 	
 }
