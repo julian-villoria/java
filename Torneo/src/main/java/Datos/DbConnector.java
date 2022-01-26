@@ -10,7 +10,7 @@ public class DbConnector {
 	private String port = "3306";
 	private String user = "sabrina";
 	private String password = "ilovehuddy1995";
-	private String db = "torneo";
+	private String db = "torneo1";
 	private int conectados = 0;
 	private Connection conn = null;
 	

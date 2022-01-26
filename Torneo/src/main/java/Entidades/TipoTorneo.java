@@ -3,19 +3,28 @@ package Entidades;
 public class TipoTorneo {
 	
 	private int id;
-	private String Denominacion;
 	
+	private String denominacion;
+
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setId(int id_tipo_torneo) {
+		this.id = id_tipo_torneo;
 	}
+
 	public String getDenominacion() {
-		return Denominacion;
+		return denominacion;
 	}
+
 	public void setDenominacion(String denominacion) {
-		Denominacion = denominacion;
+		this.denominacion = denominacion;
+	}
+
+	@Override
+	public String toString() {
+		return "TipoTorneo [id_tipo_torneo=" + id + ", denominacion=" + denominacion + "]";
 	}
 	
 }

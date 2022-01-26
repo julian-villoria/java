@@ -25,7 +25,7 @@ public class DataTorneo {
 		
 		try {
 			
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			// Ejecutar querys
 			stmt = conn.createStatement();
@@ -58,7 +58,7 @@ public class DataTorneo {
 		if(stmt!=null) {stmt.close();}
 		conn.close();
 		
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -82,7 +82,7 @@ public LinkedList<Torneo> proximos(){
 		
 		try {
 			
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			// Ejecutar querys
 			stmt = conn.createStatement();
@@ -117,7 +117,7 @@ public LinkedList<Torneo> proximos(){
 		if(stmt!=null) {stmt.close();}
 		conn.close();
 		
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -142,7 +142,7 @@ public LinkedList<Torneo> proximos(){
 		
 		try {
 			// conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			stmt = conn.prepareStatement("SELECT tt.id, tt.denominacion, j.id, j.denominacion, fecha_inicio, fecha_fin, intentos, cupo, ganador "
 					+ "FROM torneos INNER JOIN tipo_torneo tt ON t.id_tipo = tt.id INNER JOIN juegos j ON t.id_juego = j.id"
@@ -181,7 +181,7 @@ public LinkedList<Torneo> proximos(){
 			
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex){
+		}catch(SQLException ex){
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -211,7 +211,7 @@ public LinkedList<Torneo> proximos(){
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
@@ -230,7 +230,7 @@ public LinkedList<Torneo> proximos(){
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -250,7 +250,7 @@ public LinkedList<Torneo> proximos(){
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
@@ -265,7 +265,7 @@ public LinkedList<Torneo> proximos(){
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -295,7 +295,7 @@ public LinkedList<Torneo> proximos(){
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
@@ -318,7 +318,7 @@ public LinkedList<Torneo> proximos(){
 			conn.close();
 			
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -342,7 +342,7 @@ public LinkedList<Torneo> proximos(){
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
@@ -377,7 +377,7 @@ public LinkedList<Torneo> proximos(){
 			conn.close();
 			
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
