@@ -1,89 +1,154 @@
 package Datos;
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.LinkedList;
 import java.security.*;
 
 import Entidades.Jugador;
+import Entidades.Pais;
 
 public class DataJugador {
 	
-public void create(int id, String usuario, String contraseña, String nombre, String apellido) {
+public void nuevo(Jugador nuevoJugador) {
 		
 		Connection conn = null;
-		PreparedStatement pstmt = null;
-		Jugador jNuevo = new Jugador();
+		
+		ResultSet keyrs = null;
+		
+		PreparedStatement stmt = null;
 		
 		try {
-			// crear conexion
-			conn = ConectionFactory.getConnection();
-			MessageDigest md = MessageDigest.getInstance("SHA-256");
-			jNuevo.setId(id);
-			jNuevo.setUsuario(usuario);
-			jNuevo.setContraseña( md.digest(contraseña.getBytes()).toString() );
-			jNuevo.setNombre(nombre);
-			jNuevo.setApellido(apellido);
+			conn = DbConnector.getInstancia().getConn();
+			stmt = conn.prepareStatement("INSERT INTO jugadores (usuario, nombre, apellido, contraseña, id_pais) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, nuevoJugador.getUsuario());
+			stmt.setString(2, nuevoJugador.getNombre());
+			stmt.setString(3, nuevoJugador.getApellido());
+			stmt.setString(4, nuevoJugador.getContraseña());
+			stmt.setInt(5, nuevoJugador.getPais().getId());
+			stmt.executeUpdate();
+			keyrs = stmt.getGeneratedKeys();
 			
-			//query
-			pstmt = conn.prepareStatement(
-			"INSERT INTO jugadores(id, usuario, nombre, apellido, contraseña) VALUES(?,?,?,?,?)");
+			if (keyrs != null && keyrs.next()) {
+				
+				nuevoJugador.setId(keyrs.getInt(1));
+			}	
 			
-			pstmt.setInt(1, jNuevo.getId());
-			pstmt.setString(2, jNuevo.getUsuario());
-			pstmt.setString(3, jNuevo.getNombre());
-			pstmt.setString(4, jNuevo.getApellido());
-			pstmt.setString(5, jNuevo.getContraseña());
-			pstmt.executeUpdate();
-			
-			if(pstmt!=null) {pstmt.close();}
-			conn.close();
-			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchAlgorithmException ex) {
-			System.out.println("SQLException: " + ex.getMessage());
-		}finally {
-			try {
-			if(pstmt!=null) {pstmt.close();}
-			conn.close();
-			}catch(SQLException e){
-				e.printStackTrace();
-			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {	
+				if (conn != null) conn.close();
+				if (stmt != null) stmt.close();
+				if (keyrs != null) keyrs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 	}
 	
-	//borrar
-	public void delete(String usuario) {
-		
+//public void create(int id, String usuario, String contraseña, String nombre, String apellido) {
+//		
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		Jugador jNuevo = new Jugador();
+//		
+//		try {
+//			// crear conexion
+//			conn = DbConnector.getInstancia().getConn();
+//			MessageDigest md = MessageDigest.getInstance("SHA-256");
+//			jNuevo.setId(id);
+//			jNuevo.setUsuario(usuario);
+//			jNuevo.setContraseña( md.digest(contraseña.getBytes()).toString() );
+//			jNuevo.setNombre(nombre);
+//			jNuevo.setApellido(apellido);
+//			
+//			//query
+//			pstmt = conn.prepareStatement(
+//			"INSERT INTO jugadores(id, usuario, nombre, apellido, contraseña) VALUES(?,?,?,?,?)");
+//			
+//			pstmt.setInt(1, jNuevo.getId());
+//			pstmt.setString(2, jNuevo.getUsuario());
+//			pstmt.setString(3, jNuevo.getNombre());
+//			pstmt.setString(4, jNuevo.getApellido());
+//			pstmt.setString(5, jNuevo.getContraseña());
+//			pstmt.executeUpdate();
+//			
+//			if(pstmt!=null) {pstmt.close();}
+//			conn.close();
+//			
+//		}catch(SQLException | NoSuchAlgorithmException ex) {
+//			System.out.println("SQLException: " + ex.getMessage());
+//		}finally {
+//			try {
+//			if(pstmt!=null) {pstmt.close();}
+//			conn.close();
+//			}catch(SQLException e){
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+	
+	//Delete otro
+	public void borrar(Jugador borrarJugador) {
+	
 		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
+		PreparedStatement stmt = null;
+	
 		try {
-			// crear conexion
-			conn = ConectionFactory.getConnection();
-			
-			//query
-			pstmt = conn.prepareStatement(
-			"DELETE FROM jugadores WHERE usuario = ?" 
-					);
-			
-			pstmt.setString(1,usuario);
-			pstmt.executeUpdate();
-			
-			if(pstmt!=null) {pstmt.close();}
-			conn.close();
-			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-			System.out.println("SQLException: " + ex.getMessage());
-		}finally {
+			conn = DbConnector.getInstancia().getConn();
+			stmt = conn.prepareStatement("delete from tipo_torneo where usuario = ?");
+			stmt.setString(1, borrarJugador.getUsuario());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			try {
-			if(pstmt!=null) {pstmt.close();}
-			conn.close();
-			}catch(SQLException e){
-				e.printStackTrace();
-			}
+				if(conn != null) conn.close();
+				if(stmt != null) stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
-		
+	
 	}
+
+	//borrar
+//	public void delete(String usuario) {
+//		
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		
+//		try {
+//			// crear conexion
+//			conn = DbConnector.getInstancia().getConn();
+//			
+//			//query
+//			pstmt = conn.prepareStatement(
+//			"DELETE FROM jugadores WHERE usuario = ?" 
+//					);
+//			
+//			pstmt.setString(1,usuario);
+//			pstmt.executeUpdate();
+//			
+//			if(pstmt!=null) {pstmt.close();}
+//			conn.close();
+//			
+//		}catch(SQLException ex) {
+//			System.out.println("SQLException: " + ex.getMessage());
+//		}finally {
+//			try {
+//			if(pstmt!=null) {pstmt.close();}
+//			conn.close();
+//			}catch(SQLException e){
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//	}
 	
 	//actualizar
 	public void update(int id, String usuario, String contraseña, String nombre, String apellido) {
@@ -99,7 +164,7 @@ public void create(int id, String usuario, String contraseña, String nombre, Str
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
@@ -119,7 +184,7 @@ public void create(int id, String usuario, String contraseña, String nombre, Str
 			conn.close();
 			
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -141,7 +206,7 @@ public void create(int id, String usuario, String contraseña, String nombre, Str
 		
 		try {
 			// conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			stmt = conn.prepareStatement("SELECT * FROM Jugadores j WHERE j.usuario = ? AND j.contraseña = ?");
 			//setear parametros
@@ -166,7 +231,7 @@ public void create(int id, String usuario, String contraseña, String nombre, Str
 			
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex){
+		}catch(SQLException ex){
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -178,6 +243,53 @@ public void create(int id, String usuario, String contraseña, String nombre, Str
 			}
 		}
 		return j;
+	}
+	
+public LinkedList<Jugador> listaPais(String nombrePais) throws SQLException {
+		
+		Connection conn = null;
+		
+		ResultSet rs = null;
+		
+		PreparedStatement stmt = null;
+		
+		try {
+			
+			LinkedList<Jugador> jugadores = new LinkedList<Jugador>();
+			conn = DbConnector.getInstancia().getConn();
+			stmt = conn.prepareStatement("select * from jugadores j inner join paises p on p.id = j.id_pais where p.nombre = ?");
+			stmt.setString(1, nombrePais);
+			rs = stmt.executeQuery();
+			if (rs != null) {
+				
+				while (rs.next()) {
+					
+					Jugador jugador = new Jugador();
+					Pais pais = new Pais();
+					pais.setId(rs.getInt("id_pais"));
+					pais.setNombre("nombre");
+					jugador.setId(rs.getInt("id"));
+					jugador.setUsuario(rs.getString("usuario"));
+					jugador.setNombre(rs.getString("nombre"));
+					jugador.setApellido(rs.getString("apellido"));
+					jugador.setPais(pais);
+					jugadores.add(jugador);	
+				}
+			}
+			return jugadores;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+			if (rs != null) rs.close();
+			if (stmt!=null) stmt.close();
+			if (conn!=null) conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+	
 	}
 	
 }
