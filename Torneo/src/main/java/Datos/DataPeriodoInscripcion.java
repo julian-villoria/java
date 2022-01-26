@@ -13,7 +13,7 @@ import Entidades.PeriodoInscripcion;
 public class DataPeriodoInscripcion {
 	
 	// Listar 
-	public LinkedList<PeriodoInscripcion> list(){
+	public static LinkedList<PeriodoInscripcion> list(){
 		
 		LinkedList<PeriodoInscripcion> periodos= new LinkedList<PeriodoInscripcion>();
 		Statement stmt = null;
@@ -22,11 +22,11 @@ public class DataPeriodoInscripcion {
 		
 		try {
 			
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			// Ejecutar querys
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM PeriodoInscripcion");
+			rs = stmt.executeQuery("SELECT * FROM Periodo_Inscripcion");
 			
 			while(rs.next()) /*Empieza apuntando en -1*/ {
 				
@@ -44,7 +44,7 @@ public class DataPeriodoInscripcion {
 		if(stmt!=null) {stmt.close();}
 		conn.close();
 		
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -60,7 +60,7 @@ public class DataPeriodoInscripcion {
 	}
 	
 	//Búsqueda
-	public PeriodoInscripcion search(int id) {
+	public static PeriodoInscripcion search(int id) {
 		
 		PeriodoInscripcion pi = null;
 		Connection conn = null;
@@ -69,9 +69,9 @@ public class DataPeriodoInscripcion {
 		
 		try {
 			// conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
-			stmt = conn.prepareStatement("SELECT * FROM PeriodoInscripcion WHERE id=?");
+			stmt = conn.prepareStatement("SELECT * FROM Periodo_Inscripcion WHERE id=?");
 			//setear parametros
 			stmt.setInt(1,id);
 			
@@ -94,7 +94,7 @@ public class DataPeriodoInscripcion {
 			
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex){
+		}catch(SQLException ex){
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -109,7 +109,7 @@ public class DataPeriodoInscripcion {
 	}
 	
 	//cargar
-	public void create(LocalDate fechaDesde, LocalDate fechaHasta) {
+	public static void create(LocalDate fechaDesde, LocalDate fechaHasta) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -119,11 +119,11 @@ public class DataPeriodoInscripcion {
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"INSERT INTO periodoinscripcion(fecha_desde, fecha_hasta) VALUES(?,?);", PreparedStatement.RETURN_GENERATED_KEYS);
+			"INSERT INTO periodo_inscripcion(fecha_desde, fecha_hasta) VALUES(?,?);", PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setObject(1, piNuevo.getFechaDesde());
 			pstmt.setObject(2, piNuevo.getFechaHasta());
@@ -141,7 +141,7 @@ public class DataPeriodoInscripcion {
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -154,18 +154,18 @@ public class DataPeriodoInscripcion {
 	}
 	
 	//borrar
-	public void delete(int id) {
+	public static void delete(int id) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"DELETE FROM PeriodoInscripcion WHERE id = ?;" 
+			"DELETE FROM Periodo_Inscripcion WHERE id = ?;" 
 					);
 			
 			pstmt.setInt(1, id);
@@ -175,7 +175,7 @@ public class DataPeriodoInscripcion {
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -189,7 +189,7 @@ public class DataPeriodoInscripcion {
 	}
 	
 	//actualizar
-	public void update(int id, LocalDate fechaDesde, LocalDate fechaHasta) {
+	public static void update(int id, LocalDate fechaDesde, LocalDate fechaHasta) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;
@@ -200,11 +200,11 @@ public class DataPeriodoInscripcion {
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
-					"Update PeriodoInscripcion SET fecha_desde=?, fecha_hasta=? WHERE id=?;" 
+					"Update Periodo_Inscripcion SET fecha_desde=?, fecha_hasta=? WHERE id=?;" 
 					);
 			
 			pstmt.setObject(1, piNuevo.getFechaDesde());
@@ -216,7 +216,7 @@ public class DataPeriodoInscripcion {
 			conn.close();
 			
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {

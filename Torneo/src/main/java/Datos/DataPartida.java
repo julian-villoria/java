@@ -10,7 +10,7 @@ import Entidades.*;
 
 public class DataPartida {
 
-	public void create(LocalDateTime fechaHora, Jugador jugador, Juego juego, int puntaje) {
+	public static void create(LocalDateTime fechaHora, Jugador jugador, Juego juego, int puntaje) {
 			
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -22,7 +22,7 @@ public class DataPartida {
 			
 			try {
 				// crear conexion
-				conn = ConectionFactory.getConnection();
+				conn = DbConnector.getInstancia().getConn();
 				
 				//query
 				pstmt = conn.prepareStatement(
@@ -46,7 +46,7 @@ public class DataPartida {
 				if(pstmt!=null) {pstmt.close();}
 				conn.close();
 				
-			}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+			}catch(SQLException ex) {
 				System.out.println("SQLException: " + ex.getMessage());
 			}finally {
 				try {

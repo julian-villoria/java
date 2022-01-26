@@ -1,5 +1,6 @@
 <!DOCTYPE>
 <html>
+<%@ page import="Entidades.Jugador" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.*" %>
 <%@ page import="Entidades.Torneo" %>
@@ -69,7 +70,7 @@
                 </table>			
             </div>
         </div>
-     	<div>
+   <div>
 	        <!-- Button trigger modal -->
 			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#ModalAgregar">
 	 			Agregar

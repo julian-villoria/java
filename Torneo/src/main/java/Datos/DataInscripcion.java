@@ -1,6 +1,7 @@
 package Datos;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ public void create(Torneo t, Jugador jug, LocalDate fecha) {
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
@@ -38,7 +39,7 @@ public void create(Torneo t, Jugador jug, LocalDate fecha) {
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {

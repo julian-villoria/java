@@ -46,16 +46,14 @@ public class ServletPartida extends HttpServlet {
 		// TODO Auto-generated method stub
 		HttpSession session = (HttpSession) request.getSession();
 		Jugador jugador = (Jugador) session.getAttribute("jugador");
-		DataPartida dp = new DataPartida();
-		DataTorneo dt = new DataTorneo();
 		Torneo t = new Torneo();
 		Juego juego = new Juego();
-		t = dt.getTorneoJugadorActual(jugador);
+		t = DataTorneo.getTorneoJugadorActual(jugador);
 		juego = t.getJuego();
 		System.out.println(t.getJuego().getDenominacion());
 		int puntos = Integer.parseInt(request.getParameter("puntos"));
 		LocalDateTime fechaHora = LocalDateTime.now();
-		dp.create(fechaHora, jugador, juego, puntos);
+		DataPartida.create(fechaHora, jugador, juego, puntos);
 		getServletContext().getRequestDispatcher("/jsp/PartidaEnviada.jsp").forward(request, response);
 	}
 
