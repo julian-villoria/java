@@ -22,7 +22,7 @@ public class DataPeriodoInscripcion {
 		
 		try {
 			
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			// Ejecutar querys
 			stmt = conn.createStatement();
@@ -44,7 +44,7 @@ public class DataPeriodoInscripcion {
 		if(stmt!=null) {stmt.close();}
 		conn.close();
 		
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -69,7 +69,7 @@ public class DataPeriodoInscripcion {
 		
 		try {
 			// conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			stmt = conn.prepareStatement("SELECT * FROM Periodo_Inscripcion WHERE id=?");
 			//setear parametros
@@ -94,7 +94,7 @@ public class DataPeriodoInscripcion {
 			
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex){
+		}catch(SQLException ex){
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -119,7 +119,7 @@ public class DataPeriodoInscripcion {
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
@@ -141,7 +141,7 @@ public class DataPeriodoInscripcion {
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -161,7 +161,7 @@ public class DataPeriodoInscripcion {
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
@@ -175,7 +175,7 @@ public class DataPeriodoInscripcion {
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -200,7 +200,7 @@ public class DataPeriodoInscripcion {
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
@@ -216,7 +216,7 @@ public class DataPeriodoInscripcion {
 			conn.close();
 			
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {

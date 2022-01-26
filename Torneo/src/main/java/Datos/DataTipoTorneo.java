@@ -1,9 +1,6 @@
 package Datos;
 
 import java.sql.Connection;
-
-
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -174,7 +171,41 @@ public class DataTipoTorneo {
 //		}
 //	}
 	
-	//borrar
+	//borrarID
+	public void delete(int id) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			// crear conexion
+			conn = DbConnector.getInstancia().getConn();
+			
+			//query
+			pstmt = conn.prepareStatement(
+			"DELETE FROM tipo_torneo WHERE id = ?;" 
+					);
+			
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+			
+			if(pstmt!=null) {pstmt.close();}
+			conn.close();
+			
+		}catch(SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+		}finally {
+			try {
+			if(pstmt!=null) {pstmt.close();}
+			conn.close();
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	//borrarDenom
 	public void delete(String denominacionEliminar) {
 		
 		Connection conn = null;

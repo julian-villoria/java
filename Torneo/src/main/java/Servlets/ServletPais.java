@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Datos.DataPais;
-import Datos.DataTipoTorneo;
 import Entidades.Pais;
-import Entidades.TipoTorneo;
 
 /**
  * Servlet implementation class ServletPais
