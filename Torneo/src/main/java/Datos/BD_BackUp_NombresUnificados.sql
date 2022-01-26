@@ -79,10 +79,10 @@ DROP TABLE IF EXISTS `jugadores`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `jugadores` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `usuario` varchar(45) DEFAULT NULL,
+  `usuario` varchar(45) NOT NULL UNIQUE,
   `nombre` varchar(45) NOT NULL,
   `apellido` varchar(45) NOT NULL,
-  `contraseña` varchar(45) DEFAULT NULL,
+  `contraseña` varchar(45) NOT NULL,
   `id_pais` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_paises_idx` (`id_pais`),
