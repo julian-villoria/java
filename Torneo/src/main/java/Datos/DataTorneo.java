@@ -29,7 +29,7 @@ public class DataTorneo {
 			
 			// Ejecutar querys
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT tt.id, tt.denominacion, j.id, j.denominacion, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc "
+			rs = stmt.executeQuery("SELECT t.id_tipo, tt.id, tt.denominacion, j.id, j.denominacion, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc "
 					+ "FROM torneos t INNER JOIN tipo_torneo tt ON t.id_tipo = tt.id INNER JOIN juegos j ON t.id_juego = j.id");
 			
 			while(rs.next()) /*Empieza apuntando en -1*/ {

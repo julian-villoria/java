@@ -26,11 +26,10 @@ DROP TABLE IF EXISTS `dificultad`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `dificultad` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre_dificultad` varchar(45) DEFAULT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
   `rango_puntajes` varchar(45) DEFAULT NULL,
   `rango_victorias` varchar(45) DEFAULT NULL,
   `id_juego` int NOT NULL,
-  `dificultadcol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`,`id_juego`),
   KEY `FK_juegos_idx` (`id_juego`),
   CONSTRAINT `FK_juegos` FOREIGN KEY (`id_juego`) REFERENCES `juegos` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -49,7 +48,6 @@ CREATE TABLE `inscripciones` (
   `id_tipo` int NOT NULL,
   `id_juego` int NOT NULL,
   `fecha` date DEFAULT NULL,
-  `monto` double DEFAULT NULL,
   `fecha_inicio_torneo` DATE NOT NULL,
   PRIMARY KEY (`id_jugador`,`id_tipo`,`id_juego`,`fecha_inicio_torneo`),
   KEY `FK_torneo_insc_idx` (`id_jugador`,`id_juego`,`id_tipo`),
@@ -178,16 +176,17 @@ DROP TABLE IF EXISTS `torneos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 CREATE TABLE `torneos` (
   `id_juego` int NOT NULL,
-  `id_tipo_torneo` int NOT NULL,
+  `id_tipo` int NOT NULL,
   `fecha_inicio` date DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
-  `cant_intentos` int DEFAULT NULL,
+  `intentos` int DEFAULT NULL,
   `cupo` int DEFAULT NULL,
   `ganador` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id_juego`,`id_tipo_torneo`),
-  KEY `FK_tipo_torneo_idx` (`id_tipo_torneo`),
+  `monto_insc` float DEFAULT NULL,
+  PRIMARY KEY (`id_juego`,`id_tipo`),
+  KEY `FK_tipo_torneo_idx` (`id_tipo`),
   CONSTRAINT `FK_juegos_torneo` FOREIGN KEY (`id_juego`) REFERENCES `juegos` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `FK_tipo_torneo` FOREIGN KEY (`id_tipo_torneo`) REFERENCES `tipo_torneo` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `FK_tipo_torneo` FOREIGN KEY (`id_tipo`) REFERENCES `tipo_torneo` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
