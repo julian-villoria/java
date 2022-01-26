@@ -7,7 +7,14 @@ public class Jugador {
 	private String nombre;
 	private String apellido;
 	private String contraseña;
+	private Pais pais;
 	
+	public Pais getPais() {
+		return pais;
+	}
+	public void setPais(Pais pais) {
+		this.pais = pais;
+	}
 	public int getId() {
 		return id;
 	}

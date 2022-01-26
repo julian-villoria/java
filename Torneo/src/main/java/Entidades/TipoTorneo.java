@@ -3,19 +3,23 @@ package Entidades;
 public class TipoTorneo {
 	
 	private int id;
-	private String Denominacion;
-	
+	private String denominacion;
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getDenominacion() {
-		return Denominacion;
+		return denominacion;
 	}
+
 	public void setDenominacion(String denominacion) {
-		Denominacion = denominacion;
+		this.denominacion = denominacion;
 	}
+
 	
 }

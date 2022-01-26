@@ -1,6 +1,9 @@
 package Datos;
 
 import java.sql.Connection;
+
+
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +24,7 @@ public class DataTipoTorneo {
 		
 		try {
 			
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			// Ejecutar querys
 			stmt = conn.createStatement();
@@ -41,7 +44,7 @@ public class DataTipoTorneo {
 		if(stmt!=null) {stmt.close();}
 		conn.close();
 		
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -66,7 +69,7 @@ public class DataTipoTorneo {
 		
 		try {
 			// conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			stmt = conn.prepareStatement("SELECT * FROM tipo_torneo WHERE denominacion=?");
 			//setear parametros
@@ -90,7 +93,7 @@ public class DataTipoTorneo {
 			
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex){
+		}catch(SQLException ex){
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -104,64 +107,95 @@ public class DataTipoTorneo {
 		return tt;
 	}
 	
-	//cargar
-	public void create(int id, String denominacion) {
+	public void create(TipoTorneo nuevoTipo) {
 		
 		Connection conn = null;
-		PreparedStatement pstmt = null;
-		TipoTorneo ttNuevo = new TipoTorneo();
-		ttNuevo.setId(id);
-		ttNuevo.setDenominacion(denominacion);
+		
+		ResultSet keyrs = null;
+		
+		PreparedStatement stmt = null;
 		
 		try {
-			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
+			stmt = conn.prepareStatement("insert into tipo_torneo (denominacion) values (?)", Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, nuevoTipo.getDenominacion()); 
+			stmt.executeUpdate();
+			keyrs = stmt.getGeneratedKeys();
 			
-			//query
-			pstmt = conn.prepareStatement(
-			"INSERT INTO tipo_torneo(id, denominacion) VALUES(?,?);");
+			if (keyrs != null && keyrs.next()) {
+				
+				nuevoTipo.setId(keyrs.getInt(1));
+			}	
 			
-			pstmt.setInt(1, ttNuevo.getId());
-			pstmt.setString(2, ttNuevo.getDenominacion());
-			pstmt.executeUpdate();
-			
-			if(pstmt!=null) {pstmt.close();}
-			conn.close();
-			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-			System.out.println("SQLException: " + ex.getMessage());
-		}finally {
-			try {
-			if(pstmt!=null) {pstmt.close();}
-			conn.close();
-			}catch(SQLException e){
-				e.printStackTrace();
-			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {	
+				if (conn != null) conn.close();
+				if (stmt != null) stmt.close();
+				if (keyrs != null) keyrs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 	}
 	
+	//cargar
+//	public void create(String denominacion) {
+//		
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		TipoTorneo ttNuevo = new TipoTorneo();
+//		ttNuevo.setDenominacion(denominacion);
+//		ResultSet keyrs = null;
+//		
+//		try {
+//			conn = DbConnector.getInstancia().getConn();
+//			pstmt = conn.prepareStatement("insert into tipo_torneo (denominacion) values (?)", Statement.RETURN_GENERATED_KEYS);
+//			pstmt.setString(1, ttNuevo.getDenominacion()); 
+//			pstmt.executeUpdate();
+//			keyrs = pstmt.getGeneratedKeys();
+//			
+//			if (keyrs != null && keyrs.next()) {
+//				
+//				ttNuevo.setId(keyrs.getInt(1));
+//			}	
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {	
+//				if (conn != null) conn.close();
+//				if (pstmt != null) pstmt.close();
+//				if (keyrs != null) keyrs.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//		}
+//	}
+	
 	//borrar
-	public void delete(int id) {
+	public void delete(String denominacionEliminar) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"DELETE FROM tipo_torneo WHERE id = ?;" 
+			"DELETE FROM tipo_torneo WHERE denominacion = ?;" 
 					);
 			
-			pstmt.setInt(1, id);
+			pstmt.setString(1, denominacionEliminar);
 			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
@@ -185,11 +219,11 @@ public class DataTipoTorneo {
 		
 		try {
 			// crear conexion
-			conn = ConectionFactory.getConnection();
+			conn = DbConnector.getInstancia().getConn();
 			
 			//query
 			pstmt = conn.prepareStatement(
-					"Update PeriodoInscripcion SET denominacion=? WHERE id=?;" 
+					"Update tipo_torneo SET denominacion=? WHERE id=?;" 
 					);
 			
 			pstmt.setObject(1, ttNuevo.getDenominacion());
@@ -200,7 +234,7 @@ public class DataTipoTorneo {
 			conn.close();
 			
 			
-		}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
 			try {
