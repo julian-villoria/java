@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="Datos.DataTorneo"%>
+<%@ page import="Entidades.Jugador" %>
 <!DOCTYPE html>
 <html>
 <head>
+   	<%Jugador jugador = (Jugador) session.getAttribute("jugador");%>
 	<meta charset="ISO-8859-1">
 	<title>JavaScript Snake game</title>    
 	<style>
@@ -34,7 +36,23 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" aria-current="page" href="ServletHome">Home</a></li>
                     <li class="nav-item"><a class="nav-link active" href="ServletPartida">Partida</a></li>
-                    <li class="nav-item"><a class="nav-link" href="ServletLogin">Login</a></li>
+                    <%if(jugador == null){%>
+                    	<li class="nav-item">
+                    		<a class="nav-link" href="ServletLogin">
+                        		<%="Login"%>
+                    		</a>
+                    	</li>
+                    <%}else{%>
+					      <li class="nav-item dropdown">
+					        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					          <%= jugador.getUsuario() %>
+					        </a>
+					        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					          <a class="dropdown-item" href="ServletEditarPerfil">Editar Perfil</a>
+					          <a class="dropdown-item" href="ServletCerrarSesion">Cerrar Sesion</a>
+					        </div>
+					      </li>
+                    <%} %>
                 </ul>
             </div>
         </div>

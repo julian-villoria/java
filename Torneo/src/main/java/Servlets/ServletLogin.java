@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Entidades.Encrypt;
 import Entidades.Jugador;
 import Negocio.Login;
 
@@ -35,7 +36,7 @@ public class ServletLogin extends HttpServlet {
 		if( session.getAttribute("jugador") == null ) {
 			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 		}else {
-			response.getWriter().append("<h1>Ya estás logueado</h1>");
+			getServletContext().getRequestDispatcher("/jsp/Home.jsp").forward(request, response);
 		}
 	}
 
@@ -45,11 +46,10 @@ public class ServletLogin extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(true);
-		Login l = new Login();
 		Jugador j = new Jugador();
 		String usuario = request.getParameter("usuario"); 
 		String contraseña = request.getParameter("contraseña");
-		j = l.validate(usuario, contraseña);
+		j = Login.validate(usuario, contraseña);
 		session.setAttribute("jugador", j);
 		response.sendRedirect("ServletHome");
 	}

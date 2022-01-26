@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    	<%Jugador jugador = (Jugador) session.getAttribute("jugador");%>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -23,7 +24,23 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="ServletPartida">Partida</a></li>
-                        <li class="nav-item"><a class="nav-link " href="ServletLogin">Login</a></li>
+	                    <%if(jugador == null){%>
+	                    	<li class="nav-item">
+	                    		<a class="nav-link" href="ServletLogin">
+	                        		<%="Login"%>
+	                    		</a>
+	                    	</li>
+	                    <%}else{%>
+						      <li class="nav-item dropdown">
+						        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						          <%= jugador.getUsuario() %>
+						        </a>
+						        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						          <a class="dropdown-item" href="ServletEditarPerfil">Editar Perfil</a>
+						          <a class="dropdown-item" href="ServletCerrarSesion">Cerrar Sesion</a>
+						        </div>
+						      </li>
+	                    <%} %>
                     </ul>
                 </div>
             </div>
@@ -78,6 +95,15 @@
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-bootstrap"></i></div>
                                 <h2 class="fs-4 fw-bold">Tipo Torneo ABMC Simple</h2>
                                 <a href="ServletTipoTorneo" class="btn btn-primary btn-lg">Ir</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xxl-4 mb-5">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-bootstrap"></i></div>
+                                <h2 class="fs-4 fw-bold">Juego ABMC Simple</h2>
+                                <a href="ServletJuego" class="btn btn-primary btn-lg">Ir</a>
                             </div>
                         </div>
                     </div>

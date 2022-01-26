@@ -8,7 +8,7 @@ import Entidades.Juego;
 public class DataJuego {
 
 	// Listar 
-		public LinkedList<Juego> list(){
+		public static LinkedList<Juego> list(){
 			
 			LinkedList<Juego> juegos= new LinkedList<Juego>();
 			Statement stmt = null;
@@ -54,7 +54,7 @@ public class DataJuego {
 		}
 		
 		//Búsqueda
-		public Juego search(String denominacion) {
+		public static Juego search(String denominacion) {
 			
 			Juego j = null;
 			Connection conn = null;
@@ -101,8 +101,55 @@ public class DataJuego {
 			return j;
 		}
 		
+		public static Juego search(int idJuego) {
+			
+			Juego j = null;
+			Connection conn = null;
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+				// conexion
+				conn = DbConnector.getInstancia().getConn();
+				
+				stmt = conn.prepareStatement("SELECT * FROM Juegos WHERE id=?");
+				//setear parametros
+				stmt.setInt(1, idJuego);
+				
+				j = new Juego();
+				
+				//resultados
+				rs = stmt.executeQuery();
+				
+				//mapear
+				if(rs.next()) {
+					
+					j.setId(rs.getInt("id"));
+					j.setDenominacion(rs.getString("denominacion"));
+				}
+				
+				//cerrar conexion
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				
+				conn.close();
+				
+			}catch(SQLException ex){
+				System.out.println("SQLException: " + ex.getMessage());
+			}finally {
+				try {
+					if(rs!=null) {rs.close();}
+					if(stmt!=null) {stmt.close();}
+					conn.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return j;
+		}
+		
 		//cargar
-		public void create(int id, String denominacion) {
+		public static void create(int id, String denominacion) {
 			
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -138,7 +185,7 @@ public class DataJuego {
 		}
 		
 		//borrar
-		public void delete(int id) {
+		public static void delete(int id) {
 			
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -172,7 +219,7 @@ public class DataJuego {
 		}
 		
 		//actualizar
-		public void update(int id, String denominacion) {
+		public static void update(int id, String denominacion) {
 			
 			PreparedStatement pstmt = null;
 			Connection conn = null;

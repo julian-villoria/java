@@ -16,7 +16,7 @@ import Entidades.Jugador;
 public class DataTorneo {
 
 	// Listar 
-	public LinkedList<Torneo> list(){
+	public static LinkedList<Torneo> list(){
 		
 		LinkedList<Torneo> torneos= new LinkedList<Torneo>();
 		Statement stmt = null;
@@ -73,7 +73,7 @@ public class DataTorneo {
 		return torneos;
 	}
 	
-public LinkedList<Torneo> proximos(){
+public static LinkedList<Torneo> proximos(){
 		
 		LinkedList<Torneo> torneos= new LinkedList<Torneo>();
 		Statement stmt = null;
@@ -89,7 +89,7 @@ public LinkedList<Torneo> proximos(){
 			rs = stmt.executeQuery("SELECT tt.id, tt.denominacion, j.id, j.denominacion, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc "
 					+ "FROM torneos t "
 					+ "INNER JOIN tipo_torneo tt ON t.id_tipo = tt.id INNER JOIN juegos j ON t.id_juego = j.id "
-					+ "WHERE (t.fecha_inicio >= curdate() and ganador = 'Sin ganador') ");
+					+ "WHERE (t.fecha_inicio >= curdate() and ganador = 'Vacante') ");
 			
 			while(rs.next()) /*Empieza apuntando en -1*/ {
 				
@@ -133,7 +133,7 @@ public LinkedList<Torneo> proximos(){
 	}
 	
 	//Búsqueda
-	public Torneo search(int idJuego, int idTipo, LocalDate fechaInicio) {
+	public static Torneo search(int idJuego, int idTipo, LocalDate fechaInicio) {
 		
 		Torneo t = null;
 		Connection conn = null;
@@ -196,7 +196,7 @@ public LinkedList<Torneo> proximos(){
 	}
 	
 	//cargar
-	public void create(Juego j, TipoTorneo tt, LocalDate fechaInicio, LocalDate fechaFin, int intentos, int cupo, String ganador, float montoInsc) {
+	public static void create(Juego j, TipoTorneo tt, LocalDate fechaInicio, LocalDate fechaFin, int intentos, int cupo, String ganador, float montoInsc) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -243,7 +243,7 @@ public LinkedList<Torneo> proximos(){
 	}
 	
 	//borrar
-	public void delete(int idJuego, int idTipo, LocalDate fechaInicio) {
+	public static void delete(int idJuego, int idTipo, LocalDate fechaInicio) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -279,7 +279,7 @@ public LinkedList<Torneo> proximos(){
 	}
 	
 	//actualizar
-	public void update(Juego j, TipoTorneo tt, LocalDate fechaInicio, LocalDate fechaFin, int intentos, int cupo, String ganador, float montoInsc) {
+	public static void update(Juego j, TipoTorneo tt, LocalDate fechaInicio, LocalDate fechaFin, int intentos, int cupo, String ganador, float montoInsc) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;
@@ -331,7 +331,7 @@ public LinkedList<Torneo> proximos(){
 		
 	}
 	
-	public Torneo getTorneoJugadorActual(Jugador jug) {
+	public static Torneo getTorneoJugadorActual(Jugador jug) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;

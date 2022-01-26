@@ -8,8 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div style=height:100vh; widht:100%;>
+<div>
 	<h1 style=font-size:64px;text-align:center;line-height:50vh>Gracias por jugar</h1>
 	<a style=font-size:64px; href="ServletHome">Home</a>
+</div>
 </body>
 </html>

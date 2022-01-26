@@ -10,7 +10,7 @@ import Entidades.*;
 
 public class DataPartida {
 
-	public void create(LocalDateTime fechaHora, Jugador jugador, Juego juego, int puntaje) {
+	public static void create(LocalDateTime fechaHora, Jugador jugador, Juego juego, int puntaje) {
 			
 			Connection conn = null;
 			PreparedStatement pstmt = null;

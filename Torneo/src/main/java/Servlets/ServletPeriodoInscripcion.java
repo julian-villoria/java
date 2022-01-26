@@ -34,9 +34,8 @@ public class ServletPeriodoInscripcion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		DataPeriodoInscripcion dip = new DataPeriodoInscripcion(); 
 		LinkedList<PeriodoInscripcion> data = new LinkedList<PeriodoInscripcion>(); 
-		data = dip.list();
+		data = DataPeriodoInscripcion.list();
 		request.setAttribute("data", data);
 		getServletContext().getRequestDispatcher("/jsp/PeriodoInscripcion.jsp").forward(request, response);
 	}
@@ -47,31 +46,28 @@ public class ServletPeriodoInscripcion extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		if(request.getParameter("fechaDesdeNuevo") != null && request.getParameter("fechaHastaNuevo") != null) {
-			DataPeriodoInscripcion dip = new DataPeriodoInscripcion(); 
 			String fechaDesde = request.getParameter("fechaDesdeNuevo");
 			String fechaHasta = request.getParameter("fechaHastaNuevo");
 			DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			LocalDate fechaDesdeDate = LocalDate.parse(fechaDesde, dtFormat);
 			LocalDate fechaHastaDate = LocalDate.parse(fechaHasta, dtFormat);
-			dip.create(fechaDesdeDate, fechaHastaDate);
+			DataPeriodoInscripcion.create(fechaDesdeDate, fechaHastaDate);
 			doGet(request, response);
 		}
-		if  (request.getParameter("idActualizar") != null && 
+		if(		 request.getParameter("idActualizar") != null && 
 				 request.getParameter("fechaDesdeActualizar") != null &&
 				 request.getParameter("fechaHastaActualizar") != null
 				){
-				DataPeriodoInscripcion dip = new DataPeriodoInscripcion(); 
 				DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 				Integer idActualizar = Integer.parseInt(request.getParameter("idActualizar"));
 				LocalDate fechaDesdeDate = LocalDate.parse(request.getParameter("fechaDesdeActualizar"), dtFormat);
 				LocalDate fechaHastaDate = LocalDate.parse(request.getParameter("fechaHastaActualizar"), dtFormat);
-				dip.update(idActualizar, fechaDesdeDate, fechaHastaDate);
+				DataPeriodoInscripcion.update(idActualizar, fechaDesdeDate, fechaHastaDate);
 				doGet(request, response);
 			}
 		if(request.getParameter("idEliminar") != null) {
-			DataPeriodoInscripcion dip = new DataPeriodoInscripcion(); 
 			Integer idEliminar = Integer.parseInt(request.getParameter("idEliminar"));
-			dip.delete(idEliminar);
+			DataPeriodoInscripcion.delete(idEliminar);
 			doGet(request, response);
 		}
 		

@@ -198,3 +198,15 @@ CREATE TABLE `torneos` (
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+INSERT INTO `torneo`.`juegos` (`id`, `denominacion`) VALUES ('1', 'snake');
+INSERT INTO `torneo`.`juegos` (`id`, `denominacion`) VALUES ('2', 'tetris');
+
+INSERT INTO `torneo`.`tipo_torneo` (`id`, `denominacion`) VALUES ('1', 'Eliminatorias');
+INSERT INTO `torneo`.`tipo_torneo` (`id`, `denominacion`) VALUES ('2', 'Puntaje');
+
+INSERT INTO `torneo`.`paises` (`id`, `nombre`) VALUES ('2', 'Brasil');
+INSERT INTO `torneo`.`paises` (`id`, `nombre`) VALUES ('1', 'Argentina');
+
+INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('2', '2022-02-15', '2022-03-31');
+INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('1', '2022-01-25', '2022-03-30');

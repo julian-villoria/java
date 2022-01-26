@@ -12,7 +12,7 @@ import Entidades.TipoTorneo;
 public class DataTipoTorneo {
 
 	// Listar 
-	public LinkedList<TipoTorneo> list(){
+	public static LinkedList<TipoTorneo> list(){
 		
 		LinkedList<TipoTorneo> tipos= new LinkedList<TipoTorneo>();
 		Statement stmt = null;
@@ -57,7 +57,7 @@ public class DataTipoTorneo {
 	}
 	
 	//Búsqueda
-	public TipoTorneo search(String denominacion) {
+	public static TipoTorneo search(String denominacion) {
 		
 		TipoTorneo tt = null;
 		Connection conn = null;
@@ -104,7 +104,54 @@ public class DataTipoTorneo {
 		return tt;
 	}
 	
-	public void create(TipoTorneo nuevoTipo) {
+public static TipoTorneo search(int idTipo) {
+		
+		TipoTorneo tt = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// conexion
+			conn = DbConnector.getInstancia().getConn();
+			
+			stmt = conn.prepareStatement("SELECT * FROM tipo_torneo WHERE id=?");
+			//setear parametros
+			stmt.setInt(1, idTipo);
+			
+			tt = new TipoTorneo();
+			
+			//resultados
+			rs = stmt.executeQuery();
+			
+			//mapear
+			if(rs.next()) {
+				
+				tt.setId(rs.getInt("id"));
+				tt.setDenominacion(rs.getString("denominacion"));
+			}
+			
+			//cerrar conexion
+			if(rs!=null) {rs.close();}
+			if(stmt!=null) {stmt.close();}
+			
+			conn.close();
+			
+		}catch(SQLException ex){
+			System.out.println("SQLException: " + ex.getMessage());
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				conn.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return tt;
+	}
+	
+	public static void create(TipoTorneo nuevoTipo) {
 		
 		Connection conn = null;
 		
@@ -137,42 +184,41 @@ public class DataTipoTorneo {
 		}
 	}
 	
-	//cargar
-//	public void create(String denominacion) {
-//		
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		TipoTorneo ttNuevo = new TipoTorneo();
-//		ttNuevo.setDenominacion(denominacion);
-//		ResultSet keyrs = null;
-//		
-//		try {
-//			conn = DbConnector.getInstancia().getConn();
-//			pstmt = conn.prepareStatement("insert into tipo_torneo (denominacion) values (?)", Statement.RETURN_GENERATED_KEYS);
-//			pstmt.setString(1, ttNuevo.getDenominacion()); 
-//			pstmt.executeUpdate();
-//			keyrs = pstmt.getGeneratedKeys();
-//			
-//			if (keyrs != null && keyrs.next()) {
-//				
-//				ttNuevo.setId(keyrs.getInt(1));
-//			}	
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {	
-//				if (conn != null) conn.close();
-//				if (pstmt != null) pstmt.close();
-//				if (keyrs != null) keyrs.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//		}
-//	}
+	public void create(String denominacion) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		TipoTorneo ttNuevo = new TipoTorneo();
+		ttNuevo.setDenominacion(denominacion);
+		ResultSet keyrs = null;
+		
+		try {
+			conn = DbConnector.getInstancia().getConn();
+			pstmt = conn.prepareStatement("insert into tipo_torneo (denominacion) values (?)", Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, ttNuevo.getDenominacion()); 
+			pstmt.executeUpdate();
+			keyrs = pstmt.getGeneratedKeys();
+			
+			if (keyrs != null && keyrs.next()) {
+				
+				ttNuevo.setId(keyrs.getInt(1));
+			}	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {	
+				if (conn != null) conn.close();
+				if (pstmt != null) pstmt.close();
+				if (keyrs != null) keyrs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+	}
 	
 	//borrarID
-	public void delete(int id) {
+	public static void delete(int id) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -206,7 +252,7 @@ public class DataTipoTorneo {
 	}
 	
 	//borrarDenom
-	public void delete(String denominacionEliminar) {
+	public static void delete(String denominacionEliminar) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -240,7 +286,7 @@ public class DataTipoTorneo {
 	}
 	
 	//actualizar
-	public void update(int id, String denominacion) {
+	public static void update(int id, String denominacion) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;

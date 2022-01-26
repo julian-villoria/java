@@ -38,11 +38,10 @@ public class ServletInscripcion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		DataTorneo dt = new DataTorneo(); 
 		LinkedList<Torneo> dataTorneo = new LinkedList<Torneo>(); 
 		LinkedList<Juego> dataJuego = new LinkedList<Juego>();
 		LinkedList<TipoTorneo> dataTipoTorneo = new LinkedList<TipoTorneo>();
-		dataTorneo = dt.proximos();
+		dataTorneo = DataTorneo.proximos();
 		request.setAttribute("Torneo", dataTorneo);
 		request.setAttribute("Juego", dataJuego);
 		request.setAttribute("TipoTorneo", dataTipoTorneo);
@@ -57,8 +56,7 @@ public class ServletInscripcion extends HttpServlet {
 		int index = Integer.parseInt(request.getParameter("Inscribirse"));
 		HttpSession session = request.getSession(true);
 		Jugador j = (Jugador) session.getAttribute("jugador");
-		DataTorneo dt = new DataTorneo(); 
-		LinkedList<Torneo> torneos = dt.proximos(); 
+		LinkedList<Torneo> torneos = DataTorneo.proximos(); 
 		DataInscripcion di = new DataInscripcion();
 		Torneo t = torneos.get(index);
 		di.create(t, j, LocalDate.now());
