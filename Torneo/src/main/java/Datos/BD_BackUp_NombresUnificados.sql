@@ -52,7 +52,7 @@ CREATE TABLE `inscripciones` (
   PRIMARY KEY (`id_jugador`,`id_tipo`,`id_juego`,`fecha_inicio_torneo`),
   KEY `FK_torneo_insc_idx` (`id_jugador`,`id_juego`,`id_tipo`),
   CONSTRAINT `FK_jugador_insc` FOREIGN KEY (`id_jugador`) REFERENCES `jugadores` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `FK_torneo_insc` FOREIGN KEY (`id_tipo`, `id_juego`) REFERENCES `torneo` (`id_tipo`, `id_juego`) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `FK_torneo_insc` FOREIGN KEY (`id_tipo`, `id_juego`, `fecha_inicio_torneo`) REFERENCES `torneo` (`id_tipo`, `id_juego`, `fecha_inicio`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -82,7 +82,7 @@ CREATE TABLE `jugadores` (
   `usuario` varchar(45) NOT NULL UNIQUE,
   `nombre` varchar(45) NOT NULL,
   `apellido` varchar(45) NOT NULL,
-  `contraseña` varchar(45) NOT NULL,
+  `contraseña` varchar(100) NOT NULL,
   `id_pais` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_paises_idx` (`id_pais`),
@@ -183,7 +183,7 @@ CREATE TABLE `torneos` (
   `cupo` int DEFAULT NULL,
   `ganador` varchar(45) DEFAULT NULL,
   `monto_insc` float DEFAULT NULL,
-  PRIMARY KEY (`id_juego`,`id_tipo`),
+  PRIMARY KEY (`id_juego`,`id_tipo`, `fecha_inicio`),
   KEY `FK_tipo_torneo_idx` (`id_tipo`),
   CONSTRAINT `FK_juegos_torneo` FOREIGN KEY (`id_juego`) REFERENCES `juegos` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `FK_tipo_torneo` FOREIGN KEY (`id_tipo`) REFERENCES `tipo_torneo` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -210,3 +210,5 @@ INSERT INTO `torneo`.`paises` (`id`, `nombre`) VALUES ('1', 'Argentina');
 
 INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('2', '2022-02-15', '2022-03-31');
 INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('1', '2022-01-25', '2022-03-30');
+
+INSERT INTO `torneo`.`jugadores` (`id`, `usuario`, `nombre`, `apellido`, `contraseña`, `id_pais`) VALUES ('1', 'juliiian99', 'Julian', 'Villoria', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1');

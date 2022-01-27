@@ -26,4 +26,5 @@ public class Pais {
 	public String toString() {
 		return "Paises [id=" + id + ", nombre=" + nombre + "]";
 	}
+	
 }

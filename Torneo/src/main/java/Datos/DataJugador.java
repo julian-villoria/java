@@ -1,9 +1,6 @@
 package Datos;
 import java.sql.*;
-import java.util.Base64;
 import java.util.LinkedList;
-import java.nio.charset.StandardCharsets;
-import java.security.*;
 
 import Entidades.Jugador;
 import Entidades.Pais;

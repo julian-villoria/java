@@ -29,6 +29,7 @@ public class DataTorneo {
 			
 			// Ejecutar querys
 			stmt = conn.createStatement();
+
 			rs = stmt.executeQuery("SELECT t.id_tipo, tt.id, tt.denominacion, j.id, j.denominacion, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc "
 					+ "FROM torneos t INNER JOIN tipo_torneo tt ON t.id_tipo = tt.id INNER JOIN juegos j ON t.id_juego = j.id");
 			
@@ -145,8 +146,8 @@ public static LinkedList<Torneo> proximos(){
 			conn = DbConnector.getInstancia().getConn();
 			
 			stmt = conn.prepareStatement("SELECT tt.id, tt.denominacion, j.id, j.denominacion, fecha_inicio, fecha_fin, intentos, cupo, ganador "
-					+ "FROM torneos INNER JOIN tipo_torneo tt ON t.id_tipo = tt.id INNER JOIN juegos j ON t.id_juego = j.id"
-					+ "WHERE id_juego=? AND id_tipo=? AND fecha_inicio=?");
+					+ "FROM torneos t INNER JOIN tipo_torneo tt ON t.id_tipo = tt.id INNER JOIN juegos j ON t.id_juego = j.id "
+					+ "WHERE (j.id=? AND tt.id=? AND t.fecha_inicio=?)");
 			//setear parametros
 			stmt.setInt(1,idJuego);
 			stmt.setInt(2,idTipo);
@@ -164,8 +165,10 @@ public static LinkedList<Torneo> proximos(){
 				
 				j.setId(rs.getInt("j.id"));
 				j.setDenominacion(rs.getString("j.denominacion"));
-				tt.setId(rs.getInt("id_tipo"));
+				tt.setId(rs.getInt("tt.id"));
 				tt.setDenominacion(rs.getString("tt.denominacion"));
+				t.setJuego(j);
+				t.setTipoTorneo(tt);
 				t.setFechaInicio(rs.getObject("fecha_inicio", LocalDate.class));
 				t.setFechaFin(rs.getObject("fecha_fin", LocalDate.class));
 				t.setIntentos(rs.getInt("intentos"));

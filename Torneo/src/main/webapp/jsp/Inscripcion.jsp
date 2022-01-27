@@ -63,7 +63,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                    	<% int i = 0; %>
                         <% if (!dataTorneo.isEmpty()) { %>
                             <% for(Torneo t : dataTorneo) { %>
                                 <tr>
@@ -93,11 +92,13 @@
                                     </td>
                                     <td>
                                     	<form action="ServletInscripcion" method="post">
-                                    		<button type="submit" name="Inscribirse" value=<%= i %> class="btn btn-success btn-block">Inscribirse</button>
+                                    		<button type="submit" name="Inscribirse" value=<%= t %> class="btn btn-success btn-block">Inscribirse</button>
+                                    		<input name="idJuego" type="hidden" value="<%= t.getJuego().getId() %>">
+                                    		<input name="idTipo" type="hidden" value="<%= t.getTipoTorneo().getId() %>"> 
+                                    		<input name="fechaInicio" type="hidden" value="<%= t.getFechaInicio() %>"> 
                                     	</form>
                                     </td>
                                 </tr>
-                                <% i++; %>
                             <% } %>
                         <% } %>
                     </tbody>
