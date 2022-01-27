@@ -6,7 +6,9 @@
 <%@ page import="Entidades.Torneo" %>
 <%@ page import="Entidades.Juego" %>
 <%@ page import="Entidades.TipoTorneo" %>
+<%@ page import="Entidades.Jugador" %>
 <head>
+<%Jugador jugador = (Jugador) session.getAttribute("jugador");%>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Periodo Inscripción</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -18,6 +20,35 @@
 <% LinkedList<TipoTorneo> dataTipo = (LinkedList<TipoTorneo>)request.getAttribute("TipoTorneo"); %>
 </head>
 <body>
+<!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container px-lg-5">
+                <a class="navbar-brand" href="ServletHome">Torneo</a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="ServletPartida">Partida</a></li>
+	                    <%if(jugador == null){%>
+	                    	<li class="nav-item">
+	                    		<a class="nav-link" href="ServletLogin">
+	                        		<%="Login"%>
+	                    		</a>
+	                    	</li>
+	                    <%}else{%>
+						      <li class="nav-item dropdown">
+						        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						          <%= jugador.getUsuario() %>
+						        </a>
+						        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						          <a class="dropdown-item" href="ServletEditarPerfil">Editar Perfil</a>
+						          <a class="dropdown-item" href="ServletCerrarSesion">Cerrar Sesion</a>
+						        </div>
+						      </li>
+	                    <%} %>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 	<h1 class="text-center my-3">Torneos</h1>
     <div class="container-fluid">
         <div class="row mt-5">

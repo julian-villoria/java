@@ -20,6 +20,9 @@ public static void create(Torneo t, Jugador jug, LocalDate fecha) {
 		iNueva.setTorneo(t);
 		iNueva.setFecha(fecha);
 		iNueva.setJugador(jug);
+		System.out.println(t);
+		System.out.println(jug);
+		System.out.println(fecha);
 		
 		try {
 			// crear conexion
