@@ -177,7 +177,7 @@ DROP TABLE IF EXISTS `torneos`;
 CREATE TABLE `torneos` (
   `id_juego` int NOT NULL,
   `id_tipo` int NOT NULL,
-  `fecha_inicio` date DEFAULT NULL,
+  `fecha_inicio` date NOT NULL,
   `fecha_fin` date DEFAULT NULL,
   `intentos` int DEFAULT NULL,
   `cupo` int DEFAULT NULL,
@@ -211,4 +211,4 @@ INSERT INTO `torneo`.`paises` (`id`, `nombre`) VALUES ('1', 'Argentina');
 INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('2', '2022-02-15', '2022-03-31');
 INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('1', '2022-01-25', '2022-03-30');
 
-INSERT INTO `torneo`.`jugadores` (`id`, `usuario`, `nombre`, `apellido`, `contraseña`, `id_pais`) VALUES ('1', 'juliiian99', 'Julian', 'Villoria', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1');
+INSERT INTO `torneo`.`jugadores` (`id`, `usuario`, `nombre`, `apellido`, `contraseña`, `id_pais`) VALUES ('1', 'juliiian99', 'Julian', 'Villoria', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', '1');
