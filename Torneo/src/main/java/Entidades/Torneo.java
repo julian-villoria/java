@@ -61,4 +61,11 @@ public class Torneo {
 		this.montoInsc = montoInsc;
 	}
 	
+	@Override
+	public String toString() {
+		return "Torneo [fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", intentos=" + intentos + ", cupo="
+				+ cupo + ", ganador=" + ganador + ", montoInsc=" + montoInsc + ", juego=" + juego + ", tipoTorneo="
+				+ tipoTorneo + "]";
+	}
+	
 }

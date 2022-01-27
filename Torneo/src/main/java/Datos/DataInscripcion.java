@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import Entidades.Inscripcion;
+import Entidades.Juego;
 import Entidades.Jugador;
 import Entidades.Torneo;
 
 public class DataInscripcion {
 
-public void create(Torneo t, Jugador jug, LocalDate fecha) {
+public static void create(Torneo t, Jugador jug, LocalDate fecha) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;

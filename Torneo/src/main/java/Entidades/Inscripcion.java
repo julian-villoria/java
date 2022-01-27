@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class Inscripcion {
 	private Torneo t;
 	private Jugador j;
+	private Juego jue;
 	private LocalDate fechaInicioTorneo;
 	private LocalDate fecha;
 	private float monto;
@@ -39,6 +40,25 @@ public class Inscripcion {
 	public void setMonto(float monto) {
 		this.monto = monto;
 	}
+	public Torneo getT() {
+		return t;
+	}
+	public void setT(Torneo t) {
+		this.t = t;
+	}
+	public Jugador getJ() {
+		return j;
+	}
+	public void setJ(Jugador j) {
+		this.j = j;
+	}
+	public Juego getJue() {
+		return jue;
+	}
+	public void setJue(Juego jue) {
+		this.jue = jue;
+	}
+	
 	
 }
 	

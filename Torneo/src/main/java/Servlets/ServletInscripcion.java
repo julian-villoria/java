@@ -53,13 +53,17 @@ public class ServletInscripcion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int index = Integer.parseInt(request.getParameter("Inscribirse"));
 		HttpSession session = request.getSession(true);
-		Jugador j = (Jugador) session.getAttribute("jugador");
-		LinkedList<Torneo> torneos = DataTorneo.proximos(); 
-		DataInscripcion di = new DataInscripcion();
-		Torneo t = torneos.get(index);
-		di.create(t, j, LocalDate.now());
+		Torneo t = new Torneo();
+		Jugador j = new Jugador();
+		int idJuego = Integer.parseInt(request.getParameter("idJuego"));
+		int idTipo = Integer.parseInt(request.getParameter("idTipo"));
+		String fechaInicioString = request.getParameter("fechaInicio");
+        LocalDate fechaInicio = LocalDate.parse(fechaInicioString);
+        t = DataTorneo.search(idJuego, idTipo, fechaInicio);
+        System.out.println(t);
+		j = (Jugador) session.getAttribute("jugador");
+		DataInscripcion.create(t, j, LocalDate.now());
 		doGet(request, response);
 	}
 
