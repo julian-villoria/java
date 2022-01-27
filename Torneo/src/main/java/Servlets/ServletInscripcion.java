@@ -61,7 +61,7 @@ public class ServletInscripcion extends HttpServlet {
 		String fechaInicioString = request.getParameter("fechaInicio");
         LocalDate fechaInicio = LocalDate.parse(fechaInicioString);
         t = DataTorneo.search(idJuego, idTipo, fechaInicio);
-        System.out.println(t);
+        System.out.println(t.getJuego());
 		j = (Jugador) session.getAttribute("jugador");
 		DataInscripcion.create(t, j, LocalDate.now());
 		doGet(request, response);

@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import Entidades.Inscripcion;
-import Entidades.Juego;
 import Entidades.Jugador;
 import Entidades.Torneo;
 

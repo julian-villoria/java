@@ -145,7 +145,7 @@ public static LinkedList<Torneo> proximos(){
 			// conexion
 			conn = DbConnector.getInstancia().getConn();
 			
-			stmt = conn.prepareStatement("SELECT tt.id, tt.denominacion, j.id, j.denominacion, fecha_inicio, fecha_fin, intentos, cupo, ganador "
+			stmt = conn.prepareStatement("SELECT tt.id, tt.denominacion, j.id, j.denominacion, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc "
 					+ "FROM torneos t INNER JOIN tipo_torneo tt ON t.id_tipo = tt.id INNER JOIN juegos j ON t.id_juego = j.id "
 					+ "WHERE (j.id=? AND tt.id=? AND t.fecha_inicio=?)");
 			//setear parametros
@@ -167,13 +167,12 @@ public static LinkedList<Torneo> proximos(){
 				j.setDenominacion(rs.getString("j.denominacion"));
 				tt.setId(rs.getInt("tt.id"));
 				tt.setDenominacion(rs.getString("tt.denominacion"));
-				t.setJuego(j);
-				t.setTipoTorneo(tt);
 				t.setFechaInicio(rs.getObject("fecha_inicio", LocalDate.class));
 				t.setFechaFin(rs.getObject("fecha_fin", LocalDate.class));
 				t.setIntentos(rs.getInt("intentos"));
 				t.setCupo(rs.getInt("cupo"));
 				t.setGanador(rs.getString("ganador"));
+				t.setMontoInsc(rs.getFloat("monto_insc"));
 				t.setJuego(j);
 				t.setTipoTorneo(tt);
 			}
