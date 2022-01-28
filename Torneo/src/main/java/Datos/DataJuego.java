@@ -148,13 +148,13 @@ public class DataJuego {
 		}
 		
 		//cargar
-		public static void create(int id, String denominacion) {
+		public static void create(String denominacion) {
 			
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			Juego jNuevo = new Juego();
-			jNuevo.setId(id);
 			jNuevo.setDenominacion(denominacion);
+			ResultSet keyrs = null;
 			
 			try {
 				// crear conexion
@@ -162,11 +162,15 @@ public class DataJuego {
 				
 				//query
 				pstmt = conn.prepareStatement(
-				"INSERT INTO juegos(id, denominacion) VALUES(?,?);");
+				"INSERT INTO juegos( denominacion) VALUES(?)", Statement.RETURN_GENERATED_KEYS);
 				
-				pstmt.setInt(1, jNuevo.getId());
-				pstmt.setString(2, jNuevo.getDenominacion());
+				pstmt.setString(1, jNuevo.getDenominacion());
 				pstmt.executeUpdate();
+				keyrs = pstmt.getGeneratedKeys();
+				
+				if (keyrs != null && keyrs.next()) {
+					jNuevo.setId(keyrs.getInt(1));
+				}	
 				
 				if(pstmt!=null) {pstmt.close();}
 				conn.close();

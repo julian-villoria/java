@@ -184,7 +184,7 @@ public static TipoTorneo search(int idTipo) {
 			}
 		}
 	}
-	
+
 	public void create(String denominacion) {
 		
 		Connection conn = null;
@@ -287,6 +287,7 @@ public static TipoTorneo search(int idTipo) {
 	}
 
 	//actualizar
+
 	public static void update(int id, String denominacion) {
 		
 		PreparedStatement pstmt = null;

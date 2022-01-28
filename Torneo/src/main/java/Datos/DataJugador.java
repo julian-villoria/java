@@ -44,30 +44,33 @@ public class DataJugador {
 		}
 	}
 	
-	public void create(int id, String usuario, String contraseña, String nombre, String apellido) {
+	public static void create(String usuario, String contraseña, String nombre, String apellido, int idPais) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		Jugador jNuevo = new Jugador();
+		Pais p = new Pais();
 		
 		try {
 			// crear conexion
 			conn = DbConnector.getInstancia().getConn();
-			jNuevo.setId(id);
 			jNuevo.setUsuario(usuario);
-			jNuevo.setContraseña( contraseña );
+			jNuevo.setContraseña(contraseña);
 			jNuevo.setNombre(nombre);
 			jNuevo.setApellido(apellido);
+			p.setId(idPais);
+			jNuevo.setPais(p);
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"INSERT INTO jugadores(id, usuario, nombre, apellido, contraseña) VALUES(?,?,?,?,?)");
+			"INSERT INTO jugadores(usuario, nombre, apellido, contraseña, id_pais) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setInt(1, jNuevo.getId());
 			pstmt.setString(2, jNuevo.getUsuario());
 			pstmt.setString(3, jNuevo.getNombre());
 			pstmt.setString(4, jNuevo.getApellido());
 			pstmt.setString(5, jNuevo.getContraseña());
+			pstmt.setInt(6, jNuevo.getPais().getId());
 			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}
@@ -109,7 +112,7 @@ public class DataJugador {
 
 	}
 
-	public void delete(String usuario) {
+	public static void delete(String usuario) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -143,7 +146,7 @@ public class DataJugador {
 	}
 	
 	//actualizar
-	public static void update(int id, String usuario, String contraseña, String nombre, String apellido) {
+	public static void update(int id, String usuario, String contraseña, String nombre, String apellido, Pais p) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;
@@ -153,6 +156,8 @@ public class DataJugador {
 		jNuevo.setContraseña(contraseña);
 		jNuevo.setNombre(nombre);
 		jNuevo.setApellido(apellido);
+		jNuevo.setPais(p);
+		
 
 		try {
 			// crear conexion
@@ -161,7 +166,7 @@ public class DataJugador {
 			//query
 			pstmt = conn.prepareStatement(
 					"Update jugadores "
-							+ "SET usuario=?, contraseña=?, nombre=?, apellido=?"
+							+ "SET usuario=?, contraseña=?, nombre=?, apellido=?, id_pais=?"
 							+ "WHERE id=? " 
 					);
 
@@ -170,6 +175,7 @@ public class DataJugador {
 			pstmt.setString(2, jNuevo.getUsuario());
 			pstmt.setString(3, jNuevo.getNombre());
 			pstmt.setString(4, jNuevo.getApellido());
+			pstmt.setInt(5, jNuevo.getPais().getId());
 			pstmt.executeQuery();
 
 			if(pstmt!=null) {pstmt.close();}
@@ -284,7 +290,7 @@ public class DataJugador {
 
 	}
 
-	public LinkedList<Jugador> listaJugadoresJuego(String nombreJuego) throws SQLException {
+	public static LinkedList<Jugador> listaJugadoresJuego(String nombreJuego) throws SQLException {
 
 		Connection conn = null;
 

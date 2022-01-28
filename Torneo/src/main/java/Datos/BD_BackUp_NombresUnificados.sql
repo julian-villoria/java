@@ -27,8 +27,10 @@ DROP TABLE IF EXISTS `dificultad`;
 CREATE TABLE `dificultad` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
-  `rango_puntajes` varchar(45) DEFAULT NULL,
-  `rango_victorias` varchar(45) DEFAULT NULL,
+  `rango_min_puntaje` int DEFAULT NULL,
+  `rango_max_puntaje` int DEFAULT NULL,
+  `rango_min_victoria` int DEFAULT NULL,
+  `rango_max_victoria` int DEFAULT NULL,
   `id_juego` int NOT NULL,
   PRIMARY KEY (`id`,`id_juego`),
   KEY `FK_juegos_idx` (`id_juego`),
@@ -48,7 +50,7 @@ CREATE TABLE `inscripciones` (
   `id_tipo` int NOT NULL,
   `id_juego` int NOT NULL,
   `fecha` date DEFAULT NULL,
-  `fecha_inicio_torneo` DATE NOT NULL,
+  `fecha_inicio_torneo` date NOT NULL,
   PRIMARY KEY (`id_jugador`,`id_tipo`,`id_juego`,`fecha_inicio_torneo`),
   KEY `FK_torneo_insc_idx` (`id_jugador`,`id_juego`,`id_tipo`),
   CONSTRAINT `FK_jugador_insc` FOREIGN KEY (`id_jugador`) REFERENCES `jugadores` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -212,7 +214,7 @@ INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) 
 INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('1', '2022-01-25', '2022-03-30');
 
 
-INSERT INTO `torneo`.`jugadores` (`id`, `usuario`, `nombre`, `apellido`, `contraseña`, `id_pais`) VALUES ('1', 'juliiian99', 'Julian', 'Villoria', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', '1');
+INSERT INTO `torneo`.`jugadores` (`id`, `usuario`, `nombre`, `apellido`, `contraseña`, `id_pais`) VALUES ('1', 'juliiian99', 'Julian', 'Villoria', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '1');
 
 INSERT INTO torneos(id_juego, id_tipo, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc) VALUES(1,1,"2022-01-30","2022-01-31",10,10,"Vacante",1000);
 INSERT INTO inscripciones(id_juego, id_tipo, id_jugador, fecha_inicio_torneo, fecha) VALUES(1,1,1,"2022-01-30", curdate());

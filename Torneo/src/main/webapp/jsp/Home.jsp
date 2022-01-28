@@ -85,7 +85,7 @@
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-card-heading"></i></div>
                                 <h2 class="fs-4 fw-bold">Países ABMC Simple</h2>
-                                <a href="ServletPaises" class="btn btn-primary btn-lg">Ir</a>
+                                <a href="ServletPais" class="btn btn-primary btn-lg">Ir</a>
                             </div>
                         </div>
                     </div>

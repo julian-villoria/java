@@ -6,11 +6,10 @@ import java.sql.*;
 import java.util.LinkedList;
 
 import Entidades.Pais;
-import Entidades.TipoTorneo;
 
 public class DataPais {
 
-	public LinkedList<Pais> list() throws SQLException {
+	public static LinkedList<Pais> list() throws SQLException {
 
 		Connection conn = null;
 
@@ -51,7 +50,7 @@ public class DataPais {
 
 	}
 
-	public Object buscar(Pais buscarPais) {
+	public static Pais buscar(Pais buscarPais) {
 
 		Pais p = null;
 
@@ -96,7 +95,7 @@ public class DataPais {
 		return p;
 	}
 
-	public void nuevo(Pais nuevoPais) {
+	public static void nuevo(Pais nuevoPais) {
 
 		Connection conn = null;
 
@@ -129,7 +128,7 @@ public class DataPais {
 		}
 	}
 
-	public void borrar(Pais borrarPais) {
+	public static void borrar(Pais borrarPais) {
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -152,7 +151,7 @@ public class DataPais {
 
 	}
 
-	public void update(int id, String denominacion) {
+	public static void update(int id, String denominacion) {
 
 		PreparedStatement pstmt = null;
 		Connection conn = null;

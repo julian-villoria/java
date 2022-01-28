@@ -1,7 +1,6 @@
 package Servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -10,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Datos.DataPais;
-import Entidades.Pais;
+import Datos.DataJuego;
+import Datos.DataTipoTorneo;
+import Entidades.Juego;
 
 /**
- * Servlet implementation class ServletPais
+ * Servlet implementation class ServletJuego
  */
-@WebServlet("/ServletPais")
-public class ServletPais extends HttpServlet {
+@WebServlet("/ServletJuego")
+public class ServletJuego extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletPais() {
+    public ServletJuego() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +33,10 @@ public class ServletPais extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		LinkedList<Pais> data = new LinkedList<Pais>(); 
-		try {
-			data = DataPais.list();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		LinkedList<Juego> data = new LinkedList<Juego>(); 
+		data = DataJuego.list();
 		request.setAttribute("data", data);
-		getServletContext().getRequestDispatcher("/jsp/Pais.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/jsp/Juego.jsp").forward(request, response);
 	}
 
 	/**
@@ -49,28 +44,27 @@ public class ServletPais extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//NUEVO
-		if (request.getParameter("nuevoPais") != null) {
-			Pais p = new Pais();
-			p.setNombre(request.getParameter("nuevoPais"));
-			DataPais.nuevo(p);
+		//Agregar
+		if(request.getParameter("nuevaDenominacion") != null) {
+			//int id = Integer.parseInt(request.getParameter("nuevoId"));
+			DataJuego.create(request.getParameter("nuevaDenominacion"));
 			doGet(request, response);
 		}
-		//ACTUALIZAR
+		//Eliminar
+		if(request.getParameter("tipoEliminar") != null) {
+			String tipoEliminar = request.getParameter("tipoEliminar");
+			DataTipoTorneo.delete(tipoEliminar);
+			doGet(request, response);
+		}
+		//Actualizar
 		if  (request.getParameter("idActualizar") != null && 
 				 request.getParameter("denominacionActualizar") != null) {
 				Integer idActualizar = Integer.parseInt(request.getParameter("idActualizar"));
-				String paisActualizar = request.getParameter("paisActualizar");
-				DataPais.update(idActualizar, paisActualizar);
+				String denominacionActualizar = request.getParameter("denominacionActualizar");
+				DataTipoTorneo.update(idActualizar, denominacionActualizar);
 				doGet(request, response);
+			}
+		doGet(request, response);
 		}
-		//ELIMINAR
-		if (request.getParameter("eliminarPais") != null) {
-			Pais p = new Pais();
-			p.setId(Integer.parseInt(request.getParameter("eliminarPais")));
-			DataPais.borrar(p);
-			doGet(request, response);
-		}
-	}
 
 }
