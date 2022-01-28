@@ -56,13 +56,13 @@ public class ServletInscripcion extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		Torneo t = new Torneo();
 		Jugador j = new Jugador();
+		j = (Jugador) session.getAttribute("jugador");
 		int idJuego = Integer.parseInt(request.getParameter("idJuego"));
 		int idTipo = Integer.parseInt(request.getParameter("idTipo"));
 		String fechaInicioString = request.getParameter("fechaInicio");
         LocalDate fechaInicio = LocalDate.parse(fechaInicioString);
         t = DataTorneo.search(idJuego, idTipo, fechaInicio);
         System.out.println(t.getJuego());
-		j = (Jugador) session.getAttribute("jugador");
 		DataInscripcion.create(t, j, LocalDate.now());
 		doGet(request, response);
 	}

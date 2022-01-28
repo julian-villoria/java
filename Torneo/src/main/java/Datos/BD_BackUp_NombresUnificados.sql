@@ -52,7 +52,7 @@ CREATE TABLE `inscripciones` (
   PRIMARY KEY (`id_jugador`,`id_tipo`,`id_juego`,`fecha_inicio_torneo`),
   KEY `FK_torneo_insc_idx` (`id_jugador`,`id_juego`,`id_tipo`),
   CONSTRAINT `FK_jugador_insc` FOREIGN KEY (`id_jugador`) REFERENCES `jugadores` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `FK_torneo_insc` FOREIGN KEY (`id_tipo`, `id_juego`, `fecha_inicio_torneo`) REFERENCES `torneo` (`id_tipo`, `id_juego`, `fecha_inicio`) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `FK_torneo_insc` FOREIGN KEY (`id_juego`, `id_tipo`, `fecha_inicio_torneo`) REFERENCES `torneo` (`id_juego`, `id_tipo`, `fecha_inicio`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -211,4 +211,8 @@ INSERT INTO `torneo`.`paises` (`id`, `nombre`) VALUES ('1', 'Argentina');
 INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('2', '2022-02-15', '2022-03-31');
 INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('1', '2022-01-25', '2022-03-30');
 
+
 INSERT INTO `torneo`.`jugadores` (`id`, `usuario`, `nombre`, `apellido`, `contraseña`, `id_pais`) VALUES ('1', 'juliiian99', 'Julian', 'Villoria', '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', '1');
+
+INSERT INTO torneos(id_juego, id_tipo, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc) VALUES(1,1,"2022-01-30","2022-01-31",10,10,"Vacante",1000);
+INSERT INTO inscripciones(id_juego, id_tipo, id_jugador, fecha_inicio_torneo, fecha) VALUES(1,1,1,"2022-01-30", curdate());

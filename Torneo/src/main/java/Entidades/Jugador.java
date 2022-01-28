@@ -45,5 +45,12 @@ public class Jugador {
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
+	@Override
+	public String toString() {
+		return "Jugador [id=" + id + ", usuario=" + usuario + ", nombre=" + nombre + ", apellido=" + apellido
+				+ ", contraseña=" + contraseña + ", pais=" + pais + "]";
+	}
+	
+	
 	
 }

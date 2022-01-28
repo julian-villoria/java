@@ -21,5 +21,10 @@ public class TipoTorneo {
 		this.denominacion = denominacion;
 	}
 
+	@Override
+	public String toString() {
+		return "TipoTorneo [id=" + id + ", denominacion=" + denominacion + "]";
+	}
+
 	
 }

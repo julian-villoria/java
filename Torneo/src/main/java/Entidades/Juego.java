@@ -17,5 +17,9 @@ public class Juego {
 	public void setDenominacion(String denominacion) {
 		this.denominacion = denominacion;
 	}
+	@Override
+	public String toString() {
+		return "Juego [id=" + id + ", denominacion=" + denominacion + "]";
+	}
 	
 }
