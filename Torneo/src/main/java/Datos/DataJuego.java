@@ -2,7 +2,6 @@ package Datos;
 
 import java.sql.*;
 import java.util.LinkedList;
-
 import Entidades.Juego;
 
 public class DataJuego {
@@ -233,10 +232,10 @@ public class DataJuego {
 				
 				//query
 				pstmt = conn.prepareStatement(
-						"Update PeriodoInscripcion SET denominacion=? WHERE id=?;" 
+						"Update juegos SET denominacion=? WHERE id=?;" 
 						);
 				
-				pstmt.setObject(1, jNuevo.getDenominacion());
+				pstmt.setString(1, jNuevo.getDenominacion());
 				pstmt.setInt(2, jNuevo.getId());
 				pstmt.executeUpdate();
 				

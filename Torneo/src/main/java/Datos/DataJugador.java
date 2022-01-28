@@ -10,11 +10,11 @@ public class DataJugador {
 	public static void nuevo(Jugador nuevoJugador) {
 		
 		Connection conn = null;
-		
+
 		ResultSet keyrs = null;
-		
+
 		PreparedStatement stmt = null;
-		
+
 		try {
 			conn = DbConnector.getInstancia().getConn();
 			stmt = conn.prepareStatement("INSERT INTO jugadores (usuario, nombre, apellido, contraseña, id_pais) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -25,12 +25,12 @@ public class DataJugador {
 			stmt.setInt(5, nuevoJugador.getPais().getId());
 			stmt.executeUpdate();
 			keyrs = stmt.getGeneratedKeys();
-			
+
 			if (keyrs != null && keyrs.next()) {
-				
+
 				nuevoJugador.setId(keyrs.getInt(1));
 			}	
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -38,9 +38,9 @@ public class DataJugador {
 				if (conn != null) conn.close();
 				if (stmt != null) stmt.close();
 				if (keyrs != null) keyrs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -90,7 +90,7 @@ public class DataJugador {
 	
 		Connection conn = null;
 		PreparedStatement stmt = null;
-	
+
 		try {
 			conn = DbConnector.getInstancia().getConn();
 			stmt = conn.prepareStatement("delete from tipo_torneo where usuario = ?");
@@ -102,11 +102,11 @@ public class DataJugador {
 			try {
 				if(conn != null) conn.close();
 				if(stmt != null) stmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-	
+
 	}
 
 	public void delete(String usuario) {
@@ -153,29 +153,29 @@ public class DataJugador {
 		jNuevo.setContraseña(contraseña);
 		jNuevo.setNombre(nombre);
 		jNuevo.setApellido(apellido);
-		
+
 		try {
 			// crear conexion
 			conn = DbConnector.getInstancia().getConn();
-			
+
 			//query
 			pstmt = conn.prepareStatement(
-			"Update jugadores "
-			+ "SET usuario=?, contraseña=?, nombre=?, apellido=?"
-			+ "WHERE id=? " 
+					"Update jugadores "
+							+ "SET usuario=?, contraseña=?, nombre=?, apellido=?"
+							+ "WHERE id=? " 
 					);
-			
+
 			pstmt.setInt(5, jNuevo.getId());
 			pstmt.setString(1, jNuevo.getUsuario());
 			pstmt.setString(2, jNuevo.getUsuario());
 			pstmt.setString(3, jNuevo.getNombre());
 			pstmt.setString(4, jNuevo.getApellido());
 			pstmt.executeQuery();
-			
+
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
-			
-			
+
+
 		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
@@ -186,7 +186,7 @@ public class DataJugador {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	public static Jugador login(String usuario, String contraseña) {
@@ -195,19 +195,19 @@ public class DataJugador {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		Jugador j = new Jugador();
-		
+
 		try {
 			// conexion
 			conn = DbConnector.getInstancia().getConn();
-			
+
 			stmt = conn.prepareStatement("SELECT * FROM Jugadores j WHERE j.usuario = ? AND j.contraseña = ?");
 			//setear parametros
 			stmt.setString(1, usuario);
 			stmt.setString(2, contraseña);
-			
+
 			//resultados
 			rs = stmt.executeQuery();
-			
+
 			//mapear
 			if(rs.next()) {
 				j.setId(rs.getInt("id"));
@@ -216,13 +216,13 @@ public class DataJugador {
 				j.setUsuario(rs.getString("usuario"));
 				j.setContraseña(rs.getString("contraseña"));
 			}
-			
+
 			//cerrar conexion
 			if(rs!=null) {rs.close();}
 			if(stmt!=null) {stmt.close();}
-			
+
 			conn.close();
-			
+
 		}catch(SQLException ex){
 			System.out.println("SQLException: " + ex.getMessage());
 		}finally {
@@ -237,25 +237,25 @@ public class DataJugador {
 		return j;
 	}
 	
-	public static LinkedList<Jugador> listaPais(String nombrePais) throws SQLException {
+	public static LinkedList<Jugador> listaPais(String nombrePais){
 		
 		Connection conn = null;
-		
+
 		ResultSet rs = null;
-		
+
 		PreparedStatement stmt = null;
-		
+
 		try {
-			
+
 			LinkedList<Jugador> jugadores = new LinkedList<Jugador>();
 			conn = DbConnector.getInstancia().getConn();
 			stmt = conn.prepareStatement("select * from jugadores j inner join paises p on p.id = j.id_pais where p.nombre = ?");
 			stmt.setString(1, nombrePais);
 			rs = stmt.executeQuery();
 			if (rs != null) {
-				
+
 				while (rs.next()) {
-					
+
 					Jugador jugador = new Jugador();
 					Pais pais = new Pais();
 					pais.setId(rs.getInt("id_pais"));
@@ -274,14 +274,65 @@ public class DataJugador {
 			return null;
 		} finally {
 			try {
-			if (rs != null) rs.close();
-			if (stmt!=null) stmt.close();
-			if (conn!=null) conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
+				if (rs != null) rs.close();
+				if (stmt!=null) stmt.close();
+				if (conn!=null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public LinkedList<Jugador> listaJugadoresJuego(String nombreJuego) throws SQLException {
+
+		Connection conn = null;
+
+		ResultSet rs = null;
+
+		PreparedStatement stmt = null;
+
+		try {
+
+			LinkedList<Jugador> jugadores = new LinkedList<Jugador>();
+			conn = DbConnector.getInstancia().getConn();
+			stmt = conn.prepareStatement("Select id_jugador, id_pais, usuario, nombre, apellido from partidas p "
+					+ "Inner join jugadores j on j.id = p.id_jugador "
+					+ "inner join juegos ju on ju.id = p.id_juego "
+					+ "where denominacion = ?");
+			stmt.setString(1, nombreJuego);
+			rs = stmt.executeQuery();
+			if (rs != null) {
+
+				while (rs.next()) {
+
+					Jugador jugador = new Jugador();
+					Pais pais = new Pais();
+					pais.setId(rs.getInt("id_pais"));
+					jugador.setId(rs.getInt("id"));
+					jugador.setUsuario(rs.getString("usuario"));
+					jugador.setNombre(rs.getString("nombre"));
+					jugador.setApellido(rs.getString("apellido"));
+					jugador.setPais(pais);
+					jugadores.add(jugador);	
 				}
 			}
-	
+			return jugadores;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (stmt!=null) stmt.close();
+				if (conn!=null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
-	
+
+
+
 }
