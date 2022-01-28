@@ -1,10 +1,11 @@
 package Entidades;
+import java.sql.Date;
 import java.time.*;
 
 public class Torneo {
 
-	private LocalDate fechaInicio;
-	private LocalDate fechaFin;
+	private Date fechaInicio;
+	private Date fechaFin;
 	private int intentos;
 	private int cupo;
 	private String ganador;
@@ -12,16 +13,16 @@ public class Torneo {
 	private Juego juego;
 	private TipoTorneo tipoTorneo;
 	
-	public LocalDate getFechaInicio() {
+	public Date getFechaInicio() {
 		return fechaInicio;
 	}
-	public void setFechaInicio(LocalDate fechaInicio) {
+	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-	public LocalDate getFechaFin() {
+	public Date getFechaFin() {
 		return fechaFin;
 	}
-	public void setFechaFin(LocalDate fechaFin) {
+	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 	public int getIntentos() {

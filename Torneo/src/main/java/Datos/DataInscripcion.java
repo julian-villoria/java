@@ -1,7 +1,7 @@
 package Datos;
 
 import java.sql.Connection;
-
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -12,13 +12,12 @@ import Entidades.Torneo;
 
 public class DataInscripcion {
 
-public void create(Torneo t, Jugador jug, LocalDate fecha) {
+public void create(Torneo t, Jugador jug) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		Inscripcion iNueva = new Inscripcion();
 		iNueva.setTorneo(t);
-		iNueva.setFecha(fecha);
 		iNueva.setJugador(jug);
 		
 		try {
@@ -27,13 +26,13 @@ public void create(Torneo t, Jugador jug, LocalDate fecha) {
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"INSERT INTO inscripciones(id_juego, id_tipo, id_jugador, fecha_inicio_torneo, fecha) VALUES(?,?,?,?,?)");
+			"INSERT INTO inscripciones (id_jugador, id_juego, id_tipo, fecha_inicio_torneo, fecha_inscripcion) "
+			+ "VALUES(?,?,?,?,current_date())");
 			
-			pstmt.setInt(1, iNueva.getTorneo().getJuego().getId());
-			pstmt.setInt(2, iNueva.getTorneo().getTipoTorneo().getId());
-			pstmt.setInt(3, iNueva.getJugador().getId());
-			pstmt.setObject(5, iNueva.getTorneo().getFechaInicio());
-			pstmt.setObject(4, iNueva.getFecha());
+			pstmt.setInt(1, iNueva.getJugador().getId());
+			pstmt.setInt(2, iNueva.getTorneo().getJuego().getId());
+			pstmt.setInt(3, iNueva.getTorneo().getTipoTorneo().getId());
+			pstmt.setDate(4, iNueva.getTorneo().getFechaInicio());
 			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}

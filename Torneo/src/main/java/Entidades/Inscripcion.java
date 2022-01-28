@@ -1,12 +1,12 @@
 package Entidades;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Inscripcion {
 	private Torneo t;
 	private Jugador j;
-	private LocalDate fechaInicioTorneo;
-	private LocalDate fecha;
+	private Date fechaInscripcion;
 	private float monto;
 	
 	public Torneo getTorneo() {
@@ -21,18 +21,13 @@ public class Inscripcion {
 	public void setJugador(Jugador j) {
 		this.j = j;
 	}
-	public LocalDate getFechaInicioTorneo() {
-		return fechaInicioTorneo;
+	public Date getFechaInscripcion() {
+		return fechaInscripcion;
 	}
-	public void setFechaInicioTorneo(LocalDate fechaInicioTorneo) {
-		this.fechaInicioTorneo = fechaInicioTorneo;
+	public void setFechaInscripcion(Date fechaInscripcion) {
+		this.fechaInscripcion = fechaInscripcion;
 	}
-	public LocalDate getFecha() {
-		return fecha;
-	}
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
-	}
+	
 	public float getMonto() {
 		return monto;
 	}

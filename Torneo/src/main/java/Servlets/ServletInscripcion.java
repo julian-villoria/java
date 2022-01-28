@@ -61,7 +61,7 @@ public class ServletInscripcion extends HttpServlet {
 		LinkedList<Torneo> torneos = dt.proximos(); 
 		DataInscripcion di = new DataInscripcion();
 		Torneo t = torneos.get(index);
-		di.create(t, j, LocalDate.now());
+		di.create(t, j);
 		doGet(request, response);
 	}
 
