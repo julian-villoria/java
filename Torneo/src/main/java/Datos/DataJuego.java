@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
-
 import Entidades.Juego;
 
 public class DataJuego {
@@ -21,7 +20,7 @@ public class DataJuego {
 			
 			try {
 				
-				conn = ConectionFactory.getConnection();
+				conn = DbConnector.getInstancia().getConn();
 				
 				// Ejecutar querys
 				stmt = conn.createStatement();
@@ -42,7 +41,7 @@ public class DataJuego {
 			if(stmt!=null) {stmt.close();}
 			conn.close();
 			
-			}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+			}catch(SQLException ex) {
 				System.out.println("SQLException: " + ex.getMessage());
 			}finally {
 				try {
@@ -67,7 +66,7 @@ public class DataJuego {
 			
 			try {
 				// conexion
-				conn = ConectionFactory.getConnection();
+				conn = DbConnector.getInstancia().getConn();
 				
 				stmt = conn.prepareStatement("SELECT * FROM Juegos WHERE denominacion=?");
 				//setear parametros
@@ -91,7 +90,7 @@ public class DataJuego {
 				
 				conn.close();
 				
-			}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex){
+			}catch(SQLException ex){
 				System.out.println("SQLException: " + ex.getMessage());
 			}finally {
 				try {
@@ -116,7 +115,7 @@ public class DataJuego {
 			
 			try {
 				// crear conexion
-				conn = ConectionFactory.getConnection();
+				conn = DbConnector.getInstancia().getConn();
 				
 				//query
 				pstmt = conn.prepareStatement(
@@ -129,7 +128,7 @@ public class DataJuego {
 				if(pstmt!=null) {pstmt.close();}
 				conn.close();
 				
-			}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+			}catch(SQLException ex) {
 				System.out.println("SQLException: " + ex.getMessage());
 			}finally {
 				try {
@@ -149,7 +148,7 @@ public class DataJuego {
 			
 			try {
 				// crear conexion
-				conn = ConectionFactory.getConnection();
+				conn = DbConnector.getInstancia().getConn();
 				
 				//query
 				pstmt = conn.prepareStatement(
@@ -162,7 +161,7 @@ public class DataJuego {
 				if(pstmt!=null) {pstmt.close();}
 				conn.close();
 				
-			}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+			}catch(SQLException ex) {
 				System.out.println("SQLException: " + ex.getMessage());
 			}finally {
 				try {
@@ -186,14 +185,14 @@ public class DataJuego {
 			
 			try {
 				// crear conexion
-				conn = ConectionFactory.getConnection();
+				conn = DbConnector.getInstancia().getConn();
 				
 				//query
 				pstmt = conn.prepareStatement(
-						"Update PeriodoInscripcion SET denominacion=? WHERE id=?;" 
+						"Update juegos SET denominacion=? WHERE id=?;" 
 						);
 				
-				pstmt.setObject(1, jNuevo.getDenominacion());
+				pstmt.setString(1, jNuevo.getDenominacion());
 				pstmt.setInt(2, jNuevo.getId());
 				pstmt.executeUpdate();
 				
@@ -201,7 +200,7 @@ public class DataJuego {
 				conn.close();
 				
 				
-			}catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+			}catch(SQLException ex) {
 				System.out.println("SQLException: " + ex.getMessage());
 			}finally {
 				try {
