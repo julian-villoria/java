@@ -7,6 +7,53 @@ import Entidades.Pais;
 
 public class DataJugador {
 	
+	public static LinkedList<Jugador> list(){
+
+		Connection conn = null;
+
+		ResultSet rs = null;
+
+		Statement stmt = null;
+		
+		LinkedList<Jugador> jugadores = new LinkedList<Jugador>();
+
+		try {
+
+			conn = DbConnector.getInstancia().getConn();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select j.id, j.nombre, apellido, usuario, contraseña, p.id, p.nombre from jugadores j INNER JOIN paises p ON p.id = j.id_pais");
+
+			if (rs != null) {
+
+				while (rs.next()) {
+					Jugador j = new Jugador();
+					Pais p = new Pais();
+					j.setId(rs.getInt("id"));
+					j.setNombre(rs.getString("j.nombre"));
+					j.setApellido(rs.getString("apellido"));
+					j.setUsuario(rs.getString("usuario"));
+					j.setContraseña(rs.getString("contraseña"));
+					p.setId(rs.getInt("p.id"));
+					p.setNombre(rs.getString("p.nombre"));
+					j.setPais(p);
+					jugadores.add(j);	
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (stmt!=null) stmt.close();
+				if (conn!=null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return jugadores;
+	}
+	
 	public static void nuevo(Jugador nuevoJugador) {
 		
 		Connection conn = null;
@@ -63,7 +110,7 @@ public class DataJugador {
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"INSERT INTO jugadores(usuario, nombre, apellido, contraseña, id_pais) VALUES(?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			"INSERT INTO jugadores(id, usuario, nombre, apellido, contraseña, id_pais) VALUES(?,?,?,?,?,?)");
 			
 			pstmt.setInt(1, jNuevo.getId());
 			pstmt.setString(2, jNuevo.getUsuario());

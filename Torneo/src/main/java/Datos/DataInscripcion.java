@@ -1,7 +1,6 @@
 package Datos;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -13,7 +12,6 @@ import Entidades.Torneo;
 public class DataInscripcion {
 
 public static void create(Torneo t, Jugador jug, LocalDate fecha) {
-
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -29,13 +27,13 @@ public static void create(Torneo t, Jugador jug, LocalDate fecha) {
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"INSERT INTO inscripciones (id_jugador, id_juego, id_tipo, fecha_inicio_torneo, fecha_inscripcion) "
+			"INSERT INTO inscripciones (id_jugador, id_juego, id_tipo, fecha_inicio_torneo, fecha) "
 			+ "VALUES(?,?,?,?,current_date())");
 			
 			pstmt.setInt(1, iNueva.getJugador().getId());
 			pstmt.setInt(2, iNueva.getTorneo().getJuego().getId());
 			pstmt.setInt(3, iNueva.getTorneo().getTipoTorneo().getId());
-			pstmt.setDate(4, iNueva.getTorneo().getFechaInicio());
+			pstmt.setObject(4, iNueva.getTorneo().getFechaInicio());
 			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}

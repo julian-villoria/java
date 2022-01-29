@@ -14,6 +14,7 @@ import Datos.DataJugador;
 import Datos.DataPais;
 import Entidades.Encrypt;
 import Entidades.Juego;
+import Entidades.Jugador;
 import Entidades.Pais;
 import Negocio.CrudTorneo;
 
@@ -37,8 +38,8 @@ public class ServletJugador extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		LinkedList<Juego> data = new LinkedList<Juego>(); 
-		data = DataJuego.list();
+		LinkedList<Jugador> data = new LinkedList<Jugador>(); 
+		data = DataJugador.list();
 		request.setAttribute("data", data);
 		getServletContext().getRequestDispatcher("/jsp/Jugador.jsp").forward(request, response);
 	}
@@ -50,7 +51,7 @@ public class ServletJugador extends HttpServlet {
 		if(		request.getParameter("usuarioNuevo") != null
 				&& request.getParameter("nombreNuevo") != null
 				&& request.getParameter("apellidoNuevo") != null 
-				&& request.getParameter("paisFinNuevo") != null
+				&& request.getParameter("paisNuevo") != null
 				&& request.getParameter("contraseñaNuevo") != null) {
 			Pais p = new Pais();
 			String usuario = request.getParameter("usuarioNuevo");
@@ -58,15 +59,14 @@ public class ServletJugador extends HttpServlet {
 			String apellido = request.getParameter("apellidoNuevo");
 			String pais = request.getParameter("paisNuevo");
 			String contraseña = Encrypt.convertirSHA256(request.getParameter("contraseñaNuevo")); 
-			p.setNombre(pais);
-			p = DataPais.buscar(p);
+			p = DataPais.search(pais);
 			DataJugador.create(usuario, contraseña , nombre, apellido, p.getId());
 			doGet(request, response);
 		}
 		if  (	request.getParameter("usuarioActualizar") != null
 				&& request.getParameter("nombreActualizar") != null
 				&& request.getParameter("apellidoActualizar") != null 
-				&& request.getParameter("paisFinActualizar") != null
+				&& request.getParameter("paisActualizar") != null
 				&& request.getParameter("contraseñaActualizar") != null
 				&& request.getParameter("idActualizar") != null){
 			Pais p = new Pais();

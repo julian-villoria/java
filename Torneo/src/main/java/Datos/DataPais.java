@@ -64,7 +64,7 @@ public class DataPais {
 
 			conn = DbConnector.getInstancia().getConn();
 
-			stmt = conn.prepareStatement("selecct * from tipo_torneo where nombre = ?");
+			stmt = conn.prepareStatement("select * from paises where nombre = ?");
 
 			stmt.setString(1, buscarPais.getNombre());
 
@@ -75,8 +75,6 @@ public class DataPais {
 				p.setId(rs.getInt("id"));
 				p.setNombre(rs.getString("nombre"));
 			}
-
-			return p;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -91,7 +89,48 @@ public class DataPais {
 			}
 
 		}
+		return p;
+	}
+	
+	public static Pais search(String nombre) {
 
+		Pais p = null;
+
+		Connection conn = null;
+
+		ResultSet rs = null;
+
+		PreparedStatement stmt = null;
+
+		try {
+
+			conn = DbConnector.getInstancia().getConn();
+
+			stmt = conn.prepareStatement("select * from paises where nombre = ?");
+
+			stmt.setString(1, nombre);
+
+			rs = stmt.executeQuery();
+
+			if (rs != null && rs.next()) {
+				p = new Pais();
+				p.setId(rs.getInt("id"));
+				p.setNombre(rs.getString("nombre"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (stmt != null) stmt.close();
+				if (conn != null) conn.close();
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}
+
+		}
 		return p;
 	}
 
