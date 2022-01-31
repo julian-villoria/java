@@ -58,6 +58,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
                             <th scope="col">Contraseña</th>
+                            <th scope="col">Acceso</th>
                         	<th scope="col">Pais</th>
                         </tr>
                     </thead>
@@ -79,6 +80,9 @@
                                     </td>
                                     <td>
                                         <%= j.getContraseña() %>
+                                    </td>
+                                    <td>
+                                    	<%= j.getAcceso() %>
                                     </td>
                                     <td>
                                         <%= j.getPais().getNombre() %>
@@ -132,7 +136,11 @@
 			  </div>
 			  <div class="form-group">
 			    <label for="contraseñaNuevo">Contraseña</label>
-			    <input type="text" class="form-control" id="contraseñaNuevo" name="contraseñaNuevo">
+			    <input type="password" class="form-control" id="contraseñaNuevo" name="contraseñaNuevo">
+			  </div>
+			  <div class="form-group">
+			    <label for="accesoNuevo">Acceso</label>
+			    <input type="text" class="form-control" id="accesoNuevo" name="accesoNuevo">
 			  </div>
 			  <div class="form-group">
 			    <label for="paisNuevo">País</label>
@@ -178,7 +186,11 @@
 			  </div>
 			  <div class="form-group">
 			    <label for="contraseñaActualizar">Contraseña</label>
-			    <input type="text" class="form-control" id="contraseñaActualizar" name="contraseñaActualizar">
+			    <input type="password" class="form-control" id="contraseñaActualizar" name="contraseñaActualizar">
+			  </div>
+			  <div class="form-group">
+			    <label for="accesoActualizar">Acceso</label>
+			    <input type="text" class="form-control" id="accesoActualizar" name="accesoActualizar">
 			  </div>
 			  <div class="form-group">
 			    <label for="paisActualizar">País</label>
@@ -194,19 +206,31 @@
   </div>
 </div>
 
-<!-- Modal Eliminar-->
-<div class="modal fade" id="ModalEliminar" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form method="post" action="ServletJugador">
-	    <div class="modal-content">
-	    	  <div>
-			    <label for="usuarioEliminar">Usuario</label>
-			    <input type="text" class="form-control" id="usuarioEliminar" name="usuarioEliminar">
-			  </div>
-	    </div>
-    </form>
-  </div>
-</div>
+	<!-- Modal Eliminar-->
+	<div class="modal fade" id="ModalEliminar" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <form method="post" action="ServletJugador">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+				  <div class="form-group">
+				    <label for="usuarioEliminar">Usuario</label>
+				    <input type="text" class="form-control" id="usuarioEliminar" name="usuarioEliminar">
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="submit" class="btn btn-primary">Eliminar</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		      </div>
+		    </div>
+	    </form>
+	  </div>
+	</div>
     
 </body>
 </html>

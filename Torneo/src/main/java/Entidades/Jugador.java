@@ -7,6 +7,7 @@ public class Jugador {
 	private String nombre;
 	private String apellido;
 	private String contraseña;
+	private String acceso;
 	private Pais pais;
 	
 	public Pais getPais() {
@@ -44,6 +45,12 @@ public class Jugador {
 	}
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
+	}
+	public String getAcceso() {
+		return acceso;
+	}
+	public void setAcceso(String acceso) {
+		this.acceso = acceso;
 	}
 	@Override
 	public String toString() {

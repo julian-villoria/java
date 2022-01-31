@@ -2,6 +2,7 @@ package Datos;
 import java.sql.*;
 import java.util.LinkedList;
 
+import Entidades.Encrypt;
 import Entidades.Jugador;
 import Entidades.Pais;
 import Entidades.TipoTorneo;
@@ -22,7 +23,7 @@ public class DataJugador {
 
 			conn = DbConnector.getInstancia().getConn();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select j.id, j.nombre, apellido, usuario, contraseña, p.id, p.nombre from jugadores j INNER JOIN paises p ON p.id = j.id_pais");
+			rs = stmt.executeQuery("select j.id, j.nombre, apellido, usuario, contraseña, acceso, p.id, p.nombre from jugadores j INNER JOIN paises p ON p.id = j.id_pais");
 
 			if (rs != null) {
 
@@ -34,6 +35,56 @@ public class DataJugador {
 					j.setApellido(rs.getString("apellido"));
 					j.setUsuario(rs.getString("usuario"));
 					j.setContraseña(rs.getString("contraseña"));
+					j.setAcceso(rs.getString("acceso"));
+					p.setId(rs.getInt("p.id"));
+					p.setNombre(rs.getString("p.nombre"));
+					j.setPais(p);
+					jugadores.add(j);	
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (stmt!=null) stmt.close();
+				if (conn!=null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return jugadores;
+	}
+	
+	public static LinkedList<Jugador> listJugador(Jugador j){
+
+		Connection conn = null;
+
+		ResultSet rs = null;
+
+		Statement stmt = null;
+		
+		LinkedList<Jugador> jugadores = new LinkedList<Jugador>();
+
+		try {
+
+			conn = DbConnector.getInstancia().getConn();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select j.id, j.nombre, apellido, usuario, contraseña, acceso, p.id, p.nombre from jugadores j "
+					+ "INNER JOIN paises p ON p.id = j.id_pais "
+					+ "WHERE j.id = ?");
+
+			if (rs != null) {
+
+				while (rs.next()) {
+					Pais p = new Pais();
+					j.setId(rs.getInt("id"));
+					j.setNombre(rs.getString("j.nombre"));
+					j.setApellido(rs.getString("apellido"));
+					j.setUsuario(rs.getString("usuario"));
+					j.setContraseña(rs.getString("contraseña"));
+					j.setAcceso(rs.getString("acceso"));
 					p.setId(rs.getInt("p.id"));
 					p.setNombre(rs.getString("p.nombre"));
 					j.setPais(p);
@@ -117,17 +168,17 @@ public class DataJugador {
 
 		try {
 			conn = DbConnector.getInstancia().getConn();
-			stmt = conn.prepareStatement("INSERT INTO jugadores (usuario, nombre, apellido, contraseña, id_pais) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			stmt = conn.prepareStatement("INSERT INTO jugadores (usuario, nombre, apellido, contraseña, acceso, id_pais) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, nuevoJugador.getUsuario());
 			stmt.setString(2, nuevoJugador.getNombre());
 			stmt.setString(3, nuevoJugador.getApellido());
 			stmt.setString(4, nuevoJugador.getContraseña());
-			stmt.setInt(5, nuevoJugador.getPais().getId());
+			stmt.setString(5, nuevoJugador.getAcceso());
+			stmt.setInt(6, nuevoJugador.getPais().getId());
 			stmt.executeUpdate();
 			keyrs = stmt.getGeneratedKeys();
 
 			if (keyrs != null && keyrs.next()) {
-
 				nuevoJugador.setId(keyrs.getInt(1));
 			}	
 
@@ -144,7 +195,7 @@ public class DataJugador {
 		}
 	}
 	
-	public static void create(String usuario, String contraseña, String nombre, String apellido, int idPais) {
+	public static void create(String usuario, String contraseña, String nombre, String apellido, String acceso, int idPais) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -158,19 +209,21 @@ public class DataJugador {
 			jNuevo.setContraseña(contraseña);
 			jNuevo.setNombre(nombre);
 			jNuevo.setApellido(apellido);
+			jNuevo.setAcceso(acceso);
 			p.setId(idPais);
 			jNuevo.setPais(p);
 			
 			//query
 			pstmt = conn.prepareStatement(
-			"INSERT INTO jugadores(id, usuario, nombre, apellido, contraseña, id_pais) VALUES(?,?,?,?,?,?)");
+			"INSERT INTO jugadores(id, usuario, nombre, apellido, contraseña, acceso, id_pais) VALUES(?,?,?,?,?,?,?)");
 			
 			pstmt.setInt(1, jNuevo.getId());
 			pstmt.setString(2, jNuevo.getUsuario());
 			pstmt.setString(3, jNuevo.getNombre());
 			pstmt.setString(4, jNuevo.getApellido());
 			pstmt.setString(5, jNuevo.getContraseña());
-			pstmt.setInt(6, jNuevo.getPais().getId());
+			pstmt.setString(6, jNuevo.getAcceso());
+			pstmt.setInt(7, jNuevo.getPais().getId());
 			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}
@@ -196,7 +249,7 @@ public class DataJugador {
 
 		try {
 			conn = DbConnector.getInstancia().getConn();
-			stmt = conn.prepareStatement("delete from tipo_torneo where usuario = ?");
+			stmt = conn.prepareStatement("delete from jugadores where usuario = ?");
 			stmt.setString(1, borrarJugador.getUsuario());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -246,7 +299,7 @@ public class DataJugador {
 	}
 	
 	//actualizar
-	public static void update(int id, String usuario, String contraseña, String nombre, String apellido, Pais p) {
+	public static void update(int id, String usuario, String contraseña, String nombre, String apellido, String acceso, Pais p) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;
@@ -256,6 +309,7 @@ public class DataJugador {
 		jNuevo.setContraseña(contraseña);
 		jNuevo.setNombre(nombre);
 		jNuevo.setApellido(apellido);
+		jNuevo.setAcceso(acceso);
 		jNuevo.setPais(p);
 		
 
@@ -266,17 +320,18 @@ public class DataJugador {
 			//query
 			pstmt = conn.prepareStatement(
 					"Update jugadores "
-							+ "SET usuario=?, contraseña=?, nombre=?, apellido=?, id_pais=?"
+							+ "SET usuario=?, contraseña=?, nombre=?, apellido=?, acceso=?, id_pais=? "
 							+ "WHERE id=? " 
 					);
 
-			pstmt.setInt(5, jNuevo.getId());
+			pstmt.setInt(7, jNuevo.getId());
 			pstmt.setString(1, jNuevo.getUsuario());
-			pstmt.setString(2, jNuevo.getUsuario());
+			pstmt.setString(2, jNuevo.getContraseña());
 			pstmt.setString(3, jNuevo.getNombre());
 			pstmt.setString(4, jNuevo.getApellido());
-			pstmt.setInt(5, jNuevo.getPais().getId());
-			pstmt.executeQuery();
+			pstmt.setString(5, jNuevo.getAcceso());
+			pstmt.setInt(6, jNuevo.getPais().getId());
+			pstmt.executeUpdate();
 
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
@@ -321,6 +376,7 @@ public class DataJugador {
 				j.setApellido(rs.getString("apellido"));
 				j.setUsuario(rs.getString("usuario"));
 				j.setContraseña(rs.getString("contraseña"));
+				j.setAcceso("acceso");
 			}
 
 			//cerrar conexion
@@ -355,7 +411,7 @@ public class DataJugador {
 
 			LinkedList<Jugador> jugadores = new LinkedList<Jugador>();
 			conn = DbConnector.getInstancia().getConn();
-			stmt = conn.prepareStatement("select * from jugadores j inner join paises p on p.id = j.id_pais where p.nombre = ?");
+			stmt = conn.prepareStatement("select * from jugadores j inner join paises p on p.id = j.id_pais where p.nombre = ? AND acceso = Jugador");
 			stmt.setString(1, nombrePais);
 			rs = stmt.executeQuery();
 			if (rs != null) {
@@ -370,6 +426,7 @@ public class DataJugador {
 					jugador.setUsuario(rs.getString("usuario"));
 					jugador.setNombre(rs.getString("nombre"));
 					jugador.setApellido(rs.getString("apellido"));
+					jugador.setAcceso(rs.getString("acceso"));
 					jugador.setPais(pais);
 					jugadores.add(jugador);	
 				}
@@ -405,7 +462,7 @@ public class DataJugador {
 			stmt = conn.prepareStatement("Select id_jugador, id_pais, usuario, nombre, apellido from partidas p "
 					+ "Inner join jugadores j on j.id = p.id_jugador "
 					+ "inner join juegos ju on ju.id = p.id_juego "
-					+ "where denominacion = ?");
+					+ "where denominacion = ? AND acceso = Jugador");
 			stmt.setString(1, nombreJuego);
 			rs = stmt.executeQuery();
 			if (rs != null) {
