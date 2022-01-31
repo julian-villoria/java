@@ -92,7 +92,7 @@
                                     </td>
                                     <td>
                                     	<form action="ServletInscripcion" method="post">
-                                    		<button type="submit" name="Inscribirse" value=<%= t %> class="btn btn-success btn-block">Inscribirse</button>
+                                    		<button type="submit" name="Inscribirse" class="btn btn-success btn-block">Inscribirse</button>
                                     		<input name="idJuego" type="hidden" value="<%= t.getJuego().getId() %>">
                                     		<input name="idTipo" type="hidden" value="<%= t.getTipoTorneo().getId() %>"> 
                                     		<input name="fechaInicio" type="hidden" value="<%= t.getFechaInicio() %>"> 

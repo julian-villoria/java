@@ -4,6 +4,7 @@ public class Juego {
 
 	private int id;
 	private String denominacion;
+	private Dificultad d;
 	
 	public int getId() {
 		return id;
@@ -16,6 +17,12 @@ public class Juego {
 	}
 	public void setDenominacion(String denominacion) {
 		this.denominacion = denominacion;
+	}
+	public Dificultad getDificultad() {
+		return d;
+	}
+	public void setDificultad(Dificultad d) {
+		this.d = d;
 	}
 	@Override
 	public String toString() {

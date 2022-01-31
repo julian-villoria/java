@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import Entidades.Jugador;
 import Entidades.Pais;
+import Entidades.TipoTorneo;
 
 public class DataJugador {
 	
@@ -52,6 +53,58 @@ public class DataJugador {
 			}
 		}
 		return jugadores;
+	}
+	
+	public static Jugador search(String usuario) {
+		Jugador j = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+
+		try {
+			// conexion
+			conn = DbConnector.getInstancia().getConn();
+
+			stmt = conn.prepareStatement("SELECT * FROM jugadores WHERE usuario=?");
+			//setear parametros
+			stmt.setString(1, usuario);
+
+			j = new Jugador();
+			Pais p = new Pais();
+
+			//resultados
+			rs = stmt.executeQuery();
+
+			//mapear
+			if(rs.next()) {
+
+				j.setId(rs.getInt("id"));
+				j.setUsuario(rs.getString("usuario"));
+				j.setContraseña(rs.getString("contraseña"));
+				j.setNombre(rs.getString("nombre"));
+				j.setApellido(rs.getString("apellido"));
+				p.setId(rs.getInt("id_pais"));
+				j.setPais(p);
+			}
+
+			//cerrar conexion
+			if(rs!=null) {rs.close();}
+			if(stmt!=null) {stmt.close();}
+
+			conn.close();
+
+		}catch(SQLException ex){
+			System.out.println("SQLException: " + ex.getMessage());
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				conn.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return j;
 	}
 	
 	public static void nuevo(Jugador nuevoJugador) {

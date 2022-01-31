@@ -2,6 +2,8 @@ package Datos;
 
 import java.sql.*;
 import java.util.LinkedList;
+
+import Entidades.Dificultad;
 import Entidades.Juego;
 
 public class DataJuego {
@@ -20,14 +22,17 @@ public class DataJuego {
 				
 				// Ejecutar querys
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("SELECT * FROM Juegos");
+				rs = stmt.executeQuery("SELECT j.id, j.denominacion, d.nombre FROM Juegos j INNER JOIN dificultad d ON d.id_juego = j.id");
 				
 				while(rs.next()) /*Empieza apuntando en -1*/ {
 					
 					Juego j = new Juego();
+					Dificultad d = new Dificultad();
 					
-					j.setId(rs.getInt("id"));
-					j.setDenominacion(rs.getString("denominacion"));
+					j.setId(rs.getInt("j.id"));
+					j.setDenominacion(rs.getString("j.denominacion"));
+					d.setNombre(rs.getString("d.nombre"));
+					j.setDificultad(d);
 					
 					juegos.add(j);
 				}

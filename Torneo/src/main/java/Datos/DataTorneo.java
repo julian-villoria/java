@@ -314,7 +314,7 @@ public static LinkedList<Torneo> proximos(){
 			pstmt.setInt(3, tNuevo.getCupo());
 			pstmt.setString(4, tNuevo.getGanador());
 			pstmt.setDouble(5, tNuevo.getMontoInsc());
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();

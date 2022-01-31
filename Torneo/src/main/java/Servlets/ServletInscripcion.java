@@ -41,7 +41,10 @@ public class ServletInscripcion extends HttpServlet {
 		LinkedList<Torneo> dataTorneo = new LinkedList<Torneo>(); 
 		LinkedList<Juego> dataJuego = new LinkedList<Juego>();
 		LinkedList<TipoTorneo> dataTipoTorneo = new LinkedList<TipoTorneo>();
+		int cantInsc = 0;
 		dataTorneo = DataTorneo.proximos();
+		cantInsc = DataInscripcion.contador();
+		request.setAttribute("cantInsc", cantInsc);
 		request.setAttribute("Torneo", dataTorneo);
 		request.setAttribute("Juego", dataJuego);
 		request.setAttribute("TipoTorneo", dataTipoTorneo);
@@ -62,9 +65,7 @@ public class ServletInscripcion extends HttpServlet {
 		String fechaInicioString = request.getParameter("fechaInicio");
         LocalDate fechaInicio = LocalDate.parse(fechaInicioString);
         t = DataTorneo.search(idJuego, idTipo, fechaInicio);
-        System.out.println(t.getJuego());
 		DataInscripcion.create(t, j, LocalDate.now());
 		doGet(request, response);
 	}
-
 }

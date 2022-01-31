@@ -53,6 +53,7 @@
                         <tr class="table-primary">
                             <th scope="col">ID</th>
                             <th scope="col">Denominacion</th>
+                            <th scope="col">Dificultad</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,6 +65,9 @@
                                     </td>
                                     <td>
                                         <%= j.getDenominacion() %>
+                                    </td>
+                                    <td>
+                                        <%= j.getDificultad().getNombre() %>
                                     </td>
                                 </tr>
                             <% } %>
@@ -88,91 +92,91 @@
 		</div>
     </div>
 
-<!-- Modal Agregar-->
-<div class="modal fade" id="ModalAgregar" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form method="post" action="ServletTipoTorneo">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Agregar</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-			 <!--  <div class="form-group">
-			    <label for="fechaDesde">ID</label>
-			    <input type="date" class="form-control" id="nuevoId" name="nuevoId">
-			  </div> -->
-			  <div class="form-group">
-			    <label for="nuevaDenominacion">Denominacion</label>
-			    <input type="text" class="form-control" id="nuevaDenominacion" name="nuevaDenominacion">
-			  </div>
-	      </div>
-	      <div class="modal-footer">
-	      	<button type="submit" class="btn btn-primary">Agregar</button>
-	     	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	      </div>
-	    </div>
-    </form>
-  </div>
-</div>
-
-<!-- Modal Actualizar-->
-<div class="modal fade" id="ModalActualizar" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form method="post" action="ServletTipoTorneo">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-			  <div class="form-group">
-			    <label for="fechaDesde">ID</label>
-			    <input type="number" class="form-control" id="idActualizar" name="idActualizar">
-			  </div>
-			  <div class="form-group">
-			    <label for="denominacion">Denominacion</label>
-			    <input type="text" class="form-control" id="denominacionActualizar" name="denominacionActualizar">
-			  </div>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	      	<button type="submit" class="btn btn-primary">Actualizar</button>
-	      </div>
-	    </div>
-    </form>
-  </div>
-</div>
-
-<!-- Modal Eliminar-->
-<div class="modal fade" id="ModalEliminar" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form method="post" action="ServletTipoTorneo">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-			  <div class="form-group">
-			    <label for="denominacion">Denominacion</label>
-			    <input type="text" class="form-control" id="tipoEliminar" name="tipoEliminar">
-			  </div>
-	      </div>
-	      <div class="modal-footer">
-	      	<button type="submit" class="btn btn-primary">Eliminar</button>
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	      </div>
-	    </div>
-    </form>
-  </div>
-</div>
+	<!-- Modal Agregar-->
+	<div class="modal fade" id="ModalAgregar" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <form method="post" action="ServletJuego">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Agregar</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+				 <!--  <div class="form-group">
+				    <label for="fechaDesde">ID</label>
+				    <input type="date" class="form-control" id="nuevoId" name="nuevoId">
+				  </div> -->
+				  <div class="form-group">
+				    <label for="nuevaDenominacion">Denominacion</label>
+				    <input type="text" class="form-control" id="nuevaDenominacion" name="nuevaDenominacion">
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="submit" class="btn btn-primary">Agregar</button>
+		     	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		      </div>
+		    </div>
+	    </form>
+	  </div>
+	</div>
+	
+	<!-- Modal Actualizar-->
+	<div class="modal fade" id="ModalActualizar" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <form method="post" action="ServletJuego">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Actualizar</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+				  <div class="form-group">
+				    <label for="fechaDesde">ID</label>
+				    <input type="number" class="form-control" id="idActualizar" name="idActualizar">
+				  </div>
+				  <div class="form-group">
+				    <label for="denominacion">Denominacion</label>
+				    <input type="text" class="form-control" id="denominacionActualizar" name="denominacionActualizar">
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		      	<button type="submit" class="btn btn-primary">Actualizar</button>
+		      </div>
+		    </div>
+	    </form>
+	  </div>
+	</div>
+	
+	<!-- Modal Eliminar-->
+	<div class="modal fade" id="ModalEliminar" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <form method="post" action="ServletJuego">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+				  <div class="form-group">
+				    <label for="denominacion">Denominacion</label>
+				    <input type="text" class="form-control" id="tipoEliminar" name="tipoEliminar">
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="submit" class="btn btn-primary">Eliminar</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		      </div>
+		    </div>
+	    </form>
+	  </div>
+	</div>
     
 </body>
 </html>
