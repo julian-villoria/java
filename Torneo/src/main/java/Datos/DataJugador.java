@@ -62,18 +62,21 @@ public class DataJugador {
 		Connection conn = null;
 
 		ResultSet rs = null;
-
-		Statement stmt = null;
+		
+		PreparedStatement stmt = null;
 		
 		LinkedList<Jugador> jugadores = new LinkedList<Jugador>();
 
 		try {
 
 			conn = DbConnector.getInstancia().getConn();
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select j.id, j.nombre, apellido, usuario, contraseña, acceso, p.id, p.nombre from jugadores j "
+			stmt = conn.prepareStatement("select j.id, j.nombre, apellido, usuario, contraseña, acceso, p.id, p.nombre from jugadores j "
 					+ "INNER JOIN paises p ON p.id = j.id_pais "
 					+ "WHERE j.id = ?");
+			
+			stmt.setInt(1, j.getId());
+			
+			rs = stmt.executeQuery();
 
 			if (rs != null) {
 
@@ -376,7 +379,7 @@ public class DataJugador {
 				j.setApellido(rs.getString("apellido"));
 				j.setUsuario(rs.getString("usuario"));
 				j.setContraseña(rs.getString("contraseña"));
-				j.setAcceso("acceso");
+				j.setAcceso(rs.getString("acceso"));
 			}
 
 			//cerrar conexion

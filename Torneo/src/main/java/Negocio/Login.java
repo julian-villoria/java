@@ -10,7 +10,6 @@ public class Login {
 		
 		Jugador j = new Jugador();
 		String hash = Encrypt.convertirSHA256(contraseña);
-		System.out.println(hash);
 		j = DataJugador.login(usuario, hash);
 		return j;
 	}

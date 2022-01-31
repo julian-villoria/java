@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="Entidades.Jugador" %>
-<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,7 +23,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
-	                    <%if(Objects.isNull(jugador)){%>
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="ServletPartida">Partida</a></li>
+	                    <%if(jugador == null){%>
 	                    	<li class="nav-item">
 	                    		<a class="nav-link" href="ServletLogin">
 	                        		<%="Login"%>
@@ -51,11 +51,12 @@
                 <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
                     <div class="m-4 m-lg-5">
                         <h1 class="display-5 fw-bold">Sistema de Torneo</h1>
-                        <a class="btn btn-primary btn-lg" href="ServletLogin">Loguearse</a>
+                        <p class="fs-4">Texto de explicación/introducción</p>
+                        <a class="btn btn-primary btn-lg" href="ServletInscripcion">Inscribirse</a>
                     </div>
                 </div>
             </div>
-        </header>
+        </header> 
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>

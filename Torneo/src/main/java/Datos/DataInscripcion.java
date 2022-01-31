@@ -206,7 +206,6 @@ public class DataInscripcion {
 			+ "SET fecha_inicio_torneo= ?, id_jugador=? , id_juego = ?, fecha=?, id_tipo=?"
 			+ "WHERE id_juego=? AND id_tipo=? AND fecha_inicio_torneo=? AND id_jugador=?" 
 					);
-			
 
 			pstmt.setObject(1, iNuevo.getTorneo().getFechaInicio());
 			pstmt.setInt(2, iNuevo.getJugador().getId());
@@ -222,7 +221,6 @@ public class DataInscripcion {
 			
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
-			
 			
 		}catch(SQLException ex) {
 			System.out.println("SQLException: " + ex.getMessage());
