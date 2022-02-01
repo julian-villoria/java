@@ -36,12 +36,21 @@ public class ServletEditarPerfil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		LinkedList<Jugador> data = new LinkedList<Jugador>(); 
 		HttpSession session = request.getSession(true);
 		Jugador jugador = (Jugador) session.getAttribute("jugador");
-		data = DataJugador.listJugador(jugador);
-		request.setAttribute("data", data);
-		getServletContext().getRequestDispatcher("/jsp/EditarPerfil.jsp").forward(request, response);
+		if(jugador == null) {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}else {
+			if(jugador.getId() != 0 && jugador.getAcceso().equals("Administrador")) {
+				LinkedList<Jugador> data = new LinkedList<Jugador>(); 
+				data = DataJugador.listJugador(jugador);
+				request.setAttribute("data", data);
+				getServletContext().getRequestDispatcher("/jsp/EditarPerfil.jsp").forward(request, response);
+			}else {
+				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+			}
+		}
+
 	}
 
 	/**

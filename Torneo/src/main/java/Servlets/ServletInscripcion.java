@@ -38,6 +38,12 @@ public class ServletInscripcion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(true);
+		Jugador jugador = (Jugador) session.getAttribute("jugador");
+		if(jugador == null) {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}else {
+			if(jugador.getId() != 0 && jugador.getAcceso().equals("Jugador")) {
 		LinkedList<Torneo> dataTorneo = new LinkedList<Torneo>(); 
 		LinkedList<Juego> dataJuego = new LinkedList<Juego>();
 		LinkedList<TipoTorneo> dataTipoTorneo = new LinkedList<TipoTorneo>();
@@ -49,6 +55,10 @@ public class ServletInscripcion extends HttpServlet {
 		request.setAttribute("Juego", dataJuego);
 		request.setAttribute("TipoTorneo", dataTipoTorneo);
 		getServletContext().getRequestDispatcher("/jsp/Inscripcion.jsp").forward(request, response);
+			}else {
+				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+			}
+		}
 	}
 
 	/**

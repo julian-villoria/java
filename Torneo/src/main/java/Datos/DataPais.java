@@ -9,7 +9,7 @@ import Entidades.Pais;
 
 public class DataPais {
 
-	public static LinkedList<Pais> list() throws SQLException {
+	public static LinkedList<Pais> list(){
 
 		Connection conn = null;
 

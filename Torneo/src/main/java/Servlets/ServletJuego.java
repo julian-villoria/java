@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Datos.DataJuego;
 import Datos.DataTipoTorneo;
 import Entidades.Juego;
+import Entidades.Jugador;
 
 /**
  * Servlet implementation class ServletJuego
@@ -33,10 +35,21 @@ public class ServletJuego extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		LinkedList<Juego> data = new LinkedList<Juego>(); 
-		data = DataJuego.list();
-		request.setAttribute("data", data);
-		getServletContext().getRequestDispatcher("/jsp/Juego.jsp").forward(request, response);
+		HttpSession session = request.getSession(true);
+		Jugador jugador = (Jugador) session.getAttribute("jugador");
+		if(jugador == null) {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}
+		else {
+			if(jugador.getId() != 0) {
+			LinkedList<Juego> data = new LinkedList<Juego>(); 
+			data = DataJuego.list();
+			request.setAttribute("data", data);
+			getServletContext().getRequestDispatcher("/jsp/Juego.jsp").forward(request, response);
+			}else {
+				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+			}
+		}
 	}
 
 	/**

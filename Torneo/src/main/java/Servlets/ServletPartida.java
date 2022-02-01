@@ -36,7 +36,17 @@ public class ServletPartida extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(true);
+		Jugador jugador = (Jugador) session.getAttribute("jugador");
+		if(jugador == null) {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}else {
+			if(jugador.getId() != 0) {
 		getServletContext().getRequestDispatcher("/jsp/Partida.jsp").forward(request, response);
+			}else {
+				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+			}
+		}
 	}
 
 	/**
@@ -44,8 +54,12 @@ public class ServletPartida extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = (HttpSession) request.getSession();
+		HttpSession session = request.getSession(true);
 		Jugador jugador = (Jugador) session.getAttribute("jugador");
+		if(jugador == null) {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}else {
+			if(jugador.getId() != 0 && jugador.getAcceso().equals("Jugador")) {
 		Torneo t = new Torneo();
 		Juego juego = new Juego();
 		t = DataTorneo.getTorneoJugadorActual(jugador);
@@ -55,6 +69,10 @@ public class ServletPartida extends HttpServlet {
 		LocalDateTime fechaHora = LocalDateTime.now();
 		DataPartida.create(fechaHora, jugador, juego, puntos);
 		getServletContext().getRequestDispatcher("/jsp/PartidaEnviada.jsp").forward(request, response);
+			}else {
+				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+			}
+		}
 	}
 
 }

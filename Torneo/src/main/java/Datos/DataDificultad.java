@@ -12,7 +12,7 @@ import Entidades.Juego;
 
 public class DataDificultad {
 
-public LinkedList<Dificultad> list() throws SQLException {
+public LinkedList<Dificultad> list() {
 		
 		Connection conn = null;
 		

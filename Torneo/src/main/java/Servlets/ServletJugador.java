@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Datos.DataJugador;
 import Datos.DataPais;
@@ -35,10 +36,20 @@ public class ServletJugador extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		LinkedList<Jugador> data = new LinkedList<Jugador>(); 
-		data = DataJugador.list();
-		request.setAttribute("data", data);
-		getServletContext().getRequestDispatcher("/jsp/Jugador.jsp").forward(request, response);
+		HttpSession session = request.getSession(true);
+		Jugador jugador = (Jugador) session.getAttribute("jugador");
+		if(jugador == null) {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}else {
+			if(jugador.getId() != 0 && jugador.getAcceso().equals("Administrador")) {
+				LinkedList<Jugador> data = new LinkedList<Jugador>(); 
+				data = DataJugador.list();
+				request.setAttribute("data", data);
+				getServletContext().getRequestDispatcher("/jsp/Jugador.jsp").forward(request, response);
+			}else {
+				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+			}
+		}
 	}
 
 	/**

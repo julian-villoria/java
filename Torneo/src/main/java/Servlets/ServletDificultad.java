@@ -1,7 +1,6 @@
 package Servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -9,13 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Datos.DataDificultad;
 import Datos.DataJuego;
-import Datos.DataPais;
 import Entidades.Dificultad;
 import Entidades.Juego;
-import Entidades.Pais;
+import Entidades.Jugador;
 
 /**
  * Servlet implementation class ServletDificultad
@@ -39,14 +38,19 @@ public class ServletDificultad extends HttpServlet {
 		// TODO Auto-generated method stub
 		DataDificultad dd = new DataDificultad(); 
 		LinkedList<Dificultad> data = new LinkedList<Dificultad>(); 
-		try {
-			data = dd.list();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		HttpSession session = request.getSession(true);
+		Jugador jugador = (Jugador) session.getAttribute("jugador");
+		if(jugador == null) {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}else {
+			if(jugador.getId() != 0) {
+				data = dd.list();
+				request.setAttribute("data", data);
+				getServletContext().getRequestDispatcher("/jsp/Dificultad.jsp").forward(request, response);
+			}else {
+				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+			}
 		}
-		request.setAttribute("data", data);
-		getServletContext().getRequestDispatcher("/jsp/Dificultad.jsp").forward(request, response);
 	}
 
 	/**
@@ -61,10 +65,9 @@ public class ServletDificultad extends HttpServlet {
 			d.setNombre(request.getParameter("nuevoNombre"));
 			d.setRango_puntajes(Integer.parseInt(getInitParameter("nuevoRangoPuntaje")));
 			d.setRango_victorias(Integer.parseInt(request.getParameter("nuevoRangoVictorias")));
-			DataJuego dj = new DataJuego();
 			Juego j = new Juego();
 			String denominacion = request.getParameter("nuevoJuego");
-			j = dj.search(denominacion);
+			j = DataJuego.search(denominacion);
 			d.setJuego(j);
 			dd.nuevo(d);
 			doGet(request, response);
@@ -78,10 +81,9 @@ public class ServletDificultad extends HttpServlet {
 				 && request.getParameter("actualizarJuego") != null) {
 				DataDificultad dd = new DataDificultad();
 				Dificultad d = new Dificultad();
-				DataJuego dj = new DataJuego();
 				Juego j = new Juego();
 				String juegoActualizar = request.getParameter("actualizarJuego");
-				j = dj.search(juegoActualizar);
+				j = DataJuego.search(juegoActualizar);
 				d.setNombre(request.getParameter("actualizarNombre"));
 				d.setRango_puntajes(Integer.parseInt(request.getParameter("actualizarRangoPuntaje")));
 				d.setRango_victorias(Integer.parseInt(request.getParameter("actualizarRangoVictorias")));

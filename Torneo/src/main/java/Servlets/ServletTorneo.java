@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import Entidades.Jugador;
 import Negocio.CrudTorneo;
 
 /**
@@ -30,10 +32,20 @@ public class ServletTorneo extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(true);
+		Jugador jugador = (Jugador) session.getAttribute("jugador");
+		if(jugador == null) {
+			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+		}else {
+			if(jugador.getId() != 0 && jugador.getAcceso().equals("Administrador")) {
 		request.setAttribute("Torneo", CrudTorneo.listaTorneo());
 		request.setAttribute("Juego", CrudTorneo.listaJuego());
 		request.setAttribute("TipoTorneo", CrudTorneo.listaTipoTorneo());
 		getServletContext().getRequestDispatcher("/jsp/Torneo.jsp").forward(request, response);
+			}else {
+				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+			}
+		}
 	}
 
 	/**
