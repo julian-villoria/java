@@ -9,6 +9,7 @@ public class Jugador {
 	private String contraseña;
 	private String acceso;
 	private Pais pais;
+	private int reportes;
 	
 	public Pais getPais() {
 		return pais;
@@ -52,11 +53,19 @@ public class Jugador {
 	public void setAcceso(String acceso) {
 		this.acceso = acceso;
 	}
+	public int getReportes() {
+		return reportes;
+	}
+	public void setReportes(int reportes) {
+		this.reportes = reportes;
+	}
 	@Override
 	public String toString() {
 		return "Jugador [id=" + id + ", usuario=" + usuario + ", nombre=" + nombre + ", apellido=" + apellido
 				+ ", contraseña=" + contraseña + ", pais=" + pais + "]";
 	}
+
+	
 	
 	
 	

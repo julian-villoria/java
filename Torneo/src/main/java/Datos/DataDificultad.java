@@ -34,8 +34,10 @@ public LinkedList<Dificultad> list() {
 					Dificultad dificultad = new Dificultad();
 					Juego juego = new Juego();
 					dificultad.setNombre(rs.getString("nombre"));
-					dificultad.setRango_puntajes(rs.getInt("rango_puntajes"));
-					dificultad.setRango_victorias(rs.getInt("rango_victorias"));
+					dificultad.setRangoMinPuntajes(rs.getInt("rango_min_puntaje"));
+					dificultad.setRangoMaxPuntajes(rs.getInt("rango_max_puntaje"));
+					dificultad.setRangoMinVictorias(rs.getInt("rango_min_victoria"));
+					dificultad.setRangoMaxVictorias(rs.getInt("rango_max_victoria"));
 					juego.setId(rs.getInt("id_juego"));	
 					dificultad.setJuego(juego);
 					dificultades.add(dificultad);
@@ -84,8 +86,10 @@ public LinkedList<Dificultad> list() {
 			if (rs != null && rs.next()) {
 				d = new Dificultad();
 				d.setNombre(rs.getString("nombre"));
-				d.setRango_puntajes(rs.getInt("rango_puntajes"));
-				d.setRango_victorias(rs.getInt("rango_victorias"));
+				d.setRangoMinPuntajes(rs.getInt("rango_min_puntaje"));
+				d.setRangoMaxPuntajes(rs.getInt("rango_max_puntaje"));
+				d.setRangoMinVictorias(rs.getInt("rango_min_victoria"));
+				d.setRangoMaxVictorias(rs.getInt("rango_max_victoria"));
 				j = new Juego();
 				j.setId(rs.getInt("id"));
 				j.setDenominacion(rs.getString("denominacion"));
@@ -121,11 +125,13 @@ public LinkedList<Dificultad> list() {
 		
 		try {
 			conn = DbConnector.getInstancia().getConn();
-			stmt = conn.prepareStatement("insert into dificultad (nombre, rango_puntajes, rango_victorias, id_juego) values (?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			stmt = conn.prepareStatement("insert into dificultad (nombre, rango_min_puntaje, rango_max_puntaje, rango_min_victoria, rango_max_victoria, id_juego) values (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, nuevaDificultad.getNombre());
-			stmt.setInt(2, nuevaDificultad.getRango_puntajes());
-			stmt.setInt(3, nuevaDificultad.getRango_victorias());
-			stmt.setInt(4, nuevaDificultad.getJuego().getId());
+			stmt.setInt(2, nuevaDificultad.getRangoMinPuntajes());
+			stmt.setInt(3, nuevaDificultad.getRangoMaxPuntajes());
+			stmt.setInt(4, nuevaDificultad.getRangoMinVictorias());
+			stmt.setInt(5, nuevaDificultad.getRangoMaxVictorias());
+			stmt.setInt(6, nuevaDificultad.getJuego().getId());
 			
 			stmt.executeUpdate();
 			keyrs = stmt.getGeneratedKeys();
@@ -211,12 +217,14 @@ public LinkedList<Dificultad> list() {
 			//query
 			pstmt = conn.prepareStatement(
 					"Update dificultad d INNER JOIN juegos j ON j.id=d.id_juego "
-					+ "SET d.rango_puntajes=?, d.rango_victorias=? WHERE nombre=? AND denominacion=?"
+					+ "SET d.rango_min_puntaje=?, rango_max_puntaje=?, d.rango_min_victoria=?, d.rango_max_victoria=? WHERE nombre=? AND denominacion=?"
 					);
-			pstmt.setInt(1, updateDificultad.getRango_puntajes());
-			pstmt.setInt(2, updateDificultad.getRango_victorias());
-			pstmt.setString(3, updateDificultad.getNombre());
-			pstmt.setString(4, updateJuego.getDenominacion());
+			pstmt.setInt(1, updateDificultad.getRangoMinPuntajes());
+			pstmt.setInt(2, updateDificultad.getRangoMaxPuntajes());
+			pstmt.setInt(3, updateDificultad.getRangoMinVictorias());
+			pstmt.setInt(4, updateDificultad.getRangoMaxVictorias());
+			pstmt.setString(5, updateDificultad.getNombre());
+			pstmt.setString(6, updateJuego.getDenominacion());
 			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}
@@ -247,13 +255,17 @@ public LinkedList<Dificultad> list() {
 			//query
 			pstmt = conn.prepareStatement(
 					"Update dificultad d INNER JOIN juegos j ON j.id=d.id_juego "
-					+ "SET d.rango_puntajes=?, d.rango_victorias=? WHERE nombre=? AND denominacion=?" 
+					+ "SET d.rango_min_puntaje=?, rango_max_puntaje=?, d.rango_min_victoria=?, d.rango_max_victoria=? WHERE nombre=? AND denominacion=?" 
 					);
 			
-			pstmt.setInt(1, updateDificultad.getRango_puntajes());
-			pstmt.setInt(2, updateDificultad.getRango_victorias());
-			pstmt.setString(3, updateDificultad.getNombre());
-			pstmt.setString(4, updateDificultad.getJuego().getDenominacion());
+			pstmt.setInt(1, updateDificultad.getRangoMinPuntajes());
+			pstmt.setInt(2, updateDificultad.getRangoMaxPuntajes());
+			pstmt.setInt(3, updateDificultad.getRangoMinVictorias());
+			pstmt.setInt(4, updateDificultad.getRangoMaxVictorias());
+			pstmt.setString(5, updateDificultad.getNombre());
+			pstmt.setString(6, updateDificultad.getJuego().getDenominacion());
+			
+			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();

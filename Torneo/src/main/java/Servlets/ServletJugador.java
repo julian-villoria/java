@@ -79,7 +79,8 @@ public class ServletJugador extends HttpServlet {
 				&& request.getParameter("paisActualizar") != null
 				&& request.getParameter("contraseñaActualizar") != null
 				&& request.getParameter("idActualizar") != null
-				&& request.getParameter("accesoActualizar") != null){
+				&& request.getParameter("accesoActualizar") != null
+				&& request.getParameter("reportesActualizar") != null){
 			Pais p = new Pais();
 			int idJug = Integer.parseInt(request.getParameter("idActualizar"));
 			String usuario = request.getParameter("usuarioActualizar");
@@ -87,10 +88,11 @@ public class ServletJugador extends HttpServlet {
 			String apellido = request.getParameter("apellidoActualizar");
 			String acceso = request.getParameter("accesoActualizar");
 			String pais = request.getParameter("paisActualizar");
-			String contraseña = Encrypt.convertirSHA256(request.getParameter("contraseñaActualizar")); 
+			String contraseña = Encrypt.convertirSHA256(request.getParameter("contraseñaActualizar"));
+			int cantReportes = Integer.parseInt(request.getParameter("reportesActualizar"));
 			p.setNombre(pais);
 			p = DataPais.buscar(p);
-			DataJugador.update(idJug, usuario, contraseña, nombre, apellido, acceso, p);
+			DataJugador.update(idJug, usuario, contraseña, nombre, apellido, acceso, p, cantReportes);
 			doGet(request, response);
 		}
 		if(	request.getParameter("usuarioEliminar") != null){
