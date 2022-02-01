@@ -506,6 +506,47 @@ public class DataJugador {
 		}
 
 	}
+	
+	//actualizar
+	public static void updateReportes(Jugador j, int reporte) {
+		
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		
+		try {
+			// crear conexion
+			conn = DbConnector.getInstancia().getConn();
+
+			//query
+			pstmt = conn.prepareStatement(
+					"Update jugadores "
+							+ "SET reportes=? "
+							+ "WHERE id=? " 
+					);
+			
+			pstmt.setInt(1, j.getReportes());
+			pstmt.setInt(8, j.getId());
+			pstmt.executeUpdate();
+
+			if(pstmt!=null) {pstmt.close();}
+			conn.close();
+
+
+		}catch(SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+		}finally {
+			try {
+				if(pstmt!=null) {pstmt.close();}
+				conn.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+	
+	
+	
 
 
 
