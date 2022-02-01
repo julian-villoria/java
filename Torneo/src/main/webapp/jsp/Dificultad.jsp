@@ -23,9 +23,10 @@
                         <tr class="table-primary">
                             <th scope="col">Nombre</th>
                             <th scope="col">Id Juego</th>
-                            <th scope="col">Rango Puntaje</th>
-                            <th scope="col">Rango Victorias</th>
-                        	<th></th>
+                            <th scope="col">Puntaje Minimo</th>
+                            <th scope="col">Puntaje Maximo </th>
+                            <th scope="col">Victorias Minimas</th>
+                        	<th scope="col">Victorias Maximas</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,10 +40,16 @@
                                         <%= d.getJuego().getId() %>
                                     </td>
                                     <td>
-                                        <%= d.getRango_puntajes() %>
+                                        <%= d.getRangoMinPuntajes() %>
                                     </td>
                                     <td>
-                                        <%= d.getRango_victorias() %>
+                                        <%= d.getRangoMaxPuntajes() %>
+                                    </td>
+                                    <td>
+                                        <%= d.getRangoMinVictorias() %>
+                                    </td>
+                                    <td>
+                                        <%= d.getRangoMaxVictorias() %>
                                     </td>
                                 </tr>
                             <% } %>
@@ -83,12 +90,20 @@
 			    <input type="text" class="form-control" id="nuevoNombre" name="nuevoNombre">
 			  </div>
 			  <div class="form-group">
-			    <label for="nuevoRangoPuntaje">Rango Puntaje</label>
-			    <input type="number" class="form-control" id="nuevoRangoPuntaje" name="nuevoRangoPuntaje">
+			    <label for="nuevoRangoMinPuntaje">Puntaje Minimo</label>
+			    <input type="number" class="form-control" id="nuevoRangoMinPuntaje" name="nuevoRangoMinPuntaje">
 			  </div>
 			  <div class="form-group">
-			    <label for="nuevoRangoVictorias">Rango Victorias</label>
-			    <input type="number" class="form-control" id="nuevoRangoVictorias" name="nuevoRangoVictorias">
+			    <label for="nuevoRangoMaxPuntaje">Puntaje Maximo</label>
+			    <input type="number" class="form-control" id="nuevoRangoMaxPuntaje" name="nuevoRangoMaxPuntaje">
+			  </div>
+			  <div class="form-group">
+			    <label for="nuevoRangoMinVictorias">Victoias Minimas</label>
+			    <input type="number" class="form-control" id="nuevoRangoMinVictorias" name="nuevoRangoMinVictorias">
+			  </div>
+			  <div class="form-group">
+			    <label for="nuevoRangoMaxVictorias">Victorias Máximas</label>
+			    <input type="number" class="form-control" id="nuevoRangoMaxVictorias" name="nuevoRangoMaxVictorias">
 			  </div>
 			  <div class="form-group">
 			    <label for="nuevoJuego">Juego</label>
@@ -121,12 +136,20 @@
 			    <input type="text" class="form-control" id="actualizarNombre" name="actualizarNombre">
 			  </div>
 			  <div class="form-group">
-			    <label for="actualizarRangoPuntaje">Rango Puntaje</label>
-			    <input type="number" class="form-control" id="actualizarRangoPuntaje" name="actualizarRangoPuntaje">
+			    <label for="nuevoRangoMinPuntaje">Puntaje Minimo</label>
+			    <input type="number" class="form-control" id="nuevoRangoMinPuntaje" name="nuevoRangoMinPuntaje">
 			  </div>
 			  <div class="form-group">
-			    <label for="actualizarRangoVictorias">Rango Victorias</label>
-			    <input type="number" class="form-control" id="actualizarRangoVictorias" name="actualizarRangoVictorias">
+			    <label for="nuevoRangoMaxPuntaje">Puntaje Maximo</label>
+			    <input type="number" class="form-control" id="nuevoRangoMaxPuntaje" name="nuevoRangoMaxPuntaje">
+			  </div>
+			  <div class="form-group">
+			    <label for="nuevoRangoMinVictorias">Victoias Minimas</label>
+			    <input type="number" class="form-control" id="nuevoRangoMinVictorias" name="nuevoRangoMinVictorias">
+			  </div>
+			  <div class="form-group">
+			    <label for="nuevoRangoMaxVictorias">Victorias Máximas</label>
+			    <input type="number" class="form-control" id="nuevoRangoMaxVictorias" name="nuevoRangoMaxVictorias">
 			  </div>
 			  <div class="form-group">
 			    <label for="actualizarJuego">Juego</label>
