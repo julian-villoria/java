@@ -92,11 +92,11 @@
                                     </td>
                                     <td>
                                     	<form action="ServletInscripcion" method="post">
-                                    		<button type="submit" name="Inscribirse" class="btn btn-success btn-block"
+                                    		<button type="submit" name="Inscribirse" class="btn 
                                     		<% if(DataInscripcion.contador(jugador, t) == 0){ %>
-                                    		 	>Inscribirse
+                                    		 	btn-success btn-block">Inscribirse
                                     		 <%}else{ %>
-                                    		 	disabled> Ya Inscripto
+                                    		 	btn-secondary btn-block" disabled> Ya Inscripto
                                     		 <%} %>
                                     		 </button>
                                     		<input name="idJuego" type="hidden" value="<%= t.getJuego().getId() %>">
