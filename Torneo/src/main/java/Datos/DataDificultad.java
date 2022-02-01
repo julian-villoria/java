@@ -263,7 +263,9 @@ public LinkedList<Dificultad> list() throws SQLException {
 			pstmt.setInt(3, updateDificultad.getRangoMinVictorias());
 			pstmt.setInt(4, updateDificultad.getRangoMaxVictorias());
 			pstmt.setString(5, updateDificultad.getNombre());
-			pstmt.setString(4, updateDificultad.getJuego().getDenominacion());
+			pstmt.setString(6, updateDificultad.getJuego().getDenominacion());
+			
+			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
