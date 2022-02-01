@@ -40,13 +40,13 @@
                                         <%= d.getJuego().getId() %>
                                     </td>
                                     <td>
-                                        <%= d.getRangoMinPuntaje() %>
+                                        <%= d.getRangoMinPuntajes() %>
                                     </td>
                                     <td>
-                                        <%= d.getRangoMaxPuntaje() %>
+                                        <%= d.getRangoMaxPuntajes() %>
                                     </td>
                                     <td>
-                                        <%= d.getRangoMinVictoria() %>
+                                        <%= d.getRangoMinVictorias() %>
                                     </td>
                                     <td>
                                         <%= d.getRangoMaxVictorias() %>
