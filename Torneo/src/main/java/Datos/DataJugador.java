@@ -358,6 +358,58 @@ public class DataJugador {
 		}
 
 	}
+	
+	public static void update(int id, String usuario, String contraseña, String nombre, String apellido, String acceso, Pais p) {
+		
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		Jugador jNuevo = new Jugador();
+		jNuevo.setId(id);
+		jNuevo.setUsuario(usuario);
+		jNuevo.setContraseña(contraseña);
+		jNuevo.setNombre(nombre);
+		jNuevo.setApellido(apellido);
+		jNuevo.setAcceso(acceso);
+		jNuevo.setPais(p);
+		
+
+		try {
+			// crear conexion
+			conn = DbConnector.getInstancia().getConn();
+
+			//query
+			pstmt = conn.prepareStatement(
+					"Update jugadores "
+							+ "SET usuario=?, contraseña=?, nombre=?, apellido=?, acceso=?, id_pais=? "
+							+ "WHERE id=? " 
+					);
+
+			pstmt.setString(1, jNuevo.getUsuario());
+			pstmt.setString(2, jNuevo.getContraseña());
+			pstmt.setString(3, jNuevo.getNombre());
+			pstmt.setString(4, jNuevo.getApellido());
+			pstmt.setString(5, jNuevo.getAcceso());
+			pstmt.setInt(6, jNuevo.getPais().getId());
+			pstmt.setInt(7, jNuevo.getReportes());
+			pstmt.setInt(8, jNuevo.getId());
+			pstmt.executeUpdate();
+
+			if(pstmt!=null) {pstmt.close();}
+			conn.close();
+
+
+		}catch(SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+		}finally {
+			try {
+				if(pstmt!=null) {pstmt.close();}
+				conn.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 
 	public static Jugador login(String usuario, String contraseña) {
 		

@@ -78,10 +78,10 @@ public class DataInscripcion {
 		return inscripciones;
 	}
 	
-	public static int contador(){
+	public static int contador(Jugador j, Torneo t){
 		int cont = 0;
 		Connection conn = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
@@ -89,8 +89,13 @@ public class DataInscripcion {
 			conn = DbConnector.getInstancia().getConn();
 
 			// Ejecutar querys
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT count(*) FROM inscripciones");
+			pstmt = conn.prepareStatement("SELECT count(*) FROM inscripciones"
+					+ " WHERE id_jugador = ? AND id_tipo = ? AND id_juego = ? AND fecha_inicio_torneo = ?");
+			pstmt.setInt(1, j.getId());
+			pstmt.setInt(2, t.getTipoTorneo().getId());
+			pstmt.setInt(3, t.getJuego().getId());
+			pstmt.setObject(4, t.getFechaInicio());
+			rs = pstmt.executeQuery();
 
 			while(rs.next()) /*Empieza apuntando en -1*/ {
 				cont = rs.getInt("count(*)");
@@ -98,7 +103,7 @@ public class DataInscripcion {
 
 			//cerrar conexion
 			if(rs!=null) {rs.close();}
-			if(stmt!=null) {stmt.close();}
+			if(pstmt!=null) {pstmt.close();}
 			conn.close();
 
 		}catch(SQLException ex) {
@@ -106,7 +111,7 @@ public class DataInscripcion {
 		}finally {
 			try {
 				if(rs!=null) {rs.close();}
-				if(stmt!=null) {stmt.close();}
+				if(pstmt!=null) {pstmt.close();}
 				conn.close();
 			}catch(SQLException e) {
 				e.printStackTrace();
@@ -115,13 +120,14 @@ public class DataInscripcion {
 		return cont;
 	}
 
-	public static void create(Torneo t, Jugador jug, LocalDate fecha) {
+	public static int create(Torneo t, Jugador jug, LocalDate fecha) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		Inscripcion iNueva = new Inscripcion();
 		iNueva.setTorneo(t);
 		iNueva.setJugador(jug);
+		int success = 0;
 		
 		try {
 			// crear conexion
@@ -136,7 +142,7 @@ public class DataInscripcion {
 			pstmt.setInt(2, iNueva.getTorneo().getJuego().getId());
 			pstmt.setInt(3, iNueva.getTorneo().getTipoTorneo().getId());
 			pstmt.setObject(4, iNueva.getTorneo().getFechaInicio());
-			pstmt.executeUpdate(); 
+			success = pstmt.executeUpdate(); 
 			
 			if(pstmt!=null) {pstmt.close();}
 			conn.close();
@@ -151,6 +157,7 @@ public class DataInscripcion {
 				e.printStackTrace();
 			}
 		}
+		return success;
 	}
 	
 	public static void delete(Torneo t, Jugador j) {
@@ -232,7 +239,6 @@ public class DataInscripcion {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
 }

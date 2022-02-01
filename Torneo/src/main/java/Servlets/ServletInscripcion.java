@@ -49,7 +49,6 @@ public class ServletInscripcion extends HttpServlet {
 		LinkedList<TipoTorneo> dataTipoTorneo = new LinkedList<TipoTorneo>();
 		int cantInsc = 0;
 		dataTorneo = DataTorneo.proximos();
-		cantInsc = DataInscripcion.contador();
 		request.setAttribute("cantInsc", cantInsc);
 		request.setAttribute("Torneo", dataTorneo);
 		request.setAttribute("Juego", dataJuego);
@@ -70,12 +69,23 @@ public class ServletInscripcion extends HttpServlet {
 		Torneo t = new Torneo();
 		Jugador j = new Jugador();
 		j = (Jugador) session.getAttribute("jugador");
+		int success = 0;
 		int idJuego = Integer.parseInt(request.getParameter("idJuego"));
 		int idTipo = Integer.parseInt(request.getParameter("idTipo"));
 		String fechaInicioString = request.getParameter("fechaInicio");
         LocalDate fechaInicio = LocalDate.parse(fechaInicioString);
         t = DataTorneo.search(idJuego, idTipo, fechaInicio);
-		DataInscripcion.create(t, j, LocalDate.now());
-		doGet(request, response);
+        success = DataInscripcion.create(t, j, LocalDate.now());
+		LinkedList<Torneo> dataTorneo = new LinkedList<Torneo>(); 
+		LinkedList<Juego> dataJuego = new LinkedList<Juego>();
+		LinkedList<TipoTorneo> dataTipoTorneo = new LinkedList<TipoTorneo>();
+		int cantInsc = 0;
+		dataTorneo = DataTorneo.proximos();
+		request.setAttribute("cantInsc", cantInsc);
+		request.setAttribute("Torneo", dataTorneo);
+		request.setAttribute("Juego", dataJuego);
+		request.setAttribute("TipoTorneo", dataTipoTorneo);
+		request.setAttribute("success", success);
+		getServletContext().getRequestDispatcher("/jsp/InscripcionSuccess.jsp").forward(request, response);
 	}
 }
