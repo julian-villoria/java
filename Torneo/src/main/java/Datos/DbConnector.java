@@ -8,8 +8,8 @@ public class DbConnector {
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private String host = "127.0.0.1";
 	private String port = "3306";
-	private String user = "root";
-	private String password = "";
+	private String user = "sabrina";
+	private String password = "ilovehuddy1995";
 	private String db = "torneo";
 	private int conectados = 0;
 	private Connection conn = null;

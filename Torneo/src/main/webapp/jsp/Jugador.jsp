@@ -60,6 +60,7 @@
                             <th scope="col">Contraseña</th>
                             <th scope="col">Acceso</th>
                         	<th scope="col">Pais</th>
+                        	<th scope="col">Reportes</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,6 +87,9 @@
                                     </td>
                                     <td>
                                         <%= j.getPais().getNombre() %>
+                                    </td>
+                                    <td>
+                                        <%= j.getReportes() %>
                                     </td>
                                 </tr>
                             <% } %>
@@ -195,6 +199,10 @@
 			  <div class="form-group">
 			    <label for="paisActualizar">País</label>
 			    <input type="text" class="form-control" id="paisActualizar" name="paisActualizar">
+			  </div>
+			  <div class="form-group">
+			    <label for="reportesActualizar">Reportes</label>
+			    <input type="number" class="form-control" id="reportesActualizar" name="reportesActualizar">
 			  </div>
 			<div class="modal-footer">
 		      	<button type="submit" class="btn btn-primary">Actualizar</button>
