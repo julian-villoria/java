@@ -70,8 +70,6 @@ public class ServletDificultad extends HttpServlet {
 			d.setJuego(j);
 			dd.nuevo(d);
 			doGet(request, response);
-			
-
 		}
 		//ACTUALIZAR
 		if  (request.getParameter("actualizarNombre") != null && 

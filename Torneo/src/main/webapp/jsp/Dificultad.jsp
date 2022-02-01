@@ -136,20 +136,20 @@
 			    <input type="text" class="form-control" id="actualizarNombre" name="actualizarNombre">
 			  </div>
 			  <div class="form-group">
-			    <label for="nuevoRangoMinPuntaje">Puntaje Minimo</label>
-			    <input type="number" class="form-control" id="nuevoRangoMinPuntaje" name="nuevoRangoMinPuntaje">
+			    <label for="actualizarRangoMinPuntaje">Puntaje Minimo</label>
+			    <input type="number" class="form-control" id="actualizarRangoMinPuntaje" name="actualizarRangoMinPuntaje">
 			  </div>
 			  <div class="form-group">
-			    <label for="nuevoRangoMaxPuntaje">Puntaje Maximo</label>
-			    <input type="number" class="form-control" id="nuevoRangoMaxPuntaje" name="nuevoRangoMaxPuntaje">
+			    <label for="actualizarRangoMaxPuntaje">Puntaje Maximo</label>
+			    <input type="number" class="form-control" id="actualizarRangoMaxPuntaje" name="actualizarRangoMaxPuntaje">
 			  </div>
 			  <div class="form-group">
-			    <label for="nuevoRangoMinVictorias">Victoias Minimas</label>
-			    <input type="number" class="form-control" id="nuevoRangoMinVictorias" name="nuevoRangoMinVictorias">
+			    <label for="actualizarRangoMinVictorias">Victoias Minimas</label>
+			    <input type="number" class="form-control" id="actualizarRangoMinVictorias" name="actualizarRangoMinVictorias">
 			  </div>
 			  <div class="form-group">
-			    <label for="nuevoRangoMaxVictorias">Victorias Máximas</label>
-			    <input type="number" class="form-control" id="nuevoRangoMaxVictorias" name="nuevoRangoMaxVictorias">
+			    <label for="actualizarRangoMaxVictorias">Victorias Máximas</label>
+			    <input type="number" class="form-control" id="actualizarRangoMaxVictorias" name="actualizarRangoMaxVictorias">
 			  </div>
 			  <div class="form-group">
 			    <label for="actualizarJuego">Juego</label>

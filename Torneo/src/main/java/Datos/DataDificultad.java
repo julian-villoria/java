@@ -125,7 +125,7 @@ public LinkedList<Dificultad> list() throws SQLException {
 		
 		try {
 			conn = DbConnector.getInstancia().getConn();
-			stmt = conn.prepareStatement("insert into dificultad (nombre, rango_min_puntajes, rango_max_puntaje, rango_min_victorias, rango_max_victorias, id_juego) values (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+			stmt = conn.prepareStatement("insert into dificultad (nombre, rango_min_puntaje, rango_max_puntaje, rango_min_victoria, rango_max_victoria, id_juego) values (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, nuevaDificultad.getNombre());
 			stmt.setInt(2, nuevaDificultad.getRangoMinPuntajes());
 			stmt.setInt(3, nuevaDificultad.getRangoMaxPuntajes());
@@ -217,7 +217,7 @@ public LinkedList<Dificultad> list() throws SQLException {
 			//query
 			pstmt = conn.prepareStatement(
 					"Update dificultad d INNER JOIN juegos j ON j.id=d.id_juego "
-					+ "SET d.rango_min_puntaje=?, rango_max_puntaje=?, d.rango_min_victorias=?, d.rango_max_victorias=? WHERE nombre=? AND denominacion=?"
+					+ "SET d.rango_min_puntaje=?, rango_max_puntaje=?, d.rango_min_victoria=?, d.rango_max_victoria=? WHERE nombre=? AND denominacion=?"
 					);
 			pstmt.setInt(1, updateDificultad.getRangoMinPuntajes());
 			pstmt.setInt(2, updateDificultad.getRangoMaxPuntajes());
@@ -255,7 +255,7 @@ public LinkedList<Dificultad> list() throws SQLException {
 			//query
 			pstmt = conn.prepareStatement(
 					"Update dificultad d INNER JOIN juegos j ON j.id=d.id_juego "
-					+ "SET d.rango_min_puntaje=?, rango_max_puntaje=?, d.rango_min_victorias=?, d.rango_max_victorias=? WHERE nombre=? AND denominacion=?" 
+					+ "SET d.rango_min_puntaje=?, rango_max_puntaje=?, d.rango_min_victoria=?, d.rango_max_victoria=? WHERE nombre=? AND denominacion=?" 
 					);
 			
 			pstmt.setInt(1, updateDificultad.getRangoMinPuntajes());
