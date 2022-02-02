@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="Datos.DataTorneo"%>
-<%@ page import="Entidades.Jugador" %>
+<%@ page import="Entidades.Jugador"%>
+<%@ page import="Datos.DataTorneo"%>
 <!DOCTYPE html>
 <html>
 <head>
-   	<%Jugador jugador = (Jugador) session.getAttribute("jugador");%>
+   	<% Jugador jugador = (Jugador) session.getAttribute("jugador"); %>
+   	<% int intentos = DataTorneo.getTorneoJugadorActual(jugador).getIntentos(); %>
 	<meta charset="ISO-8859-1">
 	<title>JavaScript Snake game</title>    
 	<style>
@@ -74,7 +76,7 @@
 			  </div>
 			  <div class="col4">
 			    <label for="intentos" class="col-sm-3 col-form-label">Intentos: </label>
-			    <input type="text" readonly class="form-control-sm-plaintext text-center" id="intentos" name="intentos" value="<%= 5 %>">
+			    <input type="text" readonly class="form-control-sm-plaintext text-center" id="intentos" name="intentos" value="<%= DataTorneo.getTorneoJugadorActual(jugador).getIntentos() %>">
 			  </div>
 			  <button type="submit" class="btn btn-primary">Enviar</button>
 			  <div class="col"></div>

@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,9 +40,11 @@ public class ServletHome extends HttpServlet {
 		}else {
 			if(jugador.getId() != 0) {
 				if(jugador.getAcceso().equals("Administrador")) {
-				getServletContext().getRequestDispatcher("/jsp/HomeAdmin.jsp").forward(request, response);
+					getServletContext().getRequestDispatcher("/jsp/HomeAdmin.jsp").forward(request, response);
 				}
 				if(jugador.getAcceso().equals("Jugador")) {
+					Cookie cookie = new Cookie("visitas", "1");
+					response.addCookie(cookie);
 					getServletContext().getRequestDispatcher("/jsp/HomeJugador.jsp").forward(request, response);
 				}
 				if(jugador.getAcceso().equals("Encargado de Lista")) {
