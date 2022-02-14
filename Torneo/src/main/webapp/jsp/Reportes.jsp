@@ -61,60 +61,69 @@
 	<!-- Header-->
 	<header class="py-5">
 		<div class="container px-lg-5">
-			<div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-				<div class="m-4 m-lg-5">
-					<h1 class="display-5 fw-bold">Reportar un jugador</h1>
-					<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label">Usuario/Jugador</label>
-							<input type="email" class="form-control"
-								id="exampleFormControlInput1" placeholder="Ingrese el nombre del usuario que desea reportar">
-					</div>
-					<p>Por favor, indicanos tan claramente como sea posible lo
-					sucedido con este jugador.Puedes elegir tantas categorias como creas necesario</p>
-					<div>
-					<div class="checkButtons" style="background-color:grey; border-radius: 4px; 
-					width: fit-content; margin-left: 150px; ">
-					<ul style="list-style: none; padding-inline-start:10px; padding-inline-end:10px; padding-top:10px; padding-bottom:10px; text-align: left;">
-					<li>
-						<div class="form-check">
-						<input class="form-check-input" type="checkbox" value=""
-							id="flexCheckDefault"> <label class="form-check-label"
-							for="flexCheckDefault"> Trampa </label>
-						</div>
-					</li>
-					<li>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value=""
-								id="flexCheckDefault"> <label
-								class="form-check-label" for="flexCheckChecked"> Nombre
-								inofensivo o inapropiado </label>
-						</div>
-					</li>
-					<li>
-						<div class="form-check">
-						<input class="form-check-input" type="checkbox" value=""
-							id="flexCheckDefault" checked> <label
-							class="form-check-label" for="flexCheckChecked"> Actitud negativa </label>
-						</div>
-					</li>
-					<li>
-						<div class="form-check">
-						<input class="form-check-input" type="checkbox" value=""
-							id="flexCheckDefault" checked> <label
-							class="form-check-label" for="flexCheckChecked"> Expresiones de odio </label>
-						</div>
-					</li>
-					<li></li>
-					</ul>
-					</div>
+			<form action="ServletReportes" method="POST">
+				<div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+					<div class="m-4 m-lg-5">
+						<h1 class="display-5 fw-bold">Reportar un jugador</h1>
 						<div class="mb-3">
-							<label for="exampleFormControlTextarea1" class="form-label"></label>
-							<textarea class="form-control" id="exampleFormControlTextarea1"
-								rows="3" placeholder="Ofrecenos contexto adicional sobre lo sucedido"></textarea>
+								<label for="nombreJugador" class="form-label">Usuario/Jugador</label>
+								<input type="email" class="form-control"
+									id="nombreJugador" name="nombreJugador" placeholder="Ingrese el nombre del usuario que desea reportar">
 						</div>
+						<p>Por favor, indicanos tan claramente como sea posible lo
+						sucedido con este jugador. </p>
+						<p>Puedes elegir tantas categorias como creas necesario.</p>
+						<div>
+						<div class="checkButtons" style="background-color:grey; border-radius: 4px; 
+						width: fit-content; margin-left: 150px; ">
+						<ul style="list-style: none; padding-inline-start:10px; padding-inline-end:10px; padding-top:10px; padding-bottom:10px; text-align: left;">
+						<li>
+							<div class="form-check">
+							<input class="form-check-input" type="checkbox" value=""
+								id="flexCheckDefault"> <label class="form-check-label"
+								for="flexCheckDefault"> Trampa </label>
+							</div>
+						</li>
+						<li>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value=""
+									id="flexCheckDefault"> <label
+									class="form-check-label" for="flexCheckChecked"> Nombre
+									inofensivo o inapropiado </label>
+							</div>
+						</li>
+						<li>
+							<div class="form-check">
+							<input class="form-check-input" type="checkbox" value=""
+								id="flexCheckDefault" checked> <label
+								class="form-check-label" for="flexCheckChecked"> Actitud negativa </label>
+							</div>
+						</li>
+						<li>
+							<div class="form-check">
+							<input class="form-check-input" type="checkbox" value=""
+								id="flexCheckDefault" checked> <label
+								class="form-check-label" for="flexCheckChecked"> Expresiones de odio </label>
+							</div>
+						</li>
+						<li></li>
+						</ul>
+						</div>
+							<div class="mb-3">
+								<label for="exampleFormControlTextarea1" class="form-label"></label>
+								<textarea class="form-control" id="exampleFormControlTextarea1"
+									rows="3" placeholder="Ofrecenos contexto adicional sobre lo sucedido"></textarea>
+							</div>
+						</div>
+							<div class="form-group">
+								<div class="row d-flex justify-content-end">
+									<button type="submit" class="btn btn-primary">Enviar Reporte</button>
+								</div>
+							</div>
 					</div>
 				</div>
-			</div>
+			</form>
+		</div>
 	</header>
 	<!-- Footer-->
 	<footer class="py-5 bg-dark">
