@@ -42,7 +42,12 @@ public class ServletPartida extends HttpServlet {
 			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 		}else {
 			if(jugador.getId() != 0) {
-		getServletContext().getRequestDispatcher("/jsp/Partida.jsp").forward(request, response);
+				Torneo t = DataTorneo.getTorneoJugadorActual(jugador);
+				if(t.getFechaInicio() != null) {
+					getServletContext().getRequestDispatcher("/jsp/Partida.jsp").forward(request, response);
+				}else{
+					getServletContext().getRequestDispatcher("/ServletInscripcion").forward(request, response);
+				}
 			}else {
 				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 			}
@@ -60,15 +65,18 @@ public class ServletPartida extends HttpServlet {
 			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 		}else {
 			if(jugador.getId() != 0 && jugador.getAcceso().equals("Jugador")) {
-		Torneo t = new Torneo();
-		Juego juego = new Juego();
-		t = DataTorneo.getTorneoJugadorActual(jugador);
-		juego = t.getJuego();
-		System.out.println(t.getJuego().getDenominacion());
-		int puntos = Integer.parseInt(request.getParameter("puntos"));
-		LocalDateTime fechaHora = LocalDateTime.now();
-		DataPartida.create(fechaHora, jugador, juego, puntos);
-		getServletContext().getRequestDispatcher("/jsp/PartidaEnviada.jsp").forward(request, response);
+				Torneo t = new Torneo();
+				Juego juego = new Juego();
+				t = DataTorneo.getTorneoJugadorActual(jugador);
+				juego = t.getJuego();
+				int puntos = Integer.parseInt(request.getParameter("puntos"));
+				LocalDateTime fechaHora = LocalDateTime.now();
+				int cont = DataPartida.contador(t, jugador);
+				if( cont == 0){
+					DataPartida.create(fechaHora, jugador, juego, puntos);
+				}
+				request.setAttribute("cantPartidasTorneo", cont);
+				getServletContext().getRequestDispatcher("/jsp/Partida.jsp").forward(request, response);
 			}else {
 				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 			}

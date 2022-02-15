@@ -2,9 +2,8 @@
 <html>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.*" %>
-<%@ page import="Entidades.Torneo" %>
+<%@ page import="Entidades.Partida" %>
 <%@ page import="Entidades.Jugador" %>
-<%@ page import="Datos.DataInscripcion" %>
 <head>
 	<%Jugador jugador = (Jugador) session.getAttribute("jugador");%>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -13,7 +12,7 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-	<% LinkedList<Torneo> dataTorneo = (LinkedList<Torneo>)request.getAttribute("Torneo"); %>
+	<% LinkedList<Partida> dataPartida = (LinkedList<Partida>)request.getAttribute("partidas"); %>
 </head>
 <body>
 <!-- Responsive navbar-->
@@ -44,65 +43,36 @@
             </div>
         </div>
     </nav>
-	<h1 class="text-center my-3">Torneos Próximos</h1>
+	<h1 class="text-center my-3">Puntajes</h1>
     <div class="container-fluid">
         <div class="row mt-5">
             <div class="col-md">
                 <table class="table table-striped table-bordered">
                     <thead class="thead-dark">
                         <tr class="table-primary">
-                            <th scope="col">juego</th>
-                            <th scope="col">Tipo de Torneo</th>
-                            <th scope="col">Fecha Comienzo</th>
-                            <th scope="col">Fecha Finalizacón</th>
-                            <th scope="col">Cantidad de Intentos</th>
-                        	<th scope="col">Cupo Inicial</th>
-                        	<th scope="col">Ganador</th>
-                        	<th scope="col">Monto Inscripción</th>
-                        	<th></th>
+                            <th scope="col">Jugador</th>
+                            <th scope="col">Puntaje</th>
+                            <th scope="col">Juego</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% if (!dataTorneo.isEmpty()) { %>
-                            <% for(Torneo t : dataTorneo) { %>
+                        <% if (dataPartida != null) { %>
+                        	<tr class="table-success">                                     
+                       			<td> <b>Ganador:</b> <%= dataPartida.getFirst().getJugador().getUsuario() %></td>
+                                <td><%= dataPartida.getFirst().getPuntaje() %></td>
+                                <td><%= dataPartida.getFirst().getJuego().getDenominacion() %></td>
+                            </tr>
+                            <% dataPartida.removeFirst(); %>                        
+                            <% for(Partida p : dataPartida) { %>
                                 <tr>
                                     <td>
-                                        <%= t.getJuego().getDenominacion() %>
+                                        <%= p.getJugador().getUsuario() %>
                                     </td>
                                     <td>
-                                        <%= t.getTipoTorneo().getDenominacion() %>
+                                        <%= p.getPuntaje() %>
                                     </td>
                                     <td>
-                                        <%= t.getFechaInicio() %>
-                                    </td>
-                                    <td>
-                                        <%= t.getFechaFin() %>
-                                    </td>
-                                    <td>
-                                        <%= t.getIntentos() %>
-                                    </td>
-                                    <td>
-                                        <%= t.getCupo() %>
-                                    </td>
-                                    <td>
-                                        <%= t.getGanador() %>
-                                    </td>
-                                    <td>
-                                        <%= t.getMontoInsc() %>
-                                    </td>
-                                    <td>
-                                    	<form action="ServletInscripcion" method="post">
-                                    		<button type="submit" name="Inscribirse" class="btn 
-                                    		<% if(DataInscripcion.contador(jugador, t) == 0){ %>
-                                    		 	btn-success btn-block">Inscribirse
-                                    		 <%}else{ %>
-                                    		 	btn-secondary btn-block" disabled> Ya Inscripto
-                                    		 <%} %>
-                                    		 </button>
-                                    		<input name="idJuego" type="hidden" value="<%= t.getJuego().getId() %>">
-                                    		<input name="idTipo" type="hidden" value="<%= t.getTipoTorneo().getId() %>"> 
-                                    		<input name="fechaInicio" type="hidden" value="<%= t.getFechaInicio() %>"> 
-                                    	</form>
+                                        <%= p.getJuego().getDenominacion() %>
                                     </td>
                                 </tr>
                             <% } %>

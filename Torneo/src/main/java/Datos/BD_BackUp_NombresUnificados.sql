@@ -166,8 +166,8 @@ CREATE TABLE `partidas` (
   `id_juego` int NOT NULL,
   `id_jugador` int NOT NULL,
   `puntaje` double DEFAULT NULL,
-  `fecha_hora` datetime DEFAULT NULL,
-  PRIMARY KEY (`id_juego`,`id_jugador`),
+  `fecha_hora` datetime NOT NULL,
+  PRIMARY KEY (`id_juego`,`id_jugador`,`fecha_hora`),
   KEY `FK_jugadores_partida_idx` (`id_jugador`),
   CONSTRAINT `FK_juego_partida` FOREIGN KEY (`id_juego`) REFERENCES `juegos` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `FK_jugadores_partida` FOREIGN KEY (`id_jugador`) REFERENCES `jugadores` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE

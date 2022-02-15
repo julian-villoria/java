@@ -137,7 +137,7 @@
 					<% if(success != 0){ %>
 			        	<h5>Inscripción Realizada con Exito</h5> &nbsp; <i class="fas fa-check-circle fa-2x"></i>
 			        <% }else{ %>
-			        	<h5>Hubo un Error en la Inscripción</h5> &nbsp; <i class="fas fa-times-circle fa-2x"></i></i>
+			        	<h5>Hubo un Error en la Inscripción</h5> &nbsp; <i class="fas fa-times-circle fa-2x"></i>
 			        <% } %>
 	        	</div>
 	        </div>

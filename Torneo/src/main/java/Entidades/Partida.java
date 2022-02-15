@@ -46,5 +46,11 @@ public class Partida {
 		this.victoria = victoria;
 	}
 	
+	@Override
+	public String toString() {
+		return "Partida [id=" + id + ", fechaHora=" + fechaHora + ", jugador=" + jugador + ", juego=" + juego
+				+ ", puntaje=" + puntaje + ", victoria=" + victoria + "]";
+	}
+	
 
 }

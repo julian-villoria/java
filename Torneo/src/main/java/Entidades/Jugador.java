@@ -8,8 +8,8 @@ public class Jugador {
 	private String apellido;
 	private String contraseña;
 	private String acceso;
-	private Pais pais;
 	private int reportes;
+	private Pais pais;
 	
 	public Pais getPais() {
 		return pais;
