@@ -41,7 +41,7 @@ public class ServletEditarPerfil extends HttpServlet {
 		if(jugador == null) {
 			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 		}else {
-			if(jugador.getId() != 0 && jugador.getAcceso().equals("Administrador")) {
+			if(jugador.getId() != 0 && jugador.getAcceso().equals("Jugador")) {
 				LinkedList<Jugador> data = new LinkedList<Jugador>(); 
 				data = DataJugador.listJugador(jugador);
 				request.setAttribute("data", data);

@@ -58,6 +58,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
                             <th scope="col">Contraseña</th>
+                            <th scope="col">Reportes</th>
                             <th scope="col">Acceso</th>
                         	<th scope="col">Pais</th>
                         </tr>
@@ -80,6 +81,9 @@
                                     </td>
                                     <td>
                                         <%= j.getContraseña() %>
+                                    </td>
+                                    <td>
+                                        <%= j.getReportes() %>
                                     </td>
                                     <td>
                                     	<%= j.getAcceso() %>

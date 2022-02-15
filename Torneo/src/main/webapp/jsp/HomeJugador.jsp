@@ -51,12 +51,37 @@
                 <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
                     <div class="m-4 m-lg-5">
                         <h1 class="display-5 fw-bold">Sistema de Torneo</h1>
-                        <p class="fs-4">Texto de explicación/introducción</p>
+                        <p class="fs-4">Por favor inscríbase para poder participar de un torneo.</p>
                         <a class="btn btn-primary btn-lg" href="ServletInscripcion">Inscribirse</a>
                     </div>
                 </div>
             </div>
         </header> 
+        <section class="pt-4">
+            <div class="container px-lg-5">
+                <!-- Page Features-->
+                <div class="row gx-lg-5">
+                    <div class="col-lg-6 col-xxl-4 mb-5">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                                <h2 class="fs-4 fw-bold">Reportar Jugador</h2>
+                                <a href="ServletReportes" class="btn btn-primary btn-lg">Ir</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xxl-4 mb-5">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
+                                <h2 class="fs-4 fw-bold">Jugar</h2>
+                                <a href="ServletReportes" class="btn btn-primary btn-lg">Ir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>

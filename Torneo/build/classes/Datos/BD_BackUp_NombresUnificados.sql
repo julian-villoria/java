@@ -222,6 +222,7 @@ INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) 
 INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('1', '2022-01-25', '2022-03-30');
 
 INSERT INTO `torneo`.`jugadores` (`id`, `usuario`, `nombre`, `apellido`, `contraseña`, `acceso`, `id_pais`) VALUES ('1', 'juliiian99', 'Julian', 'Villoria', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','Jugador','1');
+INSERT INTO `torneo`.`jugadores` (`id`, `usuario`, `nombre`, `apellido`, `contraseña`, `acceso`, `id_pais`) VALUES ('2', 'juliii99', 'Julian', 'Villoria', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','Administrador','1');
 
 INSERT INTO `torneo`.`dificultad` (`nombre`, `rango_min_puntaje`, `rango_max_puntaje`, `rango_min_victoria`, `rango_max_victoria`, `id_juego`) VALUES ('facil', '0', '1000', '0', '10', '1');
 INSERT INTO `torneo`.`dificultad` (`nombre`, `rango_min_puntaje`, `rango_max_puntaje`, `rango_min_victoria`, `rango_max_victoria`, `id_juego`) VALUES ('normal', '0', '500', '0', '5', '2');
