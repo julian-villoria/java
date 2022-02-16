@@ -1,6 +1,4 @@
 package EnvioMails;
-import java.util.Properties;
-import javax.mail.*;
 
 public class EnviarCorreo {
 	

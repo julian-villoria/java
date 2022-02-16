@@ -13,7 +13,8 @@ import Datos.EmailData;
  
 @WebServlet("/EmailSendingServlet")
 public class EmailSendingServlet extends HttpServlet {
-    private String host;
+	private static final long serialVersionUID = 1L;
+	private String host;
     private String port;
     private String user;
     private String pass;
