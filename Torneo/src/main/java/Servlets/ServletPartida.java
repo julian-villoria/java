@@ -76,7 +76,7 @@ public class ServletPartida extends HttpServlet {
 					DataPartida.create(fechaHora, jugador, juego, puntos);
 				}
 				request.setAttribute("cantPartidasTorneo", cont);
-				getServletContext().getRequestDispatcher("/jsp/Partida.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/jsp/PartidaEnviada.jsp").forward(request, response);
 			}else {
 				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 			}

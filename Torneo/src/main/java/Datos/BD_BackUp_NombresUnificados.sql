@@ -228,4 +228,5 @@ INSERT INTO `torneo`.`dificultad` (`nombre`, `rango_min_puntaje`, `rango_max_pun
 INSERT INTO `torneo`.`dificultad` (`nombre`, `rango_min_puntaje`, `rango_max_puntaje`, `rango_min_victoria`, `rango_max_victoria`, `id_juego`) VALUES ('normal', '0', '500', '0', '5', '2');
 
 INSERT INTO torneos(id_juego, id_tipo, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc) VALUES(1,1,"2022-03-30","2022-03-31",10,10,"Vacante",1000);
+
 INSERT INTO inscripciones(id_juego, id_tipo, id_jugador, fecha_inicio_torneo, fecha) VALUES(1,1,1,"2022-03-30", curdate());
