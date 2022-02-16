@@ -61,67 +61,67 @@
 	<!-- Header-->
 	<header class="py-5">
 		<div class="container px-lg-5">
-			<form action="ServletReportes" method="POST">
+			<form action="EmailSendingServlet" method="post">
 				<div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-					<div class="m-4 m-lg-5">
-						<h1 class="display-5 fw-bold">Reportar un jugador</h1>
-						<div class="mb-3">
-								<label for="nombreJugador" class="form-label">Usuario/Jugador</label>
-								<input type="email" class="form-control"
-									id="nombreJugador" name="nombreJugador" placeholder="Ingrese el nombre del usuario que desea reportar">
-						</div>
-						<p>Por favor, indicanos tan claramente como sea posible lo
-						sucedido con este jugador. </p>
-						<p>Puedes elegir tantas categorias como creas necesario.</p>
-						<div>
-						<div class="checkButtons" style="background-color:grey; border-radius: 4px; 
-						width: fit-content; margin-left: 150px; ">
-						<ul style="list-style: none; padding-inline-start:10px; padding-inline-end:10px; padding-top:10px; padding-bottom:10px; text-align: left;">
-						<li>
-							<div class="form-check">
-							<input class="form-check-input" type="checkbox" value=""
-								id="flexCheckDefault"> <label class="form-check-label"
-								for="flexCheckDefault"> Trampa </label>
-							</div>
-						</li>
-						<li>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value=""
-									id="flexCheckDefault"> <label
-									class="form-check-label" for="flexCheckChecked"> Nombre
-									inofensivo o inapropiado </label>
-							</div>
-						</li>
-						<li>
-							<div class="form-check">
-							<input class="form-check-input" type="checkbox" value=""
-								id="flexCheckDefault" checked> <label
-								class="form-check-label" for="flexCheckChecked"> Actitud negativa </label>
-							</div>
-						</li>
-						<li>
-							<div class="form-check">
-							<input class="form-check-input" type="checkbox" value=""
-								id="flexCheckDefault" checked> <label
-								class="form-check-label" for="flexCheckChecked"> Expresiones de odio </label>
-							</div>
-						</li>
-						<li></li>
-						</ul>
-						</div>
-							<div class="mb-3">
-								<label for="exampleFormControlTextarea1" class="form-label"></label>
-								<textarea class="form-control" id="exampleFormControlTextarea1"
-									rows="3" placeholder="Ofrecenos contexto adicional sobre lo sucedido"></textarea>
-							</div>
-						</div>
-							<div class="form-group">
-								<div class="row d-flex justify-content-end">
-									<button type="submit" class="btn btn-primary">Enviar Reporte</button>
-								</div>
-							</div>
+				<div class="m-4 m-lg-5">
+					<h1 class="display-5 fw-bold">Reportar un jugador</h1>
+					<div class="mb-3">
+						<label for="exampleFormControlInput1" class="form-label">Usuario/Jugador</label>
+						<input type="text" class="form-control"
+							id="repUsuario"
+							placeholder="Ingrese el nombre del usuario que desea reportar">
 					</div>
+					<p>Por favor, indicanos tan claramente como sea posible lo
+						sucedido con este jugador.</p>
+					<div class="checkButtons" style="width: fit-content; display: flex; text-align: left; 
+					align-content:center; justify-content: center;">
+						<ul style="list-style: none; background-color: grey; border-radius: 4px; ">
+							<li style="padding-right: 0;">
+								<div class="form-check">
+  									<input class="form-check-input" type="radio" name="flexRadioDefault" id="trampa">
+  									<label class="form-check-label" for="trampa"> Trampa </label>
+								</div>
+							</li>
+							<li>
+								<div class="form-check">
+  									<input class="form-check-input" type="radio" name="flexRadioDefault" id="nombreOfensivo">
+  									<label class="form-check-label" for="nombreOfensivo"> Nombre Ofensivo o inapropiado </label>
+								</div>
+							</li>
+							<li>
+								<div class="form-check">
+  									<input class="form-check-input" type="radio" name="flexRadioDefault" id="actNegativa">
+  									<label class="form-check-label" for="actNegativa"> Actitud negativa </label>
+								</div>							
+							</li>
+							<li>
+							
+								<div class="form-check">
+  									<input class="form-check-input" type="radio" name="flexRadioDefault" id="expOdio">
+  									<label class="form-check-label" for="expOdio"> Expresiones de odio  </label>
+								</div>
+							</li>
+							<li></li>
+						</ul>
+					</div>
+					<div class="mb-3">
+						<label for="exampleFormControlTextarea1" class="form-label"></label>
+						<textarea class="form-control" id="content"
+							rows="3"
+							placeholder="Ofrecenos contexto adicional sobre lo sucedido"></textarea>
+					</div>
+					<ul
+						style="list-style: none; display: flex; align-items: center; align-content: space-between; justify-content: space-around;">
+						<li>
+							<button type="button" class="btn btn-danger">Cancelar</button>
+						</li>
+						<li>
+							<button type="button" class="btn btn-dark">Reportar
+								Jugador</button>
+						</li>
+					</ul>
 				</div>
+			</div>
 			</form>
 		</div>
 	</header>
