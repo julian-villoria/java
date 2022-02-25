@@ -39,7 +39,7 @@ public class ServletJugador extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		Jugador jugador = (Jugador) session.getAttribute("jugador");
 		if(jugador == null) {
-			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("ServletLogin").forward(request, response);
 		}else {
 			if(jugador.getId() != 0 && jugador.getAcceso().equals("Administrador")) {
 				LinkedList<Jugador> data = new LinkedList<Jugador>(); 
@@ -48,7 +48,7 @@ public class ServletJugador extends HttpServlet {
 				request.setAttribute("data", data);
 				getServletContext().getRequestDispatcher("/jsp/Jugador.jsp").forward(request, response);
 			}else {
-				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("ServletLogin").forward(request, response);
 			}
 		}
 	}

@@ -36,19 +36,14 @@ public class ServletHome extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		Jugador jugador = (Jugador) session.getAttribute("jugador");
 		if(jugador == null) {
-			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/jsp/Home.jsp").forward(request, response);
 		}else {
 			if(jugador.getId() != 0) {
 				if(jugador.getAcceso().equals("Administrador")) {
 					getServletContext().getRequestDispatcher("/jsp/HomeAdmin.jsp").forward(request, response);
 				}
 				if(jugador.getAcceso().equals("Jugador")) {
-					Cookie cookie = new Cookie("visitas", "1");
-					response.addCookie(cookie);
 					getServletContext().getRequestDispatcher("/jsp/HomeJugador.jsp").forward(request, response);
-				}
-				if(jugador.getAcceso().equals("Encargado de Lista")) {
-					getServletContext().getRequestDispatcher("/jsp/HomeEncargado.jsp").forward(request, response);
 				}
 			}else {
 				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
