@@ -45,9 +45,6 @@ public class ServletLogin extends HttpServlet {
 				if(jugador.getAcceso().equals("Jugador")) {
 					getServletContext().getRequestDispatcher("/jsp/HomeJugador.jsp").forward(request, response);
 				}
-				if(jugador.getAcceso().equals("Encargado de Lista")) {
-					getServletContext().getRequestDispatcher("/jsp/HomeEncargado.jsp").forward(request, response);
-				}
 			}else {
 				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 			}
