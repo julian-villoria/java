@@ -1,6 +1,8 @@
 package Servlets;
 
 import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Datos.DataJugador;
+import Datos.EmailData;
 import Entidades.Jugador;
 
 /**
@@ -29,6 +32,11 @@ public class ServletReportes extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    private String host = "smtp.gmail.com";
+    private String port = "587";
+    private String user = "reportesappjava@gmail.com";
+    private String pass = "Milanesas123";
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(true);
@@ -49,10 +57,23 @@ public class ServletReportes extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String usuario = request.getParameter("nombreJugador");
+		Jugador usuario = new Jugador();
+		usuario.setUsuario(request.getParameter("usuarioReportado"));
 		Jugador j = DataJugador.search(usuario);
 		DataJugador.updateReportes(j, j.getReportes() + 1);
-		doGet(request, response);
+		
+		String destinatario = "reportesappjava@gmail.com";
+        String subject = "Reporte al jugador " + usuario.getUsuario();
+        String content = request.getParameter("content");
+ 
+        try {
+            EmailData.sendEmail(host, port, user, pass, destinatario, subject, usuario.getUsuario(),
+                    content);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } 
+        
+        doGet(request, response);
 	}
 
 }

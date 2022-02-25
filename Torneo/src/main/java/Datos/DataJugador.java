@@ -112,7 +112,7 @@ public class DataJugador {
 		return jugadores;
 	}
 	
-	public static Jugador search(String usuario) {
+	public static Jugador search(Jugador usuario) {
 		Jugador j = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -124,7 +124,7 @@ public class DataJugador {
 
 			stmt = conn.prepareStatement("SELECT * FROM jugadores WHERE usuario=?");
 			//setear parametros
-			stmt.setString(1, usuario);
+			stmt.setString(1, usuario.getUsuario());
 
 			j = new Jugador();
 			Pais p = new Pais();

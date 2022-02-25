@@ -53,6 +53,7 @@
                         <h1 class="display-5 fw-bold">Sistema de Torneo</h1>
                         <p class="fs-4">Texto de explicación/introducción</p>
                         <a class="btn btn-primary btn-lg" href="ServletInscripcion">Inscribirse</a>
+                        <a class="btn btn-primary btn-lg" href="ServletReportes">Reportar un Jugador</a>
                     </div>
                 </div>
             </div>

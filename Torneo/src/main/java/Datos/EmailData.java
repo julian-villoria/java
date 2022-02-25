@@ -16,14 +16,14 @@ import javax.mail.internet.MimeMessage;
 public class EmailData {
 
 	public static void sendEmail(String host, String port,
-            final String userName, final String password, String toAddress,
+             final String userName, final String password, String toAddress,
             String subject, String reportUser, String details) throws AddressException,
             MessagingException {
  
         // sets SMTP server properties
         Properties properties = new Properties();
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", port);
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
  

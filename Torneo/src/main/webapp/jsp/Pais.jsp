@@ -167,7 +167,8 @@
 	      </div>
 	      <div class="modal-footer">
 	      	<button type="submit" class="btn btn-primary">Eliminar</button>
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	      	<a class="btn btn-primary" href="" role="button">Link</a>
+	        <button type="button" class="btn btn-secondary" link = >Cerrar</button>
 	      </div>
 	    </div>
     </form>
