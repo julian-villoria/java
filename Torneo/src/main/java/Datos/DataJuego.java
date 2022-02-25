@@ -9,7 +9,7 @@ import Entidades.Juego;
 public class DataJuego {
 
 	// Listar 
-		public static LinkedList<Juego> list(){
+		public LinkedList<Juego> list(){
 			
 			LinkedList<Juego> juegos= new LinkedList<Juego>();
 			Statement stmt = null;
@@ -58,7 +58,7 @@ public class DataJuego {
 		}
 		
 		//Búsqueda
-		public static Juego search(String denominacion) {
+		public Juego search(String denominacion) {
 			
 			Juego j = null;
 			Connection conn = null;
@@ -105,7 +105,7 @@ public class DataJuego {
 			return j;
 		}
 		
-		public static Juego search(int idJuego) {
+		public Juego search(int idJuego) {
 			
 			Juego j = null;
 			Connection conn = null;
@@ -153,7 +153,7 @@ public class DataJuego {
 		}
 		
 		//cargar
-		public static void create(String denominacion) {
+		public void create(String denominacion) {
 			
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -193,7 +193,7 @@ public class DataJuego {
 		}
 		
 		//borrar
-		public static void delete(int id) {
+		public void delete(int id) {
 			
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -227,7 +227,7 @@ public class DataJuego {
 		}
 		
 		//actualizar
-		public static void update(int id, String denominacion) {
+		public void update(int id, String denominacion) {
 			
 			PreparedStatement pstmt = null;
 			Connection conn = null;

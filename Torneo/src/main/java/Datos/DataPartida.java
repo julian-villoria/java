@@ -11,7 +11,7 @@ import Entidades.*;
 
 public class DataPartida {
 
-	public static void create(LocalDateTime fechaHora, Jugador jugador, Juego juego, int puntaje) {
+	public void create(LocalDateTime fechaHora, Jugador jugador, Juego juego, int puntaje) {
 			
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -58,7 +58,7 @@ public class DataPartida {
 		}
 	}
 
-	public static LinkedList<Partida> listPartidasTorneo(Torneo t) {
+	public LinkedList<Partida> listPartidasTorneo(Torneo t) {
 		
 		Connection conn = null;
 
@@ -114,7 +114,7 @@ public class DataPartida {
 		return partidas;
 	}
 	
-	public static int contador(Torneo t, Jugador j) {
+	public int contador(Torneo t, Jugador j) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

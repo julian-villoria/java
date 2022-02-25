@@ -50,8 +50,9 @@ public class ServletReportes extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String usuario = request.getParameter("nombreJugador");
-		Jugador j = DataJugador.search(usuario);
-		DataJugador.updateReportes(j, j.getReportes() + 1);
+		DataJugador dj = new DataJugador();
+		Jugador j = dj.search(usuario);
+		dj.updateReportes(j, j.getReportes() + 1);
 		doGet(request, response);
 	}
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Datos.DataJugador;
 import Datos.DataPais;
 import Entidades.Jugador;
 import Entidades.Pais;
@@ -42,7 +43,8 @@ public class ServletPais extends HttpServlet {
 		}else {
 			if(jugador.getId() != 0 && jugador.getAcceso().equals("Administrador")) {
 				LinkedList<Pais> data = new LinkedList<Pais>(); 
-				data = DataPais.list();
+				DataPais dp = new DataPais();
+				data = dp.list();
 				request.setAttribute("data", data);
 				getServletContext().getRequestDispatcher("/jsp/Pais.jsp").forward(request, response);
 			}else {
@@ -59,23 +61,26 @@ public class ServletPais extends HttpServlet {
 		//NUEVO
 		if (request.getParameter("nuevoPais") != null) {
 			Pais p = new Pais();
+			DataPais dp = new DataPais();
 			p.setNombre(request.getParameter("nuevoPais"));
-			DataPais.nuevo(p);
+			dp.nuevo(p);
 			doGet(request, response);
 		}
 		//ACTUALIZAR
 		if  (request.getParameter("idActualizar") != null && 
 				 request.getParameter("denominacionActualizar") != null) {
+				DataPais dp = new DataPais();
 				Integer idActualizar = Integer.parseInt(request.getParameter("idActualizar"));
 				String paisActualizar = request.getParameter("paisActualizar");
-				DataPais.update(idActualizar, paisActualizar);
+				dp.update(idActualizar, paisActualizar);
 				doGet(request, response);
 		}
 		//ELIMINAR
 		if (request.getParameter("eliminarPais") != null) {
 			Pais p = new Pais();
+			DataPais dp = new DataPais();
 			p.setId(Integer.parseInt(request.getParameter("eliminarPais")));
-			DataPais.borrar(p);
+			dp.borrar(p);
 			doGet(request, response);
 		}
 	}

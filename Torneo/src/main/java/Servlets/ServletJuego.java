@@ -43,7 +43,8 @@ public class ServletJuego extends HttpServlet {
 		else {
 			if(jugador.getId() != 0) {
 			LinkedList<Juego> data = new LinkedList<Juego>(); 
-			data = DataJuego.list();
+			DataJuego dj = new DataJuego();
+			data = dj.list();
 			request.setAttribute("data", data);
 			getServletContext().getRequestDispatcher("/jsp/Juego.jsp").forward(request, response);
 			}else {
@@ -59,14 +60,15 @@ public class ServletJuego extends HttpServlet {
 		// TODO Auto-generated method stub
 		//Agregar
 		if(request.getParameter("nuevaDenominacion") != null) {
-			//int id = Integer.parseInt(request.getParameter("nuevoId"));
-			DataJuego.create(request.getParameter("nuevaDenominacion"));
+			DataJuego dj = new DataJuego();
+			dj.create(request.getParameter("nuevaDenominacion"));
 			doGet(request, response);
 		}
 		//Eliminar
 		if(request.getParameter("tipoEliminar") != null) {
+			DataTipoTorneo dtt = new DataTipoTorneo();
 			String tipoEliminar = request.getParameter("tipoEliminar");
-			DataTipoTorneo.delete(tipoEliminar);
+			dtt.delete(tipoEliminar);
 			doGet(request, response);
 		}
 		//Actualizar
@@ -74,7 +76,8 @@ public class ServletJuego extends HttpServlet {
 				 request.getParameter("denominacionActualizar") != null) {
 				Integer idActualizar = Integer.parseInt(request.getParameter("idActualizar"));
 				String denominacionActualizar = request.getParameter("denominacionActualizar");
-				DataTipoTorneo.update(idActualizar, denominacionActualizar);
+				DataTipoTorneo dtt = new DataTipoTorneo();
+				dtt.update(idActualizar, denominacionActualizar);
 				doGet(request, response);
 			}
 		doGet(request, response);

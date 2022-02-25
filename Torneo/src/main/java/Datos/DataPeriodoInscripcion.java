@@ -13,7 +13,7 @@ import Entidades.PeriodoInscripcion;
 public class DataPeriodoInscripcion {
 	
 	// Listar 
-	public static LinkedList<PeriodoInscripcion> list(){
+	public LinkedList<PeriodoInscripcion> list(){
 		
 		LinkedList<PeriodoInscripcion> periodos= new LinkedList<PeriodoInscripcion>();
 		Statement stmt = null;
@@ -60,7 +60,7 @@ public class DataPeriodoInscripcion {
 	}
 	
 	//Búsqueda
-	public static PeriodoInscripcion search(int id) {
+	public PeriodoInscripcion search(int id) {
 		
 		PeriodoInscripcion pi = null;
 		Connection conn = null;
@@ -109,7 +109,7 @@ public class DataPeriodoInscripcion {
 	}
 	
 	//cargar
-	public static void create(LocalDate fechaDesde, LocalDate fechaHasta) {
+	public void create(LocalDate fechaDesde, LocalDate fechaHasta) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -154,7 +154,7 @@ public class DataPeriodoInscripcion {
 	}
 	
 	//borrar
-	public static void delete(int id) {
+	public void delete(int id) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -189,7 +189,7 @@ public class DataPeriodoInscripcion {
 	}
 	
 	//actualizar
-	public static void update(int id, LocalDate fechaDesde, LocalDate fechaHasta) {
+	public void update(int id, LocalDate fechaDesde, LocalDate fechaHasta) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;

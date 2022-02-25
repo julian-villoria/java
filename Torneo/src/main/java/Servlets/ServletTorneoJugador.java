@@ -1,7 +1,6 @@
 package Servlets;
 
 import java.io.IOException;
-import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,12 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Datos.DataJuego;
+import Datos.DataTipoTorneo;
 import Datos.DataTorneo;
-import Entidades.Juego;
 import Entidades.Jugador;
-import Entidades.TipoTorneo;
-import Entidades.Torneo;
-import Negocio.CrudTorneo;
 
 /**
  * Servlet implementation class ServletTorneoJugador
@@ -43,9 +40,12 @@ public class ServletTorneoJugador extends HttpServlet {
 			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 		}else {
 			if(jugador.getId() != 0 && jugador.getAcceso().equals("Jugador")) {
-		request.setAttribute("Torneo", CrudTorneo.listaTorneo());
-		request.setAttribute("Juego", CrudTorneo.listaJuego());
-		request.setAttribute("TipoTorneo", CrudTorneo.listaTipoTorneo());
+		DataTorneo dt = new DataTorneo();
+		DataJuego dj = new DataJuego();
+		DataTipoTorneo dtt = new DataTipoTorneo();
+		request.setAttribute("Torneo", dt.list());
+		request.setAttribute("Juego", dj.list());
+		request.setAttribute("TipoTorneo", dtt.list());
 		getServletContext().getRequestDispatcher("/jsp/TorneoJugador.jsp").forward(request, response);
 			}else {
 				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);

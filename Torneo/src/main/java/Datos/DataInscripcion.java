@@ -17,7 +17,7 @@ import Entidades.Torneo;
 
 public class DataInscripcion {
 	
-	public static LinkedList<Inscripcion> list(){
+	public LinkedList<Inscripcion> list(){
 
 		Connection conn = null;
 		Statement stmt = null;
@@ -78,7 +78,7 @@ public class DataInscripcion {
 		return inscripciones;
 	}
 	
-	public static int contador(Jugador j, Torneo t){
+	public int contador(Jugador j, Torneo t){
 		int cont = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -120,13 +120,10 @@ public class DataInscripcion {
 		return cont;
 	}
 
-	public static int create(Torneo t, Jugador jug, LocalDate fecha) {
+	public int create(Inscripcion iNueva) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		Inscripcion iNueva = new Inscripcion();
-		iNueva.setTorneo(t);
-		iNueva.setJugador(jug);
 		int success = 0;
 		
 		try {
@@ -160,7 +157,7 @@ public class DataInscripcion {
 		return success;
 	}
 	
-	public static void delete(Torneo t, Jugador j) {
+	public void delete(Torneo t, Jugador j) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
@@ -194,14 +191,10 @@ public class DataInscripcion {
 		}
 	}
 	
-	public static void update(Torneo t, Jugador jug, LocalDate fecha) {
+	public void update(Inscripcion iNuevo) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;
-		Inscripcion iNuevo = new Inscripcion();
-		iNuevo.setFechaInscripcion(fecha);
-		iNuevo.setJugador(jug);
-		iNuevo.setTorneo(t);
 		
 		try {
 			// crear conexion

@@ -43,7 +43,8 @@ public class ServletJugador extends HttpServlet {
 		}else {
 			if(jugador.getId() != 0 && jugador.getAcceso().equals("Administrador")) {
 				LinkedList<Jugador> data = new LinkedList<Jugador>(); 
-				data = DataJugador.list();
+				DataJugador dj = new DataJugador();
+				data = dj.list();
 				request.setAttribute("data", data);
 				getServletContext().getRequestDispatcher("/jsp/Jugador.jsp").forward(request, response);
 			}else {
@@ -63,14 +64,18 @@ public class ServletJugador extends HttpServlet {
 				&& request.getParameter("contraseñaNuevo") != null
 				&& request.getParameter("accesoNuevo") != null) {
 			Pais p = new Pais();
-			String usuario = request.getParameter("usuarioNuevo");
-			String nombre = request.getParameter("nombreNuevo");
-			String apellido = request.getParameter("apellidoNuevo");
+			Jugador jNuevo = new Jugador();
+			DataJugador dj = new DataJugador();
+			DataPais dp = new DataPais();
 			String pais = request.getParameter("paisNuevo");
-			String acceso = request.getParameter("accesoNuevo");
-			String contraseña = Encrypt.convertirSHA256(request.getParameter("contraseñaNuevo")); 
-			p = DataPais.search(pais);
-			DataJugador.create(usuario, contraseña , nombre, apellido, acceso ,p.getId());
+			p = dp.search(pais);
+			jNuevo.setUsuario(request.getParameter("usuarioNuevo"));
+			jNuevo.setContraseña(Encrypt.convertirSHA256(request.getParameter("contraseñaNuevo")));
+			jNuevo.setNombre(request.getParameter("nombreNuevo"));
+			jNuevo.setApellido(request.getParameter("apellidoNuevo"));
+			jNuevo.setAcceso(request.getParameter("accesoNuevo"));
+			jNuevo.setPais(p);
+			dj.create(jNuevo);
 			doGet(request, response);
 		}
 		if  (	request.getParameter("usuarioActualizar") != null
@@ -82,22 +87,28 @@ public class ServletJugador extends HttpServlet {
 				&& request.getParameter("accesoActualizar") != null
 				&& request.getParameter("reportesActualizar") != null){
 			Pais p = new Pais();
-			int idJug = Integer.parseInt(request.getParameter("idActualizar"));
-			String usuario = request.getParameter("usuarioActualizar");
-			String nombre = request.getParameter("nombreActualizar");
-			String apellido = request.getParameter("apellidoActualizar");
-			String acceso = request.getParameter("accesoActualizar");
+			DataJugador dj = new DataJugador();
+			DataPais dp = new DataPais();
 			String pais = request.getParameter("paisActualizar");
-			String contraseña = Encrypt.convertirSHA256(request.getParameter("contraseñaActualizar"));
 			int cantReportes = Integer.parseInt(request.getParameter("reportesActualizar"));
 			p.setNombre(pais);
-			p = DataPais.buscar(p);
-			DataJugador.update(idJug, usuario, contraseña, nombre, apellido, acceso, p, cantReportes);
+			p = dp.buscar(p);
+			Jugador jNuevo = new Jugador();
+			jNuevo.setId(Integer.parseInt(request.getParameter("idActualizar")));
+			jNuevo.setUsuario(request.getParameter("usuarioActualizar"));
+			jNuevo.setContraseña(Encrypt.convertirSHA256(request.getParameter("contraseñaActualizar")));
+			jNuevo.setNombre(request.getParameter("nombreActualizar"));
+			jNuevo.setApellido(request.getParameter("apellidoActualizar"));
+			jNuevo.setAcceso(request.getParameter("accesoActualizar"));
+			jNuevo.setPais(p);
+			jNuevo.setReportes(cantReportes);
+			dj.update(jNuevo);
 			doGet(request, response);
 		}
 		if(	request.getParameter("usuarioEliminar") != null){
+			DataJugador dj = new DataJugador();
 			String usuario = request.getParameter("usuarioEliminar");
-			DataJugador.delete(usuario);
+			dj.delete(usuario);
 			doGet(request, response);
 		}
 	}

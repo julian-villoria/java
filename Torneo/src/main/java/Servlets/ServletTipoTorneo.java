@@ -41,7 +41,8 @@ public class ServletTipoTorneo extends HttpServlet {
 		}else {
 			if(jugador.getId() != 0 && jugador.getAcceso().equals("Administrador")) {
 		LinkedList<TipoTorneo> data = new LinkedList<TipoTorneo>(); 
-		data = DataTipoTorneo.list();
+		DataTipoTorneo dtt = new DataTipoTorneo();
+		data = dtt.list();
 		request.setAttribute("data", data);
 		getServletContext().getRequestDispatcher("/jsp/TipoTorneo.jsp").forward(request, response);
 			}else {
@@ -59,22 +60,25 @@ public class ServletTipoTorneo extends HttpServlet {
 		if(request.getParameter("nuevaDenominacion") != null) {
 			//int id = Integer.parseInt(request.getParameter("nuevoId"));
 			TipoTorneo t = new TipoTorneo();
+			DataTipoTorneo dtt = new DataTipoTorneo();
 			t.setDenominacion(request.getParameter("nuevaDenominacion"));
-			DataTipoTorneo.create(t);
+			dtt.create(t);
 			doGet(request, response);
 		}
 		//Eliminar
 		if(request.getParameter("tipoEliminar") != null) {
+			DataTipoTorneo dtt = new DataTipoTorneo();
 			String tipoEliminar = request.getParameter("tipoEliminar");
-			DataTipoTorneo.delete(tipoEliminar);
+			dtt.delete(tipoEliminar);
 			doGet(request, response);
 		}
 		//Actualizar
 		if  (request.getParameter("idActualizar") != null && 
 				 request.getParameter("denominacionActualizar") != null) {
+				DataTipoTorneo dtt = new DataTipoTorneo();
 				Integer idActualizar = Integer.parseInt(request.getParameter("idActualizar"));
 				String denominacionActualizar = request.getParameter("denominacionActualizar");
-				DataTipoTorneo.update(idActualizar, denominacionActualizar);
+				dtt.update(idActualizar, denominacionActualizar);
 				doGet(request, response);
 			}
 	}

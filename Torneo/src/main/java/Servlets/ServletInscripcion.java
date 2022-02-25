@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import Datos.DataInscripcion;
 import Datos.DataTorneo;
+import Entidades.Inscripcion;
 import Entidades.Juego;
 import Entidades.Jugador;
 import Entidades.TipoTorneo;
@@ -45,14 +46,11 @@ public class ServletInscripcion extends HttpServlet {
 		}else {
 			if(jugador.getId() != 0 && jugador.getAcceso().equals("Jugador")) {
 		LinkedList<Torneo> dataTorneo = new LinkedList<Torneo>(); 
-		LinkedList<Juego> dataJuego = new LinkedList<Juego>();
-		LinkedList<TipoTorneo> dataTipoTorneo = new LinkedList<TipoTorneo>();
+		DataTorneo dt = new DataTorneo();
 		int cantInsc = 0;
-		dataTorneo = DataTorneo.proximos();
+		dataTorneo = dt.proximos();
 		request.setAttribute("cantInsc", cantInsc);
 		request.setAttribute("Torneo", dataTorneo);
-		request.setAttribute("Juego", dataJuego);
-		request.setAttribute("TipoTorneo", dataTipoTorneo);
 		getServletContext().getRequestDispatcher("/jsp/Inscripcion.jsp").forward(request, response);
 			}else {
 				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
@@ -68,19 +66,25 @@ public class ServletInscripcion extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		Torneo t = new Torneo();
 		Jugador j = new Jugador();
+		Inscripcion i = new Inscripcion();
+		DataTorneo dt = new DataTorneo();
+		DataInscripcion di = new DataInscripcion();
 		j = (Jugador) session.getAttribute("jugador");
 		int success = 0;
 		int idJuego = Integer.parseInt(request.getParameter("idJuego"));
 		int idTipo = Integer.parseInt(request.getParameter("idTipo"));
 		String fechaInicioString = request.getParameter("fechaInicio");
         LocalDate fechaInicio = LocalDate.parse(fechaInicioString);
-        t = DataTorneo.search(idJuego, idTipo, fechaInicio);
-        success = DataInscripcion.create(t, j, LocalDate.now());
+        t = dt.search(idJuego, idTipo, fechaInicio);
+        i.setTorneo(t);
+        i.setJ(j);
+        i.setFechaInscripcion(LocalDate.now());
+        success = di.create(i);
 		LinkedList<Torneo> dataTorneo = new LinkedList<Torneo>(); 
 		LinkedList<Juego> dataJuego = new LinkedList<Juego>();
 		LinkedList<TipoTorneo> dataTipoTorneo = new LinkedList<TipoTorneo>();
 		int cantInsc = 0;
-		dataTorneo = DataTorneo.proximos();
+		dataTorneo = dt.proximos();
 		request.setAttribute("cantInsc", cantInsc);
 		request.setAttribute("Torneo", dataTorneo);
 		request.setAttribute("Juego", dataJuego);

@@ -1,6 +1,8 @@
 package Servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Datos.DataJuego;
+import Datos.DataTipoTorneo;
+import Datos.DataTorneo;
+import Entidades.Juego;
 import Entidades.Jugador;
-import Negocio.CrudTorneo;
+import Entidades.TipoTorneo;
+import Entidades.Torneo;
 
 /**
  * Servlet implementation class ServletTorneo
@@ -38,10 +45,13 @@ public class ServletTorneo extends HttpServlet {
 			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 		}else {
 			if(jugador.getId() != 0 && jugador.getAcceso().equals("Administrador")) {
-		request.setAttribute("Torneo", CrudTorneo.listaTorneo());
-		request.setAttribute("Juego", CrudTorneo.listaJuego());
-		request.setAttribute("TipoTorneo", CrudTorneo.listaTipoTorneo());
-		getServletContext().getRequestDispatcher("/jsp/Torneo.jsp").forward(request, response);
+				DataTorneo dt = new DataTorneo();
+				DataJuego dj = new DataJuego();
+				DataTipoTorneo dtt = new DataTipoTorneo();
+				request.setAttribute("Torneo", dt.list());
+				request.setAttribute("Juego", dj.list());
+				request.setAttribute("TipoTorneo", dtt.list());
+				getServletContext().getRequestDispatcher("/jsp/Torneo.jsp").forward(request, response);
 			}else {
 				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
 			}
@@ -61,15 +71,24 @@ public class ServletTorneo extends HttpServlet {
 				&& request.getParameter("cupoNuevo") != null
 				&& request.getParameter("ganadorNuevo") != null
 				&& request.getParameter("montoNuevo") != null) {
-			String denominacionJuego = request.getParameter("juegoNuevo");
-			String denominacionTipoTorneo = request.getParameter("tipoTorneoNuevo");
-			String fechaInicio = request.getParameter("fechaInicioNuevo");
-			String fechaFin = request.getParameter("fechaFinNuevo");
-			int intentos = Integer.parseInt(request.getParameter("intentosNuevo"));
-			int cupo = Integer.parseInt(request.getParameter("cupoNuevo"));
-			String ganador = request.getParameter("ganadorNuevo");
-			float montoInsc = Integer.parseInt(request.getParameter("montoNuevo"));
-			CrudTorneo.create(denominacionJuego, denominacionTipoTorneo, fechaInicio, fechaFin, intentos, cupo, ganador, montoInsc);
+			DataTipoTorneo dtt = new DataTipoTorneo();
+			DataJuego dj = new DataJuego();
+			DataTorneo dt = new DataTorneo();
+			Juego j = dj.search(request.getParameter("juegoNuevo"));
+			TipoTorneo tt = dtt.search(request.getParameter("tipoTorneoNuevo"));
+			DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate fechaInicioDate = LocalDate.parse(request.getParameter("fechaInicioNuevo"), dtFormat);
+			LocalDate fechaFinDate = LocalDate.parse(request.getParameter("fechaFinNuevo"), dtFormat);
+			Torneo tNuevo = new Torneo();
+			tNuevo.setJuego(j);
+			tNuevo.setTipoTorneo(tt);
+			tNuevo.setFechaInicio(fechaInicioDate);
+			tNuevo.setFechaFin(fechaFinDate);
+			tNuevo.setIntentos(Integer.parseInt(request.getParameter("intentosNuevo")));
+			tNuevo.setCupo(Integer.parseInt(request.getParameter("cupoNuevo")));
+			tNuevo.setGanador(request.getParameter("ganadorNuevo"));
+			tNuevo.setMontoInsc(Integer.parseInt(request.getParameter("montoNuevo")));
+			dt.create(tNuevo);
 			doGet(request, response);
 		}
 		if  (	request.getParameter("juegoActualizar") != null
@@ -80,15 +99,24 @@ public class ServletTorneo extends HttpServlet {
 				&& request.getParameter("cupoActualizar") != null
 				&& request.getParameter("ganadorActualizar") != null
 				&& request.getParameter("montoActualizar") != null){
-			String denominacionJuego = request.getParameter("juegoActualizar");
-			String denominacionTipoTorneo = request.getParameter("tipoTorneoActualizar");
 			String fechaInicio = request.getParameter("fechaInicioActualizar");
 			String fechaFin = request.getParameter("fechaFinActualizar");
-			int intentos = Integer.parseInt(request.getParameter("intentosActualizar"));
-			int cupo = Integer.parseInt(request.getParameter("cupoActualizar"));
-			String ganador = request.getParameter("ganadorActualizar");
-			float montoInsc = Integer.parseInt(request.getParameter("montoActualizar"));
-			CrudTorneo.update(denominacionJuego, denominacionTipoTorneo, fechaInicio, fechaFin, intentos, cupo, ganador, montoInsc);
+			DataTipoTorneo dtt = new DataTipoTorneo();
+			DataJuego dj = new DataJuego();
+			DataTorneo dt = new DataTorneo();
+			Juego j = dj.search(request.getParameter("juegoActualizar"));
+			TipoTorneo tt = dtt.search(request.getParameter("tipoTorneoActualizar"));
+			DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			Torneo tNuevo = new Torneo();
+			tNuevo.setJuego(j);
+			tNuevo.setTipoTorneo(tt);
+			tNuevo.setFechaInicio(LocalDate.parse(fechaInicio, dtFormat));
+			tNuevo.setFechaFin(LocalDate.parse(fechaFin, dtFormat));
+			tNuevo.setIntentos(Integer.parseInt(request.getParameter("intentosActualizar")));
+			tNuevo.setCupo(Integer.parseInt(request.getParameter("cupoActualizar")));
+			tNuevo.setGanador(request.getParameter("ganadorActualizar"));
+			tNuevo.setMontoInsc(Integer.parseInt(request.getParameter("montoActualizar")));
+			dt.update(tNuevo);
 			doGet(request, response);
 		}
 		if(		request.getParameter("juegoEliminar") != null
@@ -97,7 +125,14 @@ public class ServletTorneo extends HttpServlet {
 			int idJuego = Integer.parseInt(request.getParameter("juegoEliminar"));
 			int idTipo = Integer.parseInt(request.getParameter("tipoTorneoEliminar"));
 			String fechaInicio = request.getParameter("fechaInicioEliminar");
-			CrudTorneo.delete(idJuego, idTipo, fechaInicio);
+			DataTipoTorneo dtt = new DataTipoTorneo();
+			DataJuego dj = new DataJuego();
+			DataTorneo dt = new DataTorneo();
+			int idJuegoBorrar = dj.search(idJuego).getId();
+			int idTipoBorrar = dtt.search(idTipo).getId();
+			DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate fechaInicioDate = LocalDate.parse(fechaInicio, dtFormat);
+			dt.delete(idJuegoBorrar, idTipoBorrar, fechaInicioDate);
 			doGet(request, response);
 		}
 	}

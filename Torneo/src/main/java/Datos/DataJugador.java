@@ -10,7 +10,7 @@ import Entidades.TipoTorneo;
 
 public class DataJugador {
 	
-	public static LinkedList<Jugador> list(){
+	public LinkedList<Jugador> list(){
 
 		Connection conn = null;
 
@@ -59,7 +59,7 @@ public class DataJugador {
 		return jugadores;
 	}
 	
-	public static LinkedList<Jugador> listJugador(Jugador j){
+	public LinkedList<Jugador> listJugador(Jugador j){
 
 		Connection conn = null;
 
@@ -112,7 +112,7 @@ public class DataJugador {
 		return jugadores;
 	}
 	
-	public static Jugador search(String usuario) {
+	public Jugador search(String usuario) {
 		Jugador j = null;
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -165,7 +165,7 @@ public class DataJugador {
 		return j;
 	}
 	
-	public static void nuevo(Jugador nuevoJugador) {
+	public void nuevo(Jugador nuevoJugador) {
 		
 		Connection conn = null;
 
@@ -202,23 +202,15 @@ public class DataJugador {
 		}
 	}
 	
-	public static void create(String usuario, String contraseña, String nombre, String apellido, String acceso, int idPais) {
+	public void create(Jugador jNuevo) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		Jugador jNuevo = new Jugador();
 		Pais p = new Pais();
 		
 		try {
 			// crear conexion
 			conn = DbConnector.getInstancia().getConn();
-			jNuevo.setUsuario(usuario);
-			jNuevo.setContraseña(contraseña);
-			jNuevo.setNombre(nombre);
-			jNuevo.setApellido(apellido);
-			jNuevo.setAcceso(acceso);
-			p.setId(idPais);
-			jNuevo.setPais(p);
 			
 			//query
 			pstmt = conn.prepareStatement(
@@ -249,7 +241,7 @@ public class DataJugador {
 	}
 	
 	//Delete otro
-	public static void borrar(Jugador borrarJugador) {
+	public void borrar(Jugador borrarJugador) {
 	
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -272,7 +264,7 @@ public class DataJugador {
 
 	}
 
-	public static void delete(String usuario) {
+	public void delete(String usuario) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -306,19 +298,11 @@ public class DataJugador {
 	}
 	
 	//actualizar
-	public static void update(int id, String usuario, String contraseña, String nombre, String apellido, String acceso, Pais p, int reporte) {
+	public void update(Jugador jNuevo) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;
-		Jugador jNuevo = new Jugador();
-		jNuevo.setId(id);
-		jNuevo.setUsuario(usuario);
-		jNuevo.setContraseña(contraseña);
-		jNuevo.setNombre(nombre);
-		jNuevo.setApellido(apellido);
-		jNuevo.setAcceso(acceso);
-		jNuevo.setPais(p);
-		jNuevo.setReportes(reporte);
+
 		
 
 		try {
@@ -359,7 +343,7 @@ public class DataJugador {
 
 	}
 	
-	public static void update(int id, String usuario, String contraseña, String nombre, String apellido, String acceso, Pais p) {
+	public void update(int id, String usuario, String contraseña, String nombre, String apellido, String acceso, Pais p) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;
@@ -411,7 +395,7 @@ public class DataJugador {
 
 	}
 
-	public static Jugador login(String usuario, String contraseña) {
+	public Jugador login(String usuario, String contraseña) {
 		
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -460,7 +444,7 @@ public class DataJugador {
 		return j;
 	}
 	
-	public static LinkedList<Jugador> listaPais(String nombrePais){
+	public LinkedList<Jugador> listaPais(String nombrePais){
 		
 		Connection conn = null;
 
@@ -509,7 +493,7 @@ public class DataJugador {
 
 	}
 
-	public static LinkedList<Jugador> listaJugadoresJuego(String nombreJuego) throws SQLException {
+	public LinkedList<Jugador> listaJugadoresJuego(String nombreJuego) throws SQLException {
 
 		Connection conn = null;
 
@@ -560,7 +544,7 @@ public class DataJugador {
 	}
 	
 	//actualizar
-	public static void updateReportes(Jugador j, int reporte) {
+	public void updateReportes(Jugador j, int reporte) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;

@@ -9,7 +9,7 @@ import Entidades.Pais;
 
 public class DataPais {
 
-	public static LinkedList<Pais> list(){
+	public LinkedList<Pais> list(){
 
 		Connection conn = null;
 
@@ -50,7 +50,7 @@ public class DataPais {
 
 	}
 
-	public static Pais buscar(Pais buscarPais) {
+	public Pais buscar(Pais buscarPais) {
 
 		Pais p = null;
 
@@ -92,7 +92,7 @@ public class DataPais {
 		return p;
 	}
 	
-	public static Pais search(String nombre) {
+	public Pais search(String nombre) {
 
 		Pais p = null;
 
@@ -134,7 +134,7 @@ public class DataPais {
 		return p;
 	}
 
-	public static void nuevo(Pais nuevoPais) {
+	public void nuevo(Pais nuevoPais) {
 
 		Connection conn = null;
 
@@ -167,7 +167,7 @@ public class DataPais {
 		}
 	}
 
-	public static void borrar(Pais borrarPais) {
+	public void borrar(Pais borrarPais) {
 
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -190,7 +190,7 @@ public class DataPais {
 
 	}
 
-	public static void update(int id, String denominacion) {
+	public void update(int id, String denominacion) {
 
 		PreparedStatement pstmt = null;
 		Connection conn = null;

@@ -16,7 +16,7 @@ import Entidades.Jugador;
 public class DataTorneo {
 
 	// Listar 
-	public static LinkedList<Torneo> list(){
+	public LinkedList<Torneo> list(){
 		
 		LinkedList<Torneo> torneos= new LinkedList<Torneo>();
 		Statement stmt = null;
@@ -74,7 +74,7 @@ public class DataTorneo {
 		return torneos;
 	}
 	
-public static LinkedList<Torneo> proximos(){
+public LinkedList<Torneo> proximos(){
 		
 		LinkedList<Torneo> torneos= new LinkedList<Torneo>();
 		Statement stmt = null;
@@ -134,7 +134,7 @@ public static LinkedList<Torneo> proximos(){
 	}
 	
 	//Búsqueda
-	public static Torneo search(int idJuego, int idTipo, LocalDate fechaInicio) {
+	public Torneo search(int idJuego, int idTipo, LocalDate fechaInicio) {
 		
 		Torneo t = null;
 		Connection conn = null;
@@ -198,18 +198,11 @@ public static LinkedList<Torneo> proximos(){
 	}
 	
 	//cargar
-	public static void create(Juego j, TipoTorneo tt, LocalDate fechaInicio, LocalDate fechaFin, int intentos, int cupo, String ganador, float montoInsc) {
+	public void create(Torneo tNuevo) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		Torneo tNuevo = new Torneo();
-		tNuevo.setJuego(j);
-		tNuevo.setTipoTorneo(tt);
-		tNuevo.setFechaInicio(fechaInicio);
-		tNuevo.setFechaFin(fechaFin);
-		tNuevo.setIntentos(intentos);
-		tNuevo.setCupo(cupo);
-		tNuevo.setGanador(ganador);
+
 		
 		try {
 			// crear conexion
@@ -226,7 +219,7 @@ public static LinkedList<Torneo> proximos(){
 			pstmt.setInt(5, tNuevo.getIntentos());
 			pstmt.setInt(6, tNuevo.getCupo());
 			pstmt.setString(7, tNuevo.getGanador());
-			pstmt.setDouble(8, montoInsc);
+			pstmt.setDouble(8, tNuevo.getMontoInsc());
 			pstmt.executeUpdate();
 			
 			if(pstmt!=null) {pstmt.close();}
@@ -245,7 +238,7 @@ public static LinkedList<Torneo> proximos(){
 	}
 	
 	//borrar
-	public static void delete(int idJuego, int idTipo, LocalDate fechaInicio) {
+	public void delete(int idJuego, int idTipo, LocalDate fechaInicio) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -281,19 +274,11 @@ public static LinkedList<Torneo> proximos(){
 	}
 	
 	//actualizar
-	public static void update(Juego j, TipoTorneo tt, LocalDate fechaInicio, LocalDate fechaFin, int intentos, int cupo, String ganador, float montoInsc) {
+	public void update(Torneo tNuevo) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;
-		Torneo tNuevo = new Torneo();
-		tNuevo.setJuego(j);
-		tNuevo.setTipoTorneo(tt);
-		tNuevo.setFechaInicio(fechaInicio);
-		tNuevo.setFechaFin(fechaFin);
-		tNuevo.setIntentos(intentos);
-		tNuevo.setCupo(cupo);
-		tNuevo.setGanador(ganador);
-		tNuevo.setMontoInsc(montoInsc);
+
 		
 		try {
 			// crear conexion
@@ -333,7 +318,7 @@ public static LinkedList<Torneo> proximos(){
 		
 	}
 	
-	public static Torneo getTorneoJugadorActual(Jugador jug) {
+	public Torneo getTorneoJugadorActual(Jugador jug) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;

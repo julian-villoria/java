@@ -12,7 +12,7 @@ import Entidades.TipoTorneo;
 public class DataTipoTorneo {
 
 	// Listar 
-	public static LinkedList<TipoTorneo> list(){
+	public LinkedList<TipoTorneo> list(){
 		
 		LinkedList<TipoTorneo> tipos= new LinkedList<TipoTorneo>();
 		Statement stmt = null;
@@ -58,7 +58,7 @@ public class DataTipoTorneo {
 
 	//Búsqueda
 
-	public static TipoTorneo search(String denominacion) {
+	public TipoTorneo search(String denominacion) {
 		
 		TipoTorneo tt = null;
 		Connection conn = null;
@@ -105,7 +105,7 @@ public class DataTipoTorneo {
 		return tt;
 	}
 	
-public static TipoTorneo search(int idTipo) {
+public TipoTorneo search(int idTipo) {
 		
 		TipoTorneo tt = null;
 		Connection conn = null;
@@ -152,7 +152,7 @@ public static TipoTorneo search(int idTipo) {
 		return tt;
 	}
 	
-	public static void create(TipoTorneo nuevoTipo) {
+	public void create(TipoTorneo nuevoTipo) {
 		
 		Connection conn = null;
 
@@ -219,7 +219,7 @@ public static TipoTorneo search(int idTipo) {
 	}
 	
 	//borrarID
-	public static void delete(int id) {
+	public void delete(int id) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -253,7 +253,7 @@ public static TipoTorneo search(int idTipo) {
 	}
 	
 	//borrarDenom
-	public static void delete(String denominacionEliminar) {
+	public void delete(String denominacionEliminar) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -288,7 +288,7 @@ public static TipoTorneo search(int idTipo) {
 
 	//actualizar
 
-	public static void update(int id, String denominacion) {
+	public void update(int id, String denominacion) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;

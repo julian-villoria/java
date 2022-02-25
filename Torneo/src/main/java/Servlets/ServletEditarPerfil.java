@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Datos.DataJuego;
 import Datos.DataJugador;
 import Datos.DataPais;
 import Entidades.Encrypt;
@@ -43,7 +44,8 @@ public class ServletEditarPerfil extends HttpServlet {
 		}else {
 			if(jugador.getId() != 0 && jugador.getAcceso().equals("Jugador")) {
 				LinkedList<Jugador> data = new LinkedList<Jugador>(); 
-				data = DataJugador.listJugador(jugador);
+				DataJugador dj = new DataJugador();
+				data = dj.listJugador(jugador);
 				request.setAttribute("data", data);
 				getServletContext().getRequestDispatcher("/jsp/EditarPerfil.jsp").forward(request, response);
 			}else {
@@ -64,6 +66,8 @@ public class ServletEditarPerfil extends HttpServlet {
 				&& request.getParameter("contraseñaActualizar") != null
 				&& request.getParameter("idActualizar") != null){
 			Pais p = new Pais();
+			DataPais dp = new DataPais();
+			DataJugador dj = new DataJugador();
 			int idJug = Integer.parseInt(request.getParameter("idActualizar"));
 			String usuario = request.getParameter("usuarioActualizar");
 			String nombre = request.getParameter("nombreActualizar");
@@ -72,13 +76,14 @@ public class ServletEditarPerfil extends HttpServlet {
 			String acceso = "Jugador";
 			String contraseña = Encrypt.convertirSHA256(request.getParameter("contraseñaActualizar")); 
 			p.setNombre(pais);
-			p = DataPais.buscar(p);
-			DataJugador.update(idJug, usuario, contraseña, nombre, apellido, acceso, p);
+			p = dp.buscar(p);
+			dj.update(idJug, usuario, contraseña, nombre, apellido, acceso, p);
 			doGet(request, response);
 		}
 		if(	request.getParameter("usuarioEliminar") != null){
 			String usuario = request.getParameter("usuarioEliminar");
-			DataJugador.delete(usuario);
+			DataJugador dj = new DataJugador();
+			dj.delete(usuario);
 			doGet(request, response);
 		}
 	}

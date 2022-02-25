@@ -43,8 +43,10 @@ public class ServletPartidaTorneo extends HttpServlet {
 			if(jugador.getId() != 0 && jugador.getAcceso().equals("Jugador")) {
 				LinkedList<Partida> partidas = new LinkedList<Partida>();
 				Torneo t = new Torneo();
-				t = DataTorneo.getTorneoJugadorActual(jugador);
-				partidas = DataPartida.listPartidasTorneo(t);
+				DataTorneo dt = new DataTorneo();
+				DataPartida dp = new DataPartida();
+				t = dt.getTorneoJugadorActual(jugador);
+				partidas = dp.listPartidasTorneo(t);
 				request.setAttribute("partidas", partidas);
 				System.out.println(t);
 				System.out.println(partidas);

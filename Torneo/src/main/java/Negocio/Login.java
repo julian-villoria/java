@@ -9,8 +9,9 @@ public class Login {
 	public static Jugador validate(String usuario, String contraseña) {
 		
 		Jugador j = new Jugador();
+		DataJugador dj = new DataJugador();
 		String hash = Encrypt.convertirSHA256(contraseña);
-		j = DataJugador.login(usuario, hash);
+		j = dj.login(usuario, hash);
 		return j;
 	}
 }

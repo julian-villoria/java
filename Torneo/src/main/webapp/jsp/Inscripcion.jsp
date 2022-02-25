@@ -93,7 +93,7 @@
                                     <td>
                                     	<form action="ServletInscripcion" method="post">
                                     		<button type="submit" name="Inscribirse" class="btn 
-                                    		<% if(DataInscripcion.contador(jugador, t) == 0){ %>
+                                    		<% if( ((DataInscripcion)request.getAttribute("dataInsc")).contador(jugador, t) == 0){ %>
                                     		 	btn-success btn-block">Inscribirse
                                     		 <%}else{ %>
                                     		 	btn-secondary btn-block" disabled> Ya Inscripto

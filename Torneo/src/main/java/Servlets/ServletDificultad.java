@@ -63,6 +63,7 @@ public class ServletDificultad extends HttpServlet {
 			&& request.getParameter("nuevoRangoMaxPuntaje") != null && request.getParameter("nuevoRangoMaxVictorias") != null) {
 			DataDificultad dd = new DataDificultad();
 			Dificultad d = new Dificultad();
+			DataJuego dj = new DataJuego();
 			d.setNombre(request.getParameter("nuevoNombre"));
 			d.setRangoMinPuntajes(Integer.parseInt(request.getParameter("nuevoRangoMinPuntaje")));
 			d.setRangoMaxPuntajes(Integer.parseInt(request.getParameter("nuevoRangoMaxPuntaje")));
@@ -70,7 +71,7 @@ public class ServletDificultad extends HttpServlet {
 			d.setRangoMaxVictorias(Integer.parseInt(request.getParameter("nuevoRangoMaxVictorias")));
 			Juego j = new Juego();
 			String denominacion = request.getParameter("nuevoJuego");
-			j = DataJuego.search(denominacion);
+			j = dj.search(denominacion);
 			d.setJuego(j);
 			dd.nuevo(d);
 			doGet(request, response);
@@ -85,8 +86,9 @@ public class ServletDificultad extends HttpServlet {
 				DataDificultad dd = new DataDificultad();
 				Dificultad d = new Dificultad();
 				Juego j = new Juego();
+				DataJuego dj = new DataJuego();
 				String juegoActualizar = request.getParameter("actualizarJuego");
-				j = DataJuego.search(juegoActualizar);
+				j = dj.search(juegoActualizar);
 				d.setNombre(request.getParameter("actualizarNombre"));
 				d.setRangoMinPuntajes(Integer.parseInt(request.getParameter("actualizarRangoMinPuntaje")));
 				d.setRangoMaxPuntajes(Integer.parseInt(request.getParameter("actualizarRangoMaxPuntaje")));
