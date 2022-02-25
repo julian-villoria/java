@@ -576,7 +576,7 @@ public class DataJugador {
 							+ "WHERE id=? " 
 					);
 			
-			pstmt.setInt(1, j.getReportes());
+			pstmt.setInt(1, reporte);
 			pstmt.setInt(2, j.getId());
 			pstmt.executeUpdate();
 
