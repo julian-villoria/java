@@ -2,10 +2,15 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="Entidades.Jugador"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.io.*,java.util.*,javax.mail.*"%>
+<%@ page import="javax.mail.internet.*,javax.activation.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%Jugador jugador = (Jugador) session.getAttribute("jugador");%>
+<%
+Jugador jugador = (Jugador) session.getAttribute("jugador");
+%>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -37,15 +42,19 @@
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page" href="#">Home</a></li>
-					<%if(Objects.isNull(jugador)){%>
+					<%
+					if (Objects.isNull(jugador)) {
+					%>
 					<li class="nav-item"><a class="nav-link" href="ServletLogin">
 							<%="Login"%>
 					</a></li>
-					<%}else{%>
+					<%
+					} else {
+					%>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#"
 						id="navbarDropdownMenuLink" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> <%= jugador.getUsuario() %>
+						aria-haspopup="true" aria-expanded="false"> <%=jugador.getUsuario()%>
 					</a>
 						<div class="dropdown-menu"
 							aria-labelledby="navbarDropdownMenuLink">
@@ -53,7 +62,9 @@
 								Perfil</a> <a class="dropdown-item" href="ServletCerrarSesion">Cerrar
 								Sesion</a>
 						</div></li>
-					<%} %>
+					<%
+					}
+					%>
 				</ul>
 			</div>
 		</div>
@@ -61,67 +72,94 @@
 	<!-- Header-->
 	<header class="py-5">
 		<div class="container px-lg-5">
-			<form action="EmailSendingServlet" method="post">
+			<form action="ServletReportes" method="post">
 				<div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-				<div class="m-4 m-lg-5">
-					<h1 class="display-5 fw-bold">Reportar un jugador</h1>
-					<div class="mb-3">
-						<label for="exampleFormControlInput1" class="form-label">Usuario/Jugador</label>
-						<input type="text" class="form-control"
-							id="repUsuario"
-							placeholder="Ingrese el nombre del usuario que desea reportar">
-					</div>
-					<p>Por favor, indicanos tan claramente como sea posible lo
-						sucedido con este jugador.</p>
-					<div class="checkButtons" style="width: fit-content; display: flex; text-align: left; 
-					align-content:center; justify-content: center;">
-						<ul style="list-style: none; background-color: grey; border-radius: 4px; ">
-							<li style="padding-right: 0;">
-								<div class="form-check">
-  									<input class="form-check-input" type="radio" name="flexRadioDefault" id="trampa">
-  									<label class="form-check-label" for="trampa"> Trampa </label>
-								</div>
-							</li>
+					<div class="m-4 m-lg-5">
+						<h1 class="display-5 fw-bold">Reportar un jugador</h1>
+						<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">Usuario/Jugador</label>
+							<input type="text" class="form-control" id="usuarioReportado"
+								placeholder="Ingrese el nombre del usuario que desea reportar">
+						</div>
+						<p>Por favor, indicanos tan claramente como sea posible lo
+							sucedido con este jugador.</p>
+						<div class="checkButtons"
+							style="width: fit-content; display: flex; text-align: left; align-content: center; justify-content: center;">
+							<ul
+								style="list-style: none; background-color: grey; border-radius: 4px;">
+								<li style="padding-right: 0;">
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexRadioDefault" id="trampa"> <label
+											class="form-check-label" for="trampa"> Trampa </label>
+									</div>
+								</li>
+								<li>
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexRadioDefault" id="nombreOfensivo"> <label
+											class="form-check-label" for="nombreOfensivo"> Nombre
+											Ofensivo o inapropiado </label>
+									</div>
+								</li>
+								<li>
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexRadioDefault" id="actNegativa"> <label
+											class="form-check-label" for="actNegativa"> Actitud
+											negativa </label>
+									</div>
+								</li>
+								<li>
+
+									<div class="form-check">
+										<input class="form-check-input" type="radio"
+											name="flexRadioDefault" id="expOdio"> <label
+											class="form-check-label" for="expOdio"> Expresiones
+											de odio </label>
+									</div>
+								</li>
+								<li></li>
+							</ul>
+						</div>
+						<div class="mb-3">
+							<label for="exampleFormControlTextarea1" class="form-label"></label>
+							<textarea class="form-control" id="content" rows="3"
+								placeholder="Ofrecenos contexto adicional sobre lo sucedido"></textarea>
+						</div>
+						<ul
+							style="list-style: none; display: flex; align-items: center; align-content: space-between; justify-content: space-around;">
+							<li><a href="ServletHome" class="btn btn-danger"
+								role="button">Cancelar</a></li>
 							<li>
-								<div class="form-check">
-  									<input class="form-check-input" type="radio" name="flexRadioDefault" id="nombreOfensivo">
-  									<label class="form-check-label" for="nombreOfensivo"> Nombre Ofensivo o inapropiado </label>
-								</div>
+								<button type="button" class="btn btn-dark" data-toggle="modal"
+									data-target="#ModalExitoso">Reportar Jugador</button>
 							</li>
-							<li>
-								<div class="form-check">
-  									<input class="form-check-input" type="radio" name="flexRadioDefault" id="actNegativa">
-  									<label class="form-check-label" for="actNegativa"> Actitud negativa </label>
-								</div>							
-							</li>
-							<li>
-							
-								<div class="form-check">
-  									<input class="form-check-input" type="radio" name="flexRadioDefault" id="expOdio">
-  									<label class="form-check-label" for="expOdio"> Expresiones de odio  </label>
-								</div>
-							</li>
-							<li></li>
 						</ul>
 					</div>
-					<div class="mb-3">
-						<label for="exampleFormControlTextarea1" class="form-label"></label>
-						<textarea class="form-control" id="content"
-							rows="3"
-							placeholder="Ofrecenos contexto adicional sobre lo sucedido"></textarea>
-					</div>
-					<ul
-						style="list-style: none; display: flex; align-items: center; align-content: space-between; justify-content: space-around;">
-						<li>
-							<button type="button" class="btn btn-danger">Cancelar</button>
-						</li>
-						<li>
-							<button type="button" class="btn btn-dark">Reportar
-								Jugador</button>
-						</li>
-					</ul>
 				</div>
-			</div>
+				<!-- Modal Agregar-->
+				<div class="modal fade" id="ModalExitoso" tabindex="-1"
+					role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p>Reporte Exitoso</p>
+							</div>
+							<div class="modal-footer">
+								<a href="ServletHome" class="btn btn-secondary" role="button"
+									data-dismiss="modal">Aceptar</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</form>
 		</div>
 	</header>

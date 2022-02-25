@@ -13,19 +13,10 @@ import Datos.EmailData;
  
 @WebServlet("/EmailSendingServlet")
 public class EmailSendingServlet extends HttpServlet {
-    private String host;
-    private String port;
-    private String user;
-    private String pass;
- 
-    public void init() {
-        // reads SMTP server setting from web.xml file
-        ServletContext context = getServletContext();
-        host = context.getInitParameter("host");
-        port = context.getInitParameter("port");
-        user = context.getInitParameter("user");
-        pass = context.getInitParameter("pass");
-    }
+    private String host = "smtp.gmail.com";
+    private String port = "587";
+    private String user = "reportesappjava@gmail.com";
+    private String pass = "Milanesas123";
     
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
