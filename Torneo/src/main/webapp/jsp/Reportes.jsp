@@ -138,7 +138,7 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 						</ul>
 					</div>
 				</div>
-				<!-- Modal Agregar-->
+				<!-- Modal Mensaje Exitoso-->
 				<div class="modal fade" id="ModalExitoso" tabindex="-1"
 					role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
 					<div class="modal-dialog" role="document">
