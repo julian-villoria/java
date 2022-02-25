@@ -65,7 +65,7 @@ public class ServletPais extends HttpServlet {
 		}
 		//ACTUALIZAR
 		if  (request.getParameter("idActualizar") != null && 
-				 request.getParameter("denominacionActualizar") != null) {
+				 request.getParameter("paisActualizar") != null) {
 				Integer idActualizar = Integer.parseInt(request.getParameter("idActualizar"));
 				String paisActualizar = request.getParameter("paisActualizar");
 				DataPais.update(idActualizar, paisActualizar);

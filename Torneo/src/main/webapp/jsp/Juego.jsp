@@ -164,7 +164,7 @@
 		      </div>
 		      <div class="modal-body">
 				  <div class="form-group">
-				    <label for="denominacion">Denominacion</label>
+				    <label for="denominacion">ID</label>
 				    <input type="text" class="form-control" id="tipoEliminar" name="tipoEliminar">
 				  </div>
 		      </div>

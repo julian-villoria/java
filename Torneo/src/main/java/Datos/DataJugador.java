@@ -577,7 +577,7 @@ public class DataJugador {
 					);
 			
 			pstmt.setInt(1, j.getReportes());
-			pstmt.setInt(8, j.getId());
+			pstmt.setInt(2, j.getId());
 			pstmt.executeUpdate();
 
 			if(pstmt!=null) {pstmt.close();}

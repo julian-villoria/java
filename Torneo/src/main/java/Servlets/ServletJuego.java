@@ -59,14 +59,13 @@ public class ServletJuego extends HttpServlet {
 		// TODO Auto-generated method stub
 		//Agregar
 		if(request.getParameter("nuevaDenominacion") != null) {
-			//int id = Integer.parseInt(request.getParameter("nuevoId"));
 			DataJuego.create(request.getParameter("nuevaDenominacion"));
 			doGet(request, response);
 		}
 		//Eliminar
 		if(request.getParameter("tipoEliminar") != null) {
-			String tipoEliminar = request.getParameter("tipoEliminar");
-			DataTipoTorneo.delete(tipoEliminar);
+			int tipoEliminar = Integer.parseInt(request.getParameter("tipoEliminar"));
+			DataJuego.delete(tipoEliminar);
 			doGet(request, response);
 		}
 		//Actualizar
@@ -74,7 +73,7 @@ public class ServletJuego extends HttpServlet {
 				 request.getParameter("denominacionActualizar") != null) {
 				Integer idActualizar = Integer.parseInt(request.getParameter("idActualizar"));
 				String denominacionActualizar = request.getParameter("denominacionActualizar");
-				DataTipoTorneo.update(idActualizar, denominacionActualizar);
+				DataJuego.update(idActualizar, denominacionActualizar);
 				doGet(request, response);
 			}
 		doGet(request, response);
