@@ -12,10 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Datos.DataInscripcion;
+import Datos.DataPeriodoInscripcion;
 import Datos.DataTorneo;
 import Entidades.Inscripcion;
 import Entidades.Juego;
 import Entidades.Jugador;
+import Entidades.PeriodoInscripcion;
 import Entidades.TipoTorneo;
 import Entidades.Torneo;
 
@@ -67,8 +69,12 @@ public class ServletInscripcion extends HttpServlet {
 		Torneo t = new Torneo();
 		Jugador j = new Jugador();
 		Inscripcion i = new Inscripcion();
+		PeriodoInscripcion pi = new PeriodoInscripcion();
 		DataTorneo dt = new DataTorneo();
 		DataInscripcion di = new DataInscripcion();
+		DataPeriodoInscripcion dpi = new DataPeriodoInscripcion();
+		pi = dpi.periodoVigente();
+		pi = dpi.search(pi.getId());
 		j = (Jugador) session.getAttribute("jugador");
 		int success = 0;
 		int idJuego = Integer.parseInt(request.getParameter("idJuego"));
@@ -79,7 +85,9 @@ public class ServletInscripcion extends HttpServlet {
         i.setTorneo(t);
         i.setJ(j);
         i.setFechaInscripcion(LocalDate.now());
-        success = di.create(i);
+        if(pi.getFechaHasta().isAfter(LocalDate.now()) && pi.getFechaDesde().isBefore(LocalDate.now())){
+            success = di.create(i);
+        }
 		LinkedList<Torneo> dataTorneo = new LinkedList<Torneo>(); 
 		LinkedList<Juego> dataJuego = new LinkedList<Juego>();
 		LinkedList<TipoTorneo> dataTipoTorneo = new LinkedList<TipoTorneo>();

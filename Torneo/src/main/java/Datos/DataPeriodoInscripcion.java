@@ -226,6 +226,47 @@ public class DataPeriodoInscripcion {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public PeriodoInscripcion periodoVigente() {
 		
+		PeriodoInscripcion pi = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		Connection conn = null;
+		
+		try {
+			
+			conn = DbConnector.getInstancia().getConn();
+			
+			// Ejecutar querys
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT max(id) FROM Periodo_Inscripcion");
+			
+			while(rs.next()) /*Empieza apuntando en -1*/ {
+				
+				pi = new PeriodoInscripcion();
+				pi.setId(rs.getInt("max(id)"));
+			
+			}
+			
+		//cerrar conexion
+		if(rs!=null) {rs.close();}
+		if(stmt!=null) {stmt.close();}
+		conn.close();
+		
+		}catch(SQLException ex) {
+			System.out.println("SQLException: " + ex.getMessage());
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				conn.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return pi;
 	}
 }

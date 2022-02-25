@@ -46,10 +46,10 @@ public class ServletPartidaTorneo extends HttpServlet {
 				DataTorneo dt = new DataTorneo();
 				DataPartida dp = new DataPartida();
 				t = dt.getTorneoJugadorActual(jugador);
-				partidas = dp.listPartidasTorneo(t);
-				request.setAttribute("partidas", partidas);
-				System.out.println(t);
-				System.out.println(partidas);
+				if(t.getJuego() != null) {
+					partidas = dp.listPartidasTorneo(t);
+					request.setAttribute("partidas", partidas);
+				}
 				getServletContext().getRequestDispatcher("/jsp/Puntajes.jsp").forward(request, response);
 			}else {
 				getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);

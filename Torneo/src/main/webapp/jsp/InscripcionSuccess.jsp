@@ -15,6 +15,7 @@
 	}
 	</style>
 	<%Jugador jugador = (Jugador) session.getAttribute("jugador");%>
+	<% DataInscripcion di = new DataInscripcion(); %>
 	<%int success = (Integer) request.getAttribute("success");%>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Periodo Inscripción</title>
@@ -103,7 +104,7 @@
                                     <td>
                                     	<form action="ServletInscripcion" method="post">
                                     		<button type="submit" name="Inscribirse" class="btn btn-success btn-block"
-                                    		<% if(DataInscripcion.contador(jugador, t) == 0){ %>
+                                    		<% if(di.contador(jugador, t) == 0){ %>
                                     		 	>Inscribirse
                                     		 <%}else{ %>
                                     		 	disabled> Ya Inscripto

@@ -25,6 +25,10 @@ public class PeriodoInscripcion {
 	public void setFechaHasta(LocalDate fechaHasta) {
 		this.fechaHasta = fechaHasta;
 	}
+	@Override
+	public String toString() {
+		return "PeriodoInscripcion [id=" + id + ", fechaDesde=" + fechaDesde + ", fechaHasta=" + fechaHasta + "]";
+	}
 	
 
 }
