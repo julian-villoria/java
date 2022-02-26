@@ -66,9 +66,9 @@ public class ServletJuego extends HttpServlet {
 		}
 		//Eliminar
 		if(request.getParameter("tipoEliminar") != null) {
-			DataTipoTorneo dtt = new DataTipoTorneo();
-			String tipoEliminar = request.getParameter("tipoEliminar");
-			dtt.delete(tipoEliminar);
+			DataJuego dj = new DataJuego();
+			int tipoEliminar = Integer.parseInt(request.getParameter("tipoEliminar"));
+			dj.delete(tipoEliminar);
 			doGet(request, response);
 		}
 		//Actualizar
@@ -76,8 +76,8 @@ public class ServletJuego extends HttpServlet {
 				 request.getParameter("denominacionActualizar") != null) {
 				Integer idActualizar = Integer.parseInt(request.getParameter("idActualizar"));
 				String denominacionActualizar = request.getParameter("denominacionActualizar");
-				DataTipoTorneo dtt = new DataTipoTorneo();
-				dtt.update(idActualizar, denominacionActualizar);
+				DataJuego dj = new DataJuego();
+				dj.update(idActualizar, denominacionActualizar);
 				doGet(request, response);
 			}
 		doGet(request, response);
