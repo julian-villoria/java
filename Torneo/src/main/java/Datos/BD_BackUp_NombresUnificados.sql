@@ -140,23 +140,6 @@ CREATE TABLE `inscripciones` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `nivel_juego`
---
-
-DROP TABLE IF EXISTS `nivel_juego`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-CREATE TABLE `nivel_juego` (
-  `id_juego` int NOT NULL,
-  `id_jugador` int NOT NULL,
-  `puntaje_total` double DEFAULT NULL,
-  PRIMARY KEY (`id_juego`,`id_jugador`),
-  KEY `FK_jugadores_nivel_idx` (`id_jugador`),
-  CONSTRAINT `FK_juegos_nivel` FOREIGN KEY (`id_juego`) REFERENCES `juegos` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `FK_jugadores_nivel` FOREIGN KEY (`id_jugador`) REFERENCES `jugadores` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `partida`
 --
 
