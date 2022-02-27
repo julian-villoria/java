@@ -3,8 +3,8 @@ http://torneo.sp.skdrive.net/
 
 # BD
 https://node7529-torneo.sp.skdrive.net/
-Usuario: root
-pass:IRQmny77469
+Usuario: root.
+pass: IRQmny77469.
 
 # Enunciado (Sujeto a cambios)
 La inscripción es por tipo de torneo en un rango de fechas determinadas.
