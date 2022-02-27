@@ -1,7 +1,7 @@
-#Pagina publicada
+# Pagina publicada
 http://torneo.sp.skdrive.net/
 
-#BD
+# BD
 https://node7529-torneo.sp.skdrive.net/
 Usuario: root
 pass:IRQmny77469
