@@ -11,6 +11,11 @@ BD Host Nuevo: https://node93792-torneo.jelastic.saveincloud.net/
 Usuario: root.
 pass: ZAQysa27844.
 
+# Usuarios 
+
+User: juliiian99, Pass: 123, Jugador.
+User: juliii99, Pass: 123, Administrador.
+
 # Enunciado (Sujeto a cambios)
 La inscripción es por tipo de torneo en un rango de fechas determinadas.
 
