@@ -2,6 +2,9 @@
 Host Anterior: http://torneo.sp.skdrive.net/
 Host Nuevo: http://torneo.jelastic.saveincloud.net/
 
+MAIL para reportes: reportesappjava@gmail.com
+Pass: Milanesas123
+
 # BD
 BD Host Anterior: https://node7529-torneo.sp.skdrive.net/
 BD Host Nuevo: https://node93792-torneo.jelastic.saveincloud.net/
