@@ -1,10 +1,12 @@
 # Pagina publicada
-http://torneo.sp.skdrive.net/
+Host Anterior: http://torneo.sp.skdrive.net/
+Host Nuevo: http://torneo.jelastic.saveincloud.net/
 
 # BD
-https://node7529-torneo.sp.skdrive.net/
+BD Host Anterior: https://node7529-torneo.sp.skdrive.net/
+BD Host Nuevo: https://node93792-torneo.jelastic.saveincloud.net/
 Usuario: root.
-pass: IRQmny77469.
+pass: ZAQysa27844.
 
 # Enunciado (Sujeto a cambios)
 La inscripción es por tipo de torneo en un rango de fechas determinadas.
