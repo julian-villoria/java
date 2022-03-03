@@ -31,6 +31,12 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 	crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/e79a668882.js" crossorigin="anonymous"></script>
+	<style type="text/css">
+		.fas.fa-check-circle.fa-2x{
+			color: green;
+		}
+	</style>
 </head>
 <body>
 	<!-- Responsive navbar-->
@@ -70,7 +76,7 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 	</nav>
 	<!-- Header-->
 	<header class="py-5">
-		<div class="container px-lg-5">
+		<div class="container-flex">
 			<form action="ServletReportes" method="post">
 				<div class="p-4 p-lg-5 bg-light rounded-3 text-center">
 					<div class="m-4 m-lg-5">
@@ -81,19 +87,20 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 								placeholder="Ingrese el nombre del usuario que desea reportar">
 						</div>
 						<p>Por favor, indicanos tan claramente como sea posible lo sucedido con este jugador.</p>
-						<div class="checkButtons" style="width: auto; ; text-align: left; align-content: center; justify-content: center;">
-							<ul style="list-style: none; background-color: grey; border-radius: 4px; 	margin-left: 30%; margin-right: 30%;">
+						<div class="checkButtons justify-content-center" style="width: fit-content; text-align: left; align-content: center; justify-content: center;">
+							<ul
+								style="list-style: none; background-color: grey; border-radius: 4px;">
 								<li style="padding-right: 0;">
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="c" id="trampa" value="Trampa"> <label
+											name="flexRadioDefault" id="trampa"> <label
 											class="form-check-label" for="trampa"> Trampa </label>
 									</div>
 								</li>
 								<li>
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="c" id="nombreOfensivo" value="Nombre Ofensivo"> <label
+											name="flexRadioDefault" id="nombreOfensivo"> <label
 											class="form-check-label" for="nombreOfensivo"> Nombre
 											Ofensivo o inapropiado </label>
 									</div>
@@ -101,7 +108,7 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 								<li>
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="c" id="actNegativa" value="Actitud Negativa"> <label
+											name="flexRadioDefault" id="actNegativa"> <label
 											class="form-check-label" for="actNegativa"> Actitud
 											negativa </label>
 									</div>
@@ -110,25 +117,25 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 
 									<div class="form-check">
 										<input class="form-check-input" type="radio"
-											name="c" id="expOdio" value="Expresiones de Odio"> <label
+											name="flexRadioDefault" id="expOdio"> <label
 											class="form-check-label" for="expOdio"> Expresiones
 											de odio </label>
 									</div>
 								</li>
-								<li></li>
 							</ul>
 						</div>
 						<div class="mb-3">
 							<label for="exampleFormControlTextarea1" class="form-label"></label>
-							<textarea class="form-control" id="content" rows="3" name="content"
+							<textarea class="form-control" id="content" rows="3"
 								placeholder="Ofrecenos contexto adicional sobre lo sucedido"></textarea>
 						</div>
 						<ul
-							style="list-style: none; display: flex; align-items: center; align-content: space-between; justify-content: space-between;">
+							style="list-style: none; display: flex; align-items: center; align-content: space-between; justify-content: space-around;">
 							<li><a href="ServletHome" class="btn btn-danger"
 								role="button">Cancelar</a></li>
 							<li>
-								<button type="submit" class="btn btn-dark">Reportar Jugador</button>
+								<button type="button" class="btn btn-dark" data-toggle="modal"
+									data-target="#ModalExitoso">Reportar Jugador</button>
 							</li>
 						</ul>
 					</div>
@@ -144,4 +151,35 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 		</div>
 	</footer>
 </body>
+
+<div class="modal show" tabindex="-1" role="dialog" id="myModal">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+	  <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="container">
+      		<div class="row justify-content-center">
+				<h5>Reporte Enviado con Éxito</h5> &nbsp; <i class="fas fa-check-circle fa-2x"></i>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="ServletHome"><button type="button" class="btn btn-primary">Aceptar</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$('#myModal').modal({backdrop:'static',keyboard:false, show:true});
+</script>
 </html>
+
+
+
+
+

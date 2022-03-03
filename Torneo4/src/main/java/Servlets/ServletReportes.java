@@ -72,8 +72,7 @@ public class ServletReportes extends HttpServlet {
         } catch (Exception ex) {
             ex.printStackTrace();
         } 
-        doGet(request, response);
-        //getServletContext().getRequestDispatcher("/jsp/ReporteExitoso.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/jsp/ReporteExitoso.jsp").forward(request, response);
     }
 
 }
