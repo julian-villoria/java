@@ -201,15 +201,22 @@ INSERT INTO `torneo`.`tipo_torneo` (`id`, `denominacion`) VALUES ('2', 'Puntaje'
 INSERT INTO `torneo`.`paises` (`id`, `nombre`) VALUES ('2', 'Brasil');
 INSERT INTO `torneo`.`paises` (`id`, `nombre`) VALUES ('1', 'Argentina');
 
+INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('1', '2022-01-25', '2022-02-28');
 INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('2', '2022-02-15', '2022-03-31');
-INSERT INTO `torneo`.`periodo_inscripcion` (`id`, `fecha_desde`, `fecha_hasta`) VALUES ('1', '2022-01-25', '2022-03-30');
 
 INSERT INTO `torneo`.`jugadores` (`id`, `usuario`, `nombre`, `apellido`, `contraseña`, `acceso`, `id_pais`) VALUES ('1', 'juliiian99', 'Julian', 'Villoria', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','Jugador','1');
 INSERT INTO `torneo`.`jugadores` (`id`, `usuario`, `nombre`, `apellido`, `contraseña`, `acceso`, `id_pais`) VALUES ('2', 'juliii99', 'Julian', 'Villoria', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','Administrador','1');
+INSERT INTO `torneo`.`jugadores` (`id`, `usuario`, `nombre`, `apellido`, `contraseña`, `acceso`, `id_pais`) VALUES ('3', 'dana', 'Dana', 'Jimenez', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','Jugador','1');
+INSERT INTO `torneo`.`jugadores` (`id`, `usuario`, `nombre`, `apellido`, `contraseña`, `acceso`, `id_pais`) VALUES ('4', 'sabri', 'Sabrina', 'Santalla', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3','Jugador','1');
 
 INSERT INTO `torneo`.`dificultad` (`nombre`, `rango_min_puntaje`, `rango_max_puntaje`, `rango_min_victoria`, `rango_max_victoria`, `id_juego`) VALUES ('facil', '0', '1000', '0', '10', '1');
 INSERT INTO `torneo`.`dificultad` (`nombre`, `rango_min_puntaje`, `rango_max_puntaje`, `rango_min_victoria`, `rango_max_victoria`, `id_juego`) VALUES ('normal', '0', '500', '0', '5', '2');
 
-INSERT INTO torneos(id_juego, id_tipo, fecha_inicio, fecha_fin, intentos, cupo, ganador, monto_insc) VALUES(1,1,"2022-03-30","2022-03-31",10,10,"Vacante",1000);
+INSERT INTO `torneo`.`partidas` (`id_juego`, `id_jugador`, `puntaje`, `fecha_hora`) VALUES ('1', '3', '9', "2022-03-04 01:56:47");
 
-INSERT INTO inscripciones(id_juego, id_tipo, id_jugador, fecha_inicio_torneo, fecha) VALUES(1,1,1,"2022-03-30", curdate());
+INSERT INTO `torneo`.`torneos` (`id_juego`, `id_tipo`, `fecha_inicio`, `fecha_fin`, `intentos`, `cupo`, `ganador`, `monto_insc`) VALUES('1','1',"2022-02-25","2022-02-25",2,3,"Sabrina",500);
+INSERT INTO `torneo`.`torneos` (`id_juego`, `id_tipo`, `fecha_inicio`, `fecha_fin`, `intentos`, `cupo`, `ganador`, `monto_insc`) VALUES('1','2',"2022-03-04","2022-03-05",3,5,"Vacante",1000);
+INSERT INTO `torneo`.`torneos` (`id_juego`, `id_tipo`, `fecha_inicio`, `fecha_fin`, `intentos`, `cupo`, `ganador`, `monto_insc`) VALUES('1','2',"2022-03-10","2022-03-15",3,5,"Vacante",1000);
+INSERT INTO `torneo`.`torneos` (`id_juego`, `id_tipo`, `fecha_inicio`, `fecha_fin`, `intentos`, `cupo`, `ganador`, `monto_insc`) VALUES('1','1',"2022-03-30","2022-03-31",10,10,"Vacante",1000);
+
+INSERT INTO `torneo`.`inscripciones` (`id_juego`, `id_tipo`, `id_jugador`, `fecha_inicio_torneo`, `fecha`) VALUES('1','2','3', "2022-03-04","2022-03-04");

@@ -1,15 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<style type="text/css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+	integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+	<style type="text/css">
 .hvr-grow {
 	display: inline-block;
 	vertical-align: middle;
@@ -26,6 +37,7 @@
 	-webkit-transform: scale(1.3);
 	transform: scale(1.3);
 }
+
 .hvr-grow2 {
 	display: inline-block;
 	vertical-align: middle;
@@ -39,8 +51,8 @@
 }
 
 .hvr-grow2:hover, .hvr-grow2:focus, .hvr-grow2:active {
-	-webkit-transform: scale(1.050);
-	transform: scale(1.050);
+	-webkit-transform: scale(1.05);
+	transform: scale(1.05);
 }
 
 .footer {
@@ -52,9 +64,9 @@
 	background: #999;
 }
 </style>
-</head>
+	</head>
 <body>
-<!-- Responsive navbar-->
+	<!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-lg-5">
         <a class="navbar-brand" href="ServletHome">Torneo</a>
@@ -67,20 +79,23 @@
         </div>
     </div>
 </nav>
-<div class="container my-5">
-<form action="ServletLogin" method="post">
-  <div class="form-group">
-    <label for="usuario">Usuario</label>
-    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese su usuario">
-  </div>
-  <div class="form-group">
-    <label for="pass">Contraseña</label>
-    <input type="password" class="form-control" id="pass" name="contraseña" placeholder="Contraseña">
-  </div>
-  <button type="submit" class="btn btn-info hvr-grow2">Iniciar Sesión</button>
-</form>
-</div>
-	    		<footer class="py-5 bg-dark footer">
+	<div class="container my-5">
+		<form action="ServletLoginError" method="post">
+			<div class="form-group">
+				<label for="usuario">Usuario</label> <input type="text"
+					class="form-control" id="usuario" name="usuario"
+					placeholder="Ingrese su usuario">
+				<label style="color:red">Usuario y/o contraseña incorrectos</label>
+			</div>
+			<div class="form-group">
+				<label for="pass">Contraseña</label> <input type="password"
+					class="form-control" id="pass" name="contraseña"
+					placeholder="Contraseña">
+			</div>
+			<button type="submit" class="btn btn-info hvr-grow2">Iniciar Sesión</button>
+		</form>
+	</div>
+	<footer class="py-5 bg-dark footer">
 		<div class="container">
 			<p class="m-0 text-center text-white">Copyright &copy; Your
 				Website 2021</p>

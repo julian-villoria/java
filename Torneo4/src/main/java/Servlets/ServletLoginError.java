@@ -1,6 +1,8 @@
 package Servlets;
 
+
 import java.io.IOException;
+
 import java.util.Objects;
 
 import javax.servlet.ServletException;
@@ -14,16 +16,16 @@ import Entidades.Jugador;
 import Negocio.Login;
 
 /**
- * Servlet implementation class ServletLogin
+ * Servlet implementation class ServletLoginError
  */
-@WebServlet("/ServletLogin")
-public class ServletLogin extends HttpServlet {
+@WebServlet("/ServletLoginError")
+public class ServletLoginError extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletLogin() {
+    public ServletLoginError() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +38,7 @@ public class ServletLogin extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		Jugador jugador = (Jugador) session.getAttribute("jugador");
 		if(jugador == null) {
-			getServletContext().getRequestDispatcher("/jsp/Login.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/jsp/LoginError.jsp").forward(request, response);
 		}else {
 			if(jugador.getId() != 0) {
 				if(jugador.getAcceso().equals("Administrador")) {
@@ -62,12 +64,12 @@ public class ServletLogin extends HttpServlet {
 		String contraseña = request.getParameter("contraseña");
 		j = Login.validate(usuario, contraseña);
 		if (j.getId() == 0) {
-            response.sendRedirect("ServletLoginError");
-        }
-        else {
-        session.setAttribute("jugador", j);
-        response.sendRedirect("ServletHome");
-        }
+			response.sendRedirect("ServletLoginError");
+		}
+		else {
+		session.setAttribute("jugador", j);
+		response.sendRedirect("ServletHome");
+		}
 	}
 
 }

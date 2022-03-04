@@ -14,27 +14,47 @@
     	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    	<style type="text/css">
+    		.hvr-grow {
+    					display: inline-block;
+    					vertical-align: middle;
+    					-webkit-transform: perspective(1px) translateZ(0);
+    					transform: perspective(1px) translateZ(0);
+    					box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    					-webkit-transition-duration: 0.3s;
+    					transition-duration: 0.3s;
+    					-webkit-transition-property: transform;
+    					transition-property: transform;
+  						}
+  			.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+    					-webkit-transform: scale(1.3);
+    					transform: scale(1.3);
+  						}
+  			.caja {
+  				border-radius: 5px;
+  			}
+    	</style>
     </head>
     <body>
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-lg-5">
-                <a class="navbar-brand" href="ServletHome">Torneo</a>
+                <a class="navbar-brand hvr-grow" href="ServletHome">Torneo</a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active hvr-grow" style="padding-right: 18px" href="#">Home</a></li>
 	                    <%if(jugador == null){%>
 	                    	<li class="nav-item">
-	                    		<a class="nav-link" href="ServletLogin">
+	                    		<a class="nav-link hvr-grow" href="ServletLogin">
 	                        		<%="Login"%>
 	                    		</a>
 	                    	</li>
 	                    <%}else{%>
 						      <li class="nav-item dropdown">
-						        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						        <a class="nav-link dropdown-toggle hvr-grow" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						          <%= jugador.getUsuario() %>
 						        </a>
-						        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="margin-top: 7px">
 						          <a class="dropdown-item" href="ServletEditarPerfil">Editar Perfil</a>
 						          <a class="dropdown-item" href="ServletCerrarSesion">Cerrar Sesion</a>
 						        </div>
@@ -51,7 +71,7 @@
                     <div class="m-4 m-lg-5">
                         <h1 class="display-5 fw-bold">Sistema de Torneo</h1>
                         <p class="fs-4">Por favor inscríbase para poder participar de un torneo.</p>
-                        <a class="btn btn-primary btn-lg" href="ServletInscripcion">Inscribirse</a>
+                        <a class="btn btn-info btn-lg hvr-grow" href="ServletInscripcion">Inscribirse</a>
                     </div>
                 </div>
             </div>
@@ -60,39 +80,39 @@
             <div class="container px-lg-5">
                 <!-- Page Features-->
                 <div class="row gx-lg-5">
-                    <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="col-lg-6 col-xxl-4 mb-5 caja">
                         <div class="card bg-light border-0 h-100">
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
                                 <h2 class="fs-4 fw-bold">Reportar Jugador</h2>
-                                <a href="ServletReportes" class="btn btn-primary btn-lg">Ir</a>
+                                <a href="ServletReportes" class="btn btn-info btn-lg hvr-grow">Ir</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="col-lg-6 col-xxl-4 mb-5 caja">
                         <div class="card bg-light border-0 h-100">
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
                                 <h2 class="fs-4 fw-bold">Jugar</h2>
-                                <a href="ServletPartida" class="btn btn-primary btn-lg">Ir</a>
+                                <a href="ServletPartida" class="btn btn-info btn-lg hvr-grow">Ir</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="col-lg-6 col-xxl-4 mb-5 caja">
                         <div class="card bg-light border-0 h-100">
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
                                 <h2 class="fs-4 fw-bold">Ver Puntajes Torneo Actual</h2>
-                                <a href="ServletPartidaTorneo" class="btn btn-primary btn-lg">Ir</a>
+                                <a href="ServletPartidaTorneo" class="btn btn-info btn-lg hvr-grow">Ir</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-xxl-4 mb-5">
+                    <div class="col-lg-6 col-xxl-4 mb-5 caja">
                         <div class="card bg-light border-0 h-100">
                             <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-collection"></i></div>
                                 <h2 class="fs-4 fw-bold">Ver Torneos</h2>
-                                <a href="ServletTorneoJugador" class="btn btn-primary btn-lg">Ir</a>
+                                <a href="ServletTorneoJugador" class="btn btn-info btn-lg hvr-grow">Ir</a>
                             </div>
                         </div>
                     </div>

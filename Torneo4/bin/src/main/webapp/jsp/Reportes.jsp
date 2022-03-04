@@ -2,21 +2,10 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="Entidades.Jugador"%>
 <%@ page import="java.util.*"%>
-<<<<<<< HEAD
-<%@ page import="java.io.*,java.util.*,javax.mail.*"%>
-<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<%
-Jugador jugador = (Jugador) session.getAttribute("jugador");
-%>
-=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <%Jugador jugador = (Jugador) session.getAttribute("jugador");%>
->>>>>>> sabri
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -38,34 +27,6 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 	crossorigin="anonymous"></script>
-<<<<<<< HEAD
-</head>
-<body>
-	<!-- Responsive navbar-->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container px-lg-5">
-			<a class="navbar-brand" href="ServletHome">Torneo</a>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
-					<%
-					if (Objects.isNull(jugador)) {
-					%>
-					<li class="nav-item"><a class="nav-link" href="ServletLogin">
-							<%="Login"%>
-					</a></li>
-					<%
-					} else {
-					%>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#"
-						id="navbarDropdownMenuLink" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> <%=jugador.getUsuario()%>
-					</a>
-						<div class="dropdown-menu"
-							aria-labelledby="navbarDropdownMenuLink">
-=======
 <style type="text/css">
 .hvr-grow {
 	display: inline-block;
@@ -129,18 +90,11 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 					</a>
 						<div class="dropdown-menu"
 							aria-labelledby="navbarDropdownMenuLink" style="margin-top: 7px">
->>>>>>> sabri
 							<a class="dropdown-item" href="ServletEditarPerfil">Editar
 								Perfil</a> <a class="dropdown-item" href="ServletCerrarSesion">Cerrar
 								Sesion</a>
 						</div></li>
-<<<<<<< HEAD
-					<%
-					}
-					%>
-=======
 					<%} %>
->>>>>>> sabri
 				</ul>
 			</div>
 		</div>
@@ -157,57 +111,6 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 							<input type="text" class="form-control" id="usuarioReportado" name="usuarioReportado"
 								placeholder="Ingrese el nombre del usuario que desea reportar">
 						</div>
-<<<<<<< HEAD
-						<p>Por favor, indicanos tan claramente como sea posible lo sucedido con este jugador.</p>
-						<div class="checkButtons" style="width: auto; ; text-align: left; align-content: center; justify-content: center;">
-							<ul style="list-style: none; background-color: grey; border-radius: 4px; 	margin-left: 30%; margin-right: 30%;">
-								<li style="padding-right: 0;">
-									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											name="c" id="trampa" value="Trampa"> <label
-											class="form-check-label" for="trampa"> Trampa </label>
-									</div>
-								</li>
-								<li>
-									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											name="c" id="nombreOfensivo" value="Nombre Ofensivo"> <label
-											class="form-check-label" for="nombreOfensivo"> Nombre
-											Ofensivo o inapropiado </label>
-									</div>
-								</li>
-								<li>
-									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											name="c" id="actNegativa" value="Actitud Negativa"> <label
-											class="form-check-label" for="actNegativa"> Actitud
-											negativa </label>
-									</div>
-								</li>
-								<li>
-
-									<div class="form-check">
-										<input class="form-check-input" type="radio"
-											name="c" id="expOdio" value="Expresiones de Odio"> <label
-											class="form-check-label" for="expOdio"> Expresiones
-											de odio </label>
-									</div>
-								</li>
-								<li></li>
-							</ul>
-						</div>
-						<div class="mb-3">
-							<label for="exampleFormControlTextarea1" class="form-label"></label>
-							<textarea class="form-control" id="content" rows="3" name="content"
-								placeholder="Ofrecenos contexto adicional sobre lo sucedido"></textarea>
-						</div>
-						<ul
-							style="list-style: none; display: flex; align-items: center; align-content: space-between; justify-content: space-between;">
-							<li><a href="ServletHome" class="btn btn-danger"
-								role="button">Cancelar</a></li>
-							<li>
-								<button type="submit" class="btn btn-dark">Reportar Jugador</button>
-=======
 						<p>Por favor, indicanos tan claramente como sea posible lo
 							sucedido con este jugador.</p>
 						<div class="container">
@@ -272,13 +175,10 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 							<li>
 								<button type="button" class="btn btn-info hvr-grow2" data-toggle="modal"
 									data-target="#ModalExitoso">Reportar Jugador</button>
->>>>>>> sabri
 							</li>
 						</ul>
 					</div>
 				</div>
-<<<<<<< HEAD
-=======
 				<!-- Modal Mensaje Exitoso-->
 				<div class="modal fade" id="ModalExitoso" tabindex="-1"
 					role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
@@ -301,7 +201,6 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 						</div>
 					</div>
 				</div>
->>>>>>> sabri
 			</form>
 		</div>
 	</header>
