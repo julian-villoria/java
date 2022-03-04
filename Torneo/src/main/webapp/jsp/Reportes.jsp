@@ -3,6 +3,7 @@
 <%@ page import="Entidades.Jugador"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.io.*,java.util.*,javax.mail.*"%>
+<%@ page import="javax.mail.internet.*,javax.activation.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,13 +78,13 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 						<h1 class="display-5 fw-bold">Reportar un jugador</h1>
 						<div class="mb-3">
 							<label for="exampleFormControlInput1" class="form-label">Usuario/Jugador</label>
-							<input type="text" class="form-control" id="usuarioReportado" name="usuarioReportado"
+							<input type="text" class="form-control" id="usuarioReportado"
 								placeholder="Ingrese el nombre del usuario que desea reportar">
 						</div>
 						<p>Por favor, indicanos tan claramente como sea posible lo
 							sucedido con este jugador.</p>
 						<div class="checkButtons"
-							style="width: fit-content; text-align: left; align-content: center; justify-content: center;">
+							style="width: fit-content; display: flex; text-align: left; align-content: center; justify-content: center;">
 							<ul
 								style="list-style: none; background-color: grey; border-radius: 4px;">
 								<li style="padding-right: 0;">
@@ -137,6 +138,28 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 						</ul>
 					</div>
 				</div>
+				<!-- Modal Mensaje Exitoso-->
+				<div class="modal fade" id="ModalExitoso" tabindex="-1"
+					role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<p>Reporte Exitoso</p>
+							</div>
+							<div class="modal-footer">
+								<a href="ServletHome" class="btn btn-secondary" role="button"
+									data-dismiss="modal">Aceptar</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</form>
 		</div>
 	</header>
@@ -148,35 +171,4 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 		</div>
 	</footer>
 </body>
-
-<!-- Modal Mensaje Exitoso-->
-<div class="modal show" id="ModalExitoso" tabindex="-1"
-	role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>Reporte Exitoso</p>
-			</div>
-			<div class="modal-footer">
-				<a href="ServletHome" class="btn btn-secondary" role="button">Aceptar</a>
-			</div>
-		</div>
-	</div>
-</div>
-
-<script>
-$('#myModal').modal({backdrop:'static',keyboard:false, show:true});
-</script>
 </html>
-
-
-
-
-
