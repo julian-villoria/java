@@ -78,7 +78,7 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 						<h1 class="display-5 fw-bold">Reportar un jugador</h1>
 						<div class="mb-3">
 							<label for="exampleFormControlInput1" class="form-label">Usuario/Jugador</label>
-							<input type="text" class="form-control" id="usuarioReportado"
+							<input type="text" class="form-control" id="usuarioReportado" name="usuarioReportado"
 								placeholder="Ingrese el nombre del usuario que desea reportar">
 						</div>
 						<p>Por favor, indicanos tan claramente como sea posible lo
@@ -124,7 +124,7 @@ Jugador jugador = (Jugador) session.getAttribute("jugador");
 						</div>
 						<div class="mb-3">
 							<label for="exampleFormControlTextarea1" class="form-label"></label>
-							<textarea class="form-control" id="content" rows="3"
+							<textarea class="form-control" id="content" rows="3" name = "content"
 								placeholder="Ofrecenos contexto adicional sobre lo sucedido"></textarea>
 						</div>
 						<ul

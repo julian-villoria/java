@@ -1,7 +1,7 @@
 package Datos;
 import java.sql.*;
 
-import java.util.LinkedList;
+import java.util.*;
 
 import Entidades.Encrypt;
 import Entidades.Jugador;
@@ -597,9 +597,55 @@ public class DataJugador {
 
 	}
 	
-	
-	
+	public static LinkedList<Jugador> listaJugadoresTorneoActual() throws SQLException {
 
+		Connection conn = null;
 
+		ResultSet rs = null;
 
+		PreparedStatement stmt = null;
+		
+		LocalDate date = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+
+		try {
+
+			LinkedList<Partida> partidas = new LinkedList<Partida>();
+			conn = DbConnector.getInstancia().getConn();
+			stmt = conn.prepareStatement("Select id_jugador, usuario, puntaje from partidas p "
+					+ "Inner join jugadores j on j.id = p.id_jugador "
+					+ "inner join juegos ju on ju.id = p.id_juego "
+					+ "inner join torneos t on t.id_juego = p.id_juego "
+					+ "where ? BETWEEN t.fecha_inicio AND t.fecha_fin "
+					+ "order by p.puntaje desc;");
+			stmt.setString(1, date.format(formatter));
+			rs = stmt.executeQuery();
+			if (rs != null) {
+
+				while (rs.next()) {
+
+					Jugador jugador = new Jugador();
+					Partida partida = new Partida();
+					jugador.setId(rs.getInt("id_jugador"));
+					jugador.setUsuario(rs.getString("usuario"));
+					partida.setJugador(jugador);
+					partida.setPuntaje(rs.getInt("puntaje"));
+					partidas.add(partida);	
+				}
+			}
+			return partidas;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (stmt!=null) stmt.close();
+				if (conn!=null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 }
